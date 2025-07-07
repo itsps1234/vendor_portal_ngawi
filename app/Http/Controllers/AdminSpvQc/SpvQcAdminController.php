@@ -4995,7 +4995,7 @@ class SpvQcAdminController extends Controller
         $get_data_po            = DataPO::where('kode_po', $get_kode_po->lab1_kode_po_gb)->first();
         //  Integrasi Epicor
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.34.222.145:2022/api/PO/ClosePO?PONum=' . $get_data_po->PONum;
+        $url = 'http://34.128.70.126:2022/api/PO/ClosePO?PONum=' . $get_data_po->PONum;
         $response = $client->get($url);
         $response = $response->getBody()->getContents();
         // dd($response); 

@@ -1665,7 +1665,7 @@ class AdminAPController extends Controller
         // dd($get_id);
         //  Integrasi Epicor
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.34.222.145:2022/api/PO/ApprovalPO?PONum=' . $get_id->PONum;
+        $url = 'http://34.128.70.126:2022/api/PO/ApprovalPO?PONum=' . $get_id->PONum;
         $response = $client->get($url);
         $response = $response->getBody()->getContents();
         // dd($response); 
@@ -1680,7 +1680,7 @@ class AdminAPController extends Controller
         // dd($get_id);
         //  Integrasi Epicor
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.34.222.145:2022/api/PO/ApprovalPO?PONum=' . $get_id->PONum;
+        $url = 'http://34.128.70.126:2022/api/PO/ApprovalPO?PONum=' . $get_id->PONum;
         $response = $client->get($url);
         $response = $response->getBody()->getContents();
         // dd($response); 

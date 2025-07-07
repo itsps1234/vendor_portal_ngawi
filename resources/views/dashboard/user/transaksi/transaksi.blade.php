@@ -1835,17 +1835,23 @@
             },
         });
     });
-    window.onbeforeunload = function() {
-        Swal.fire({
-            allowOutsideClick: false,
-            background: 'transparent',
-            html: ' <div class="spinner-grow text-primary spinner-grow-sm me-2" role="status"></div><div class="spinner-grow text-primary spinner-grow-sm me-2" role="status"></div><div class="spinner-grow text-primary spinner-grow-sm me-2" role="status"></div>',
-            showCancelButton: false,
-            showConfirmButton: false,
-            onBeforeOpen: () => {
-                // Swal.showLoading()
-            },
-        });
+    window.onbeforeunload = function(e) {
+        // Daftar route yang ingin DIKECUALIKAN
+        const currentUrl = window.location.href;
+        console.log(currentUrl.includes('/user/cetak_po'));
+        // Cek apakah URL saat ini mengandung 'user/cetak_po'
+        if (!currentUrl.includes('/user/cetak_po')) {
+            Swal.fire({
+                allowOutsideClick: false,
+                background: 'transparent',
+                html: ' <div class="spinner-grow text-primary spinner-grow-sm me-2" role="status"></div><div class="spinner-grow text-primary spinner-grow-sm me-2" role="status"></div><div class="spinner-grow text-primary spinner-grow-sm me-2" role="status"></div>',
+                showCancelButton: false,
+                showConfirmButton: false,
+                onBeforeOpen: () => {
+                    // Swal.showLoading()
+                },
+            });
+        }
     };
     $(document).on('click', '#btn_konfirmasibongkar', function(e) {
         e.preventDefault();
@@ -1928,18 +1934,13 @@
     });
     $(document).on('click', '#btn_cetak_po', function() {
         var id = $(this).data("id");
+        console.log(id);
+        const currentUrl = window.location.href;
+        console.log(currentUrl.includes('/user/cetak_po'));
         var url = "{{ url('user/cetak_po')}}" + "/" + id;
         console.log(url);
-        Swal.fire({
-            allowOutsideClick: false,
-            background: 'transparent',
-            html: ' <div class="spinner-grow text-primary spinner-grow-sm me-2" role="status"></div><div class="spinner-grow text-primary spinner-grow-sm me-2" role="status"></div><div class="spinner-grow text-primary spinner-grow-sm me-2" role="status"></div>',
-            showCancelButton: false,
-            showConfirmButton: false,
-            onBeforeOpen: () => {
-                window.location.href = url;
-            },
-        });
+        window.location.href = url;
+
     });
     $(document).on('click', '.toshow', function() {
         var id = $(this).attr("name");

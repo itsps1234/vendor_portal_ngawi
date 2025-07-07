@@ -1400,6 +1400,11 @@
             height: 80px;
         }
     }
+
+    .btn-outline-primary {
+        color: #919294;
+        border-color: #919294;
+    }
 </style>
 @endsection
 @section('content')
@@ -1459,7 +1464,7 @@
                                     @elseif ($data->permintaan_kirim == '0')
                                     <span class="btn btn-sm btn-danger">0 Truk</span>
                                     @else
-                                    <a id="btn_klik" href="{{route('user.data_list_po', ['id' => $data->id_biduser])}}" name="{{$data->id_approvebid}}" title="Lihat PO" class="lihat_po btn btn-outline-success btn-sm">
+                                    <a id="btn_klik" href="{{route('user.data_list_po', ['id' => $data->id_biduser])}}" name="{{$data->id_approvebid}}" title="Lihat PO" class="lihat_po btn btn-outline-primary btn-sm">
                                         <i class=""> </i> {{$data->permintaan_kirim}} Truk
                                     </a>
                                     <br>

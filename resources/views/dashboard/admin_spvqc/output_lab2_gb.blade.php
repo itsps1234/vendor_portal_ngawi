@@ -1182,21 +1182,7 @@ SURYA PANGAN SEMESTA
                 }
             });
         });
-        $(document).on('click', '.detail_hasil_qc', function() {
-            var id = $(this).attr("name");
-            var url = "{{ route('qc.lab.detail_output_incoming_qc') }}" + "/" + id;
-            console.log(url);
-            $.ajax({
-                type: "GET",
-                url: url,
-                success: function(response) {
-                    // console.log(response);
-                    var parsed = $.parseJSON(response);
-                    $('#plan_harga').val(parsed.plan_harga);
-                    console.log(parsed.bid_user_id);
-                }
-            });
-        });
+
         $(document).on('click', '#btn_approved', function() {
             var id = $(this).data('id');
             var kode_po = $(this).data('kodepo');

@@ -158,7 +158,7 @@ class AdminController extends Controller
 
             // dd($response); 
             // Integrasi Epicor
-            $promise = $client->getAsync('http://34.34.222.145:2022/api/PO/ClosePO?PONum=' . $get->PONum);
+            $promise = $client->getAsync('http://34.128.70.126:2022/api/PO/ClosePO?PONum=' . $get->PONum);
             $promise->then(
                 function (Response $response) use ($get) {
                     $response = $response->getBody()->getContents();
@@ -221,7 +221,7 @@ class AdminController extends Controller
             // dd($get_id->PONum);
             $client = new \GuzzleHttp\Client();
 
-            $promise = $client->getAsync('http://34.34.222.145:2022/api/PO/ClosePO?PONum=' . $get->PONum);
+            $promise = $client->getAsync('http://34.128.70.126:2022/api/PO/ClosePO?PONum=' . $get->PONum);
             $promise->then(
                 function (Response $response) use ($get) {
                     echo $response = $response->getBody()->getContents();
@@ -274,7 +274,7 @@ class AdminController extends Controller
             // dd($get_id->PONum);
             $client = new \GuzzleHttp\Client();
 
-            $promise = $client->getAsync('http://34.34.222.145:2022/api/PO/ClosePO?PONum=' . $get->PONum);
+            $promise = $client->getAsync('http://34.128.70.126:2022/api/PO/ClosePO?PONum=' . $get->PONum);
             $promise->then(
                 function (Response $response) use ($get) {
                     echo $response = $response->getBody()->getContents();
@@ -1171,7 +1171,7 @@ class AdminController extends Controller
     {
         //  Integrasi Epicor
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.34.222.145:2022/api/PO/ClosePO?PONum=' . $request->PONum;
+        $url = 'http://34.128.70.126:2022/api/PO/ClosePO?PONum=' . $request->PONum;
         $response = $client->get($url);
         $response = $response->getBody()->getContents();
         // dd($response); 

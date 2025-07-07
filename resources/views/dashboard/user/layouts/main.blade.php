@@ -121,17 +121,18 @@
     @yield('content')
 
     <!--footer area start-->
-    <!-- <footer class="footer_widgets"> -->
-    <!-- <div class="footer_bottom"> -->
-    <!-- <div class="container"> -->
-    <!-- <div class="row align-items-center"> -->
-    <!-- <p style="text-align: center"><a href="#">E-PROCUREMENT - 2023</a></p> -->
-
-    <!-- </div> -->
-    <!-- </div> -->
-    <!-- </div> -->
-    <!-- </footer> -->
-    <!--footer area end-->
+    <footer class="footer_widgets">
+        <div class="footer_bottom">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="text-center" style="position: fixed;bottom: 0; opacity: 50%;">
+                        <p>Versi 2.0 </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- footer area end -->
 
     <!-- modal area start-->
 

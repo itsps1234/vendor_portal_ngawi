@@ -9,6 +9,7 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\AdminQcBongkar\QcAdminBongkarController;
 use App\Http\Controllers\AdminAP\AdminAPController;
 use App\Http\Controllers\AdminMaster\MasterController;
+use App\Http\Controllers\AdminQc\QcLab1Controller;
 use App\Http\Controllers\AdminSpvAp\AdminSpvApController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -29,7 +30,7 @@ Route::get('/', [UserController::class, 'getViewLogin'])->name('login');
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+Route::get('/qc/lab/detail_output_incoming_qc/{id?}', [QcLab1Controller::class, 'detail_output_incoming_qc'])->name('qc.lab.detail_output_incoming_qc');
 Route::get('/perbaikansistem', [UserController::class, 'get_maintenance'])->name('get_maintenance');
 
 Route::get('/getpricegt4/{id?}', [QcAdminController::class, 'get_price_gt4'])->name('get_price_gt4');
@@ -105,6 +106,7 @@ Route::prefix('user')->name('user.')->group(function () {
     Route::get('/terbaru', [UserController::class, 'terbaru'])->name('terbaru');
     Route::get('/update_home', [UserController::class, 'update_home'])->name('update_home');
     Route::get('/detailberita/{id?}', [UserController::class, 'detailberita'])->name('detailberita');
+    Route::get('/cetak_po/{id?}', [UserController::class, 'cetak_po'])->name('cetak_po');
     Route::middleware(['auth:web', 'PreventBackHistory'])->group(function () {
         Route::get('/home', [UserController::class, 'home'])->name('home');
         Route::post('/logout', [UserController::class, 'logout'])->name('logout');
@@ -115,10 +117,10 @@ Route::prefix('user')->name('user.')->group(function () {
 
         // TRANSAKSI
         Route::get('/transaksi', [UserController::class, 'transaksi'])->name('transaksi');
-        Route::get('/cetak_po/{id?}', [UserController::class, 'cetak_po'])->name('cetak_po');
         Route::get('/scan_po/{id?}', [UserController::class, 'scan_po'])->name('cetak_po');
 
         // HISTORY
+        Route::get('/riwayat_transaksi', [UserController::class, 'riwayat_transaksi'])->name('riwayat_transaksi');
         Route::get('/history', [UserController::class, 'history'])->name('history');
         Route::get('/data_list_po/{id?}', [UserController::class, 'data_list_po'])->name('data_list_po');
 
@@ -142,6 +144,7 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::get('/news', [UserController::class, 'news'])->name('news');
         // AKUN
         Route::get('/account', [UserController::class, 'account'])->name('account');
+        Route::get('/akun', [UserController::class, 'akun'])->name('akun');
 
         Route::get('/listbid', [UserController::class, 'listbid'])->name('listbid');
         Route::get('/setting_profile', [UserController::class, 'setting_profile'])->name('setting_profile');

@@ -1373,6 +1373,7 @@
         }
         // Display the result in the element with id="demo"
         $(".time").html(fix_min + ':' + fix_sec);
+        console.log(fix_min + ':' + fix_sec);
 
         $('#alert_error').hide();
         $('#btn_resend').hide();

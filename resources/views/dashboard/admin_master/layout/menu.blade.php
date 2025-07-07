@@ -1210,20 +1210,20 @@
         <h4 class="kt-menu__section-text">LOG ACTIVITY</h4>
         <i class="kt-menu__section-icon flaticon-more-v2"></i>
       </li>
-      <li class="kt-menu__item  kt-menu__item--{{set_active('master/log_activity_sourching')}}" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-        <a href="{{route('master.log_activity_sourching')}}" class="kt-menu__link kt-menu__toggle">
+      <li class="kt-menu__item  kt-menu__item--{{set_active('master/sourching/log_activity_sourching')}}" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
+        <a href="{{route('master.sourching.log_activity_sourching')}}" class="kt-menu__link kt-menu__toggle">
           <i class="kt-menu__link-icon flaticon2-notepad kt-font-dark"></i>
           <span class="kt-menu__link-text">LOG ACTIVITY ADMIN SOURCHING</span>
         </a>
       </li>
-      <li class="kt-menu__item  kt-menu__item--{{set_active('master/log_activity_security')}}" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-        <a href="{{route('master.log_activity_security')}}" class="kt-menu__link kt-menu__toggle">
+      <li class="kt-menu__item  kt-menu__item--{{set_active('master/security/log_activity_security')}}" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
+        <a href="{{route('master.security.log_activity_security')}}" class="kt-menu__link kt-menu__toggle">
           <i class="kt-menu__link-icon flaticon2-notepad kt-font-dark"></i>
           <span class="kt-menu__link-text">LOG ACTIVITY ADMIN SECURITY</span>
         </a>
       </li>
-      <li class="kt-menu__item  kt-menu__item--{{set_active('master/log_activity_qc')}}" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-        <a href="{{route('master.log_activity_qc')}}" class="kt-menu__link kt-menu__toggle">
+      <li class="kt-menu__item  kt-menu__item--{{set_active('master/lab/log_activity_qc')}}" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
+        <a href="{{route('master.lab.log_activity_qc')}}" class="kt-menu__link kt-menu__toggle">
           <i class="kt-menu__link-icon flaticon2-notepad kt-font-dark"></i>
           <span class="kt-menu__link-text">LOG ACTIVITY ADMIN LAB</span>
         </a>

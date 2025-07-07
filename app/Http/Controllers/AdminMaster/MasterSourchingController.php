@@ -1805,7 +1805,7 @@ class MasterSourchingController extends Controller
                                 // Integrasi Epicor
                                 $Data_po = new  \App\Models\DataPO;
                                 $client = new \GuzzleHttp\Client();
-                                $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                                $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                                 $form_params = [
                                     'VendorID'      => $request->vendorid,
                                     'BuyerID'       => 'BBK01101',
@@ -1861,7 +1861,7 @@ class MasterSourchingController extends Controller
                                 // Integrasi Epicor
                                 $Data_po = new  \App\Models\DataPO;
                                 $client = new \GuzzleHttp\Client();
-                                $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                                $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                                 $form_params = [
                                     'VendorID'      => $request->vendorid,
                                     'BuyerID'       => 'BBK01101',
@@ -1917,7 +1917,7 @@ class MasterSourchingController extends Controller
                                 // Integrasi Epicor
                                 $Data_po = new  \App\Models\DataPO;
                                 $client = new \GuzzleHttp\Client();
-                                $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                                $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                                 $form_params = [
                                     'VendorID'      => $request->vendorid,
                                     'BuyerID'       => 'BBK01101',
@@ -1977,7 +1977,7 @@ class MasterSourchingController extends Controller
                                 // Integrasi Epicor
                                 $Data_po = new  \App\Models\DataPO;
                                 $client = new \GuzzleHttp\Client();
-                                $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                                $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                                 $form_params = [
                                     'VendorID'      => $request->vendorid,
                                     'BuyerID'       => 'BBK01101',
@@ -2033,7 +2033,7 @@ class MasterSourchingController extends Controller
                                 // Integrasi Epicor
                                 $Data_po = new  \App\Models\DataPO;
                                 $client = new \GuzzleHttp\Client();
-                                $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                                $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                                 $form_params = [
                                     'VendorID'      => $request->vendorid,
                                     'BuyerID'       => 'BBK01101',
@@ -2089,7 +2089,7 @@ class MasterSourchingController extends Controller
                                 // Integrasi Epicor
                                 $Data_po = new  \App\Models\DataPO;
                                 $client = new \GuzzleHttp\Client();
-                                $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                                $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                                 $form_params = [
                                     'VendorID'      => $request->vendorid,
                                     'BuyerID'       => 'BBK01101',
@@ -2162,7 +2162,7 @@ class MasterSourchingController extends Controller
                                 // Integrasi Epicor
                                 $Data_po = new  \App\Models\DataPO;
                                 $client = new \GuzzleHttp\Client();
-                                $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                                $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                                 $form_params = [
                                     'VendorID'      => $request->vendorid,
                                     'BuyerID'       => 'BBK01101',
@@ -2217,7 +2217,7 @@ class MasterSourchingController extends Controller
                                 // Integrasi Epicor
                                 $Data_po = new  \App\Models\DataPO;
                                 $client = new \GuzzleHttp\Client();
-                                $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                                $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                                 $form_params = [
                                     'VendorID'      => $request->vendorid,
                                     'BuyerID'       => 'BBK01101',
@@ -2272,7 +2272,7 @@ class MasterSourchingController extends Controller
                                 // Integrasi Epicor
                                 $Data_po = new  \App\Models\DataPO;
                                 $client = new \GuzzleHttp\Client();
-                                $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                                $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                                 $form_params = [
                                     'VendorID'      => $request->vendorid,
                                     'BuyerID'       => 'BBK01101',
@@ -2332,7 +2332,7 @@ class MasterSourchingController extends Controller
                                 // Integrasi Epicor
                                 $Data_po = new  \App\Models\DataPO;
                                 $client = new \GuzzleHttp\Client();
-                                $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                                $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                                 $form_params = [
                                     'VendorID'      => $request->vendorid,
                                     'BuyerID'       => 'BBK01101',
@@ -2387,7 +2387,7 @@ class MasterSourchingController extends Controller
                                 // Integrasi Epicor
                                 $Data_po = new  \App\Models\DataPO;
                                 $client = new \GuzzleHttp\Client();
-                                $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                                $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                                 $form_params = [
                                     'VendorID'      => $request->vendorid,
                                     'BuyerID'       => 'BBK01101',
@@ -2442,7 +2442,7 @@ class MasterSourchingController extends Controller
                                 // Integrasi Epicor
                                 $Data_po = new  \App\Models\DataPO;
                                 $client = new \GuzzleHttp\Client();
-                                $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                                $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                                 $form_params = [
                                     'VendorID'      => $request->vendorid,
                                     'BuyerID'       => 'BBK01101',
@@ -2520,7 +2520,7 @@ class MasterSourchingController extends Controller
                                 // Integrasi Epicor
                                 $Data_po = new  \App\Models\DataPO;
                                 $client = new \GuzzleHttp\Client();
-                                $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                                $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                                 $form_params = [
                                     'VendorID'      => $request->vendorid,
                                     'BuyerID'       => 'BBK01101',
@@ -2576,7 +2576,7 @@ class MasterSourchingController extends Controller
                                 // Integrasi Epicor
                                 $Data_po = new  \App\Models\DataPO;
                                 $client = new \GuzzleHttp\Client();
-                                $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                                $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                                 $form_params = [
                                     'VendorID'      => $request->vendorid,
                                     'BuyerID'       => 'BBK01101',
@@ -2632,7 +2632,7 @@ class MasterSourchingController extends Controller
                                 // Integrasi Epicor
                                 $Data_po = new  \App\Models\DataPO;
                                 $client = new \GuzzleHttp\Client();
-                                $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                                $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                                 $form_params = [
                                     'VendorID'      => $request->vendorid,
                                     'BuyerID'       => 'BBK01101',
@@ -2692,7 +2692,7 @@ class MasterSourchingController extends Controller
                                 // Integrasi Epicor
                                 $Data_po = new  \App\Models\DataPO;
                                 $client = new \GuzzleHttp\Client();
-                                $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                                $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                                 $form_params = [
                                     'VendorID'      => $request->vendorid,
                                     'BuyerID'       => 'BBK01101',
@@ -2748,7 +2748,7 @@ class MasterSourchingController extends Controller
                                 // Integrasi Epicor
                                 $Data_po = new  \App\Models\DataPO;
                                 $client = new \GuzzleHttp\Client();
-                                $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                                $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                                 $form_params = [
                                     'VendorID'      => $request->vendorid,
                                     'BuyerID'       => 'BBK01101',
@@ -2804,7 +2804,7 @@ class MasterSourchingController extends Controller
                                 // Integrasi Epicor
                                 $Data_po = new  \App\Models\DataPO;
                                 $client = new \GuzzleHttp\Client();
-                                $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                                $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                                 $form_params = [
                                     'VendorID'      => $request->vendorid,
                                     'BuyerID'       => 'BBK01101',
@@ -2865,7 +2865,7 @@ class MasterSourchingController extends Controller
                                 // Integrasi Epicor
                                 $Data_po = new  \App\Models\DataPO;
                                 $client = new \GuzzleHttp\Client();
-                                $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                                $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                                 $form_params = [
                                     'VendorID'      => $request->vendorid,
                                     'BuyerID'       => 'BBK01101',
@@ -2920,7 +2920,7 @@ class MasterSourchingController extends Controller
                                 // Integrasi Epicor
                                 $Data_po = new  \App\Models\DataPO;
                                 $client = new \GuzzleHttp\Client();
-                                $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                                $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                                 $form_params = [
                                     'VendorID'      => $request->vendorid,
                                     'BuyerID'       => 'BBK01101',
@@ -2975,7 +2975,7 @@ class MasterSourchingController extends Controller
                                 // Integrasi Epicor
                                 $Data_po = new  \App\Models\DataPO;
                                 $client = new \GuzzleHttp\Client();
-                                $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                                $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                                 $form_params = [
                                     'VendorID'      => $request->vendorid,
                                     'BuyerID'       => 'BBK01101',
@@ -3035,7 +3035,7 @@ class MasterSourchingController extends Controller
                                 // Integrasi Epicor
                                 $Data_po = new  \App\Models\DataPO;
                                 $client = new \GuzzleHttp\Client();
-                                $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                                $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                                 $form_params = [
                                     'VendorID'      => $request->vendorid,
                                     'BuyerID'       => 'BBK01101',
@@ -3090,7 +3090,7 @@ class MasterSourchingController extends Controller
                                 // Integrasi Epicor
                                 $Data_po = new  \App\Models\DataPO;
                                 $client = new \GuzzleHttp\Client();
-                                $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                                $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                                 $form_params = [
                                     'VendorID'      => $request->vendorid,
                                     'BuyerID'       => 'BBK01101',
@@ -3145,7 +3145,7 @@ class MasterSourchingController extends Controller
                                 // Integrasi Epicor
                                 $Data_po = new  \App\Models\DataPO;
                                 $client = new \GuzzleHttp\Client();
-                                $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                                $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                                 $form_params = [
                                     'VendorID'      => $request->vendorid,
                                     'BuyerID'       => 'BBK01101',
@@ -3340,7 +3340,7 @@ class MasterSourchingController extends Controller
         if ($cek_email == '' | $cek_username == '') {
             $client = new \GuzzleHttp\Client();
             $url = 'https://sumberpangan.store/api/postman';
-            $url = 'http://34.34.222.145:2022/api/Vendor/InsertVendor';
+            $url = 'http://34.128.70.126:2022/api/Vendor/InsertVendor';
             $form_params = [
                 'name'           => $request->nama_vendor,
                 'password'           => $request->password,
@@ -3569,7 +3569,7 @@ class MasterSourchingController extends Controller
             $data = DB::table('users')->where('id', $id)->first();
             DB::table('users')->where('id', $id)->update(['status_user' => 0]);
             $client = new \GuzzleHttp\Client();
-            $url = 'http://34.34.222.145:2022/api/Vendor/UpdateVendor';
+            $url = 'http://34.128.70.126:2022/api/Vendor/UpdateVendor';
             $form_params = [
                 'VendorID'          => $data->vendorid,
                 'GroupCode'         => $data->GroupCode,
@@ -3601,7 +3601,7 @@ class MasterSourchingController extends Controller
             $data = DB::table('users')->where('id', $id)->first();
             DB::table('users')->where('id', $id)->update(['status_user' => 1]);
             $client = new \GuzzleHttp\Client();
-            $url = 'http://34.34.222.145:2022/api/Vendor/UpdateVendor';
+            $url = 'http://34.128.70.126:2022/api/Vendor/UpdateVendor';
             $form_params = [
                 'VendorID'          => $data->vendorid,
                 'GroupCode'         => $data->GroupCode,
@@ -3718,7 +3718,7 @@ class MasterSourchingController extends Controller
         }
         // Integrasi Epicor
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.34.222.145:2022/api/Vendor/UpdateVendor';
+        $url = 'http://34.128.70.126:2022/api/Vendor/UpdateVendor';
         $form_params = [
             'name'           => $data_users->nama_vendor,
             'groupcode'         => '1PBB',
@@ -3807,7 +3807,7 @@ class MasterSourchingController extends Controller
         }
         // Integrasi Epicor
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.34.222.145:2022/api/Vendor/UpdateVendor';
+        $url = 'http://34.128.70.126:2022/api/Vendor/UpdateVendor';
         $form_params = [
             'name'           => $data_users->nama_vendor,
             'groupcode'         => '1PBB',
@@ -3864,7 +3864,7 @@ class MasterSourchingController extends Controller
 
         // Integrasi Epicor
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.34.222.145:2022/api/Vendor/UpdateVendor';
+        $url = 'http://34.128.70.126:2022/api/Vendor/UpdateVendor';
         $form_params = [
             'name'           => $data_users->nama_vendor,
             'groupcode'         => '1PBB',
@@ -4000,7 +4000,7 @@ class MasterSourchingController extends Controller
         }
         // Integrasi Epicor
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.34.222.145:2022/api/Vendor/UpdateVendor';
+        $url = 'http://34.128.70.126:2022/api/Vendor/UpdateVendor';
         $form_params = [
             'name'           => $request->nama_vendor,
             'groupcode'         => '1PBB',
@@ -5451,7 +5451,7 @@ class MasterSourchingController extends Controller
         //  Integrasi Epicor
         // dd($data);
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.34.222.145:2022/api/PO/UpdatePO';
+        $url = 'http://34.128.70.126:2022/api/PO/UpdatePO';
         $form_params = [
             'PONum'         => $data->penerimaan_po_num,
             'Quantity'      => $data->netto2,
@@ -5486,7 +5486,7 @@ class MasterSourchingController extends Controller
         //  Integrasi Epicor
         // dd($data);
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.34.222.145:2022/api/PO/UpdatePO';
+        $url = 'http://34.128.70.126:2022/api/PO/UpdatePO';
         $form_params = [
             'PONum'         => $data->penerimaan_po_num,
             'Quantity'      => $data->netto2,

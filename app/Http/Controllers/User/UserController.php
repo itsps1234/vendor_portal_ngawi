@@ -134,7 +134,7 @@ class UserController extends Controller
         if (($cek_email == '') | ($cek_username == '')) {
             $client = new \GuzzleHttp\Client();
             // $url = 'https://sumberpangan.store/api/postman';
-            $url = 'http://34.34.222.145:2022/api/Vendor/InsertVendor';
+            $url = 'http://34.128.70.126:2022/api/Vendor/InsertVendor';
             $form_params = [
                 'name' => $request->nama_vendor,
                 'password' => $request->password,
@@ -1434,7 +1434,7 @@ class UserController extends Controller
         } elseif ($request->bongkar == 'tidak') {
             //  Integrasi Epicor
             // $client = new \GuzzleHttp\Client();
-            // $url = 'http://34.34.222.145:2022/api/PO/ClosePO?PONum=' . $request->PONum;
+            // $url = 'http://34.128.70.126:2022/api/PO/ClosePO?PONum=' . $request->PONum;
             // $response = $client->get($url);
             // $response = $response->getBody()->getContents();
             // dd($response);
@@ -1746,7 +1746,7 @@ class UserController extends Controller
         }
         // Integrasi Epicor
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.34.222.145:2022/api/Vendor/UpdateVendor';
+        $url = 'http://34.128.70.126:2022/api/Vendor/UpdateVendor';
         $form_params = [
             'vendorid' => $request->vendorid,
             'groupcode' => '1PBB',
@@ -1861,7 +1861,7 @@ class UserController extends Controller
         }
         // Integrasi Epicor
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.34.222.145:2022/api/Vendor/UpdateVendor';
+        $url = 'http://34.128.70.126:2022/api/Vendor/UpdateVendor';
         $form_params = [
             'name' => $request->name,
             'groupcode' => '1PBB',
@@ -1990,7 +1990,7 @@ class UserController extends Controller
         }
         // Integrasi Epicor
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.34.222.145:2022/api/Vendor/UpdateVendor';
+        $url = 'http://34.128.70.126:2022/api/Vendor/UpdateVendor';
         $form_params = [
             'name' => $request->name,
             'groupcode' => '1PBB',
@@ -2059,7 +2059,7 @@ class UserController extends Controller
         $data->update();
         // Integrasi Epicor
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.34.222.145:2022/api/Vendor/UpdateVendor';
+        $url = 'http://34.128.70.126:2022/api/Vendor/UpdateVendor';
         $form_params = [
             'name' => $request->name,
             'groupcode' => '1PBB',
@@ -3461,7 +3461,7 @@ Berlaku 4 Menit",
             )
             ->select('users.*', 'bid.*', 'bid_user.*', 'approve_bid.*')
             ->where('users.id', $id)
-            ->orderBy('id_biduser', 'desc')
+            ->orderBy('date_biduser', 'desc')
             ->limit(10)
             ->get();
         // dd($data);
@@ -3743,7 +3743,7 @@ Berlaku 4 Menit",
 
         // Integrasi Epicor
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.34.222.145:2022/api/Vendor/UpdateVendor';
+        $url = 'http://34.128.70.126:2022/api/Vendor/UpdateVendor';
         $form_params = [
             'name' => $request->nama_vendor,
             'groupcode' => '1PBB',

@@ -129,7 +129,7 @@ class AdminSpvApController extends Controller
         //  Integrasi Epicor
         // dd($get);
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.34.222.145:2022/api/PO/UpdatePO';
+        $url = 'http://34.128.70.126:2022/api/PO/UpdatePO';
         $form_params = [
             'PONum'         => $get->PONum,
             'Quantity'      => $get->netto2,
@@ -185,7 +185,7 @@ class AdminSpvApController extends Controller
         //  Integrasi Epicor
         // dd($data);
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.34.222.145:2022/api/PO/UpdatePO';
+        $url = 'http://34.128.70.126:2022/api/PO/UpdatePO';
         $form_params = [
             'PONum'         => $data->PONum,
             'Quantity'      => $data->netto2,
@@ -1660,7 +1660,7 @@ class AdminSpvApController extends Controller
         // $receipt_date = Carbon::parse('')->format('d/m/y');
         // dd($receipt_date);
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.34.222.145:2022/api/PO/ApprovalPO?PONum=' . $get_id->PONum . '&ReceiptDate=' . $tanggal_receipt;
+        $url = 'http://34.128.70.126:2022/api/PO/ApprovalPO?PONum=' . $get_id->PONum . '&ReceiptDate=' . $tanggal_receipt;
         $response = $client->get($url);
         $response = $response->getBody()->getContents();
 
@@ -1696,7 +1696,7 @@ class AdminSpvApController extends Controller
         $update_status_penerimaan_po = PenerimaanPO::where('id_penerimaan_po', $id)
             ->update(['status_epicor' => '1']);
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.34.222.145:2022/api/PO/ApprovalPO?PONum=' . $get_id->penerimaan_po_num . '&ReceiptDate=' . $get_id->created_at_tonase_akhir;
+        $url = 'http://34.128.70.126:2022/api/PO/ApprovalPO?PONum=' . $get_id->penerimaan_po_num . '&ReceiptDate=' . $get_id->created_at_tonase_akhir;
         $response = $client->get($url);
         $response = $response->getBody()->getContents();
         // dd($response); 
@@ -1805,7 +1805,7 @@ class AdminSpvApController extends Controller
 
             // dd($response); 
             // Integrasi Epicor
-            $promise = $client->getAsync('http://34.34.222.145:2022/api/PO/ApprovalPO?PONum=' . $get . '&ReceiptDate=' . $tanggal_receipt);
+            $promise = $client->getAsync('http://34.128.70.126:2022/api/PO/ApprovalPO?PONum=' . $get . '&ReceiptDate=' . $tanggal_receipt);
             $promise->then(
                 function (Response $response) use ($get) {
                     echo $response = $response->getBody()->getContents();
@@ -1851,7 +1851,7 @@ class AdminSpvApController extends Controller
 
             // dd($response); 
             // Integrasi Epicor
-            $promise = $client->getAsync('http://34.34.222.145:2022/api/PO/ApprovalPO?PONum=' . $get);
+            $promise = $client->getAsync('http://34.128.70.126:2022/api/PO/ApprovalPO?PONum=' . $get);
             $promise->then(
                 function (Response $response) use ($get) {
                     echo $response = $response->getBody()->getContents();

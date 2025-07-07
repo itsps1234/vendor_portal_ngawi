@@ -382,7 +382,7 @@ class SuperadminController extends Controller
         }
         $client = new \GuzzleHttp\Client();
         // $url = 'https://sumberpangan.store/api/postman';
-        $url = 'http://34.34.222.145:2022/api/Vendor/InsertVendor';
+        $url = 'http://34.128.70.126:2022/api/Vendor/InsertVendor';
         $form_params = [
             'vendor_id'         => '0',
             'groupcode'         => '1PBB',
@@ -636,7 +636,7 @@ class SuperadminController extends Controller
             $data = User::where('id', $id)->first();
             User::where('id', $id)->update(['status_user' => 0]);
             $client = new \GuzzleHttp\Client();
-            $url = 'http://34.34.222.145:2022/api/Vendor/UpdateVendor';
+            $url = 'http://34.128.70.126:2022/api/Vendor/UpdateVendor';
             $form_params = [
                 'VendorID'          => $data->vendorid,
                 'GroupCode'         => $data->GroupCode,
@@ -668,7 +668,7 @@ class SuperadminController extends Controller
             $data = User::where('id', $id)->first();
             User::where('id', $id)->update(['status_user' => 1]);
             $client = new \GuzzleHttp\Client();
-            $url = 'http://34.34.222.145:2022/api/Vendor/UpdateVendor';
+            $url = 'http://34.128.70.126:2022/api/Vendor/UpdateVendor';
             $form_params = [
                 'VendorID'          => $data->vendorid,
                 'GroupCode'         => $data->GroupCode,
@@ -792,7 +792,7 @@ class SuperadminController extends Controller
         // dd($data_users, $request->all(), $cek_address1->name . ', ' . $cek_address2->name . ', ' . $cek_address3->name . ' INDONESIA');
         // Integrasi Epicor
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.34.222.145:2022/api/Vendor/UpdateVendor';
+        $url = 'http://34.128.70.126:2022/api/Vendor/UpdateVendor';
         $form_params = [
             'vendorid'          => $data_users->vendorid,
             'name'           => $data_users->nama_vendor,
@@ -888,7 +888,7 @@ class SuperadminController extends Controller
         }
         // Integrasi Epicor
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.34.222.145:2022/api/Vendor/UpdateVendor';
+        $url = 'http://34.128.70.126:2022/api/Vendor/UpdateVendor';
         $form_params = [
             'name'           => $data_users->nama_vendor,
             'groupcode'         => '1PBB',
@@ -951,7 +951,7 @@ class SuperadminController extends Controller
         }
         // Integrasi Epicor
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.34.222.145:2022/api/Vendor/UpdateVendor';
+        $url = 'http://34.128.70.126:2022/api/Vendor/UpdateVendor';
         $form_params = [
             'name'           => $data_users->nama_vendor,
             'groupcode'         => '1PBB',
@@ -1110,7 +1110,7 @@ class SuperadminController extends Controller
         }
         // Integrasi Epicor
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.34.222.145:2022/api/Vendor/UpdateVendor';
+        $url = 'http://34.128.70.126:2022/api/Vendor/UpdateVendor';
         $form_params = [
             'name'              => $request->nama_vendor,
             'groupcode'         => '1PBB',
@@ -3093,10 +3093,10 @@ class SuperadminController extends Controller
         $data_LAB2 = Lab2GabahBasah::where('lab2_kode_po_gb', $data->penerimaan_kode_po)->update(['aksi_harga_gb' => 'DEAL']);
         //  Integrasi Epicor
         if ($data->kategory_po == 'BULOG') {
-            $url = 'http://34.34.222.145:2022/api/PO/ClosePO?PONum=' . $data->PONum;
+            $url = 'http://34.128.70.126:2022/api/PO/ClosePO?PONum=' . $data->PONum;
         } else {
             $client = new \GuzzleHttp\Client();
-            $url = 'http://34.34.222.145:2022/api/PO/UpdatePO';
+            $url = 'http://34.128.70.126:2022/api/PO/UpdatePO';
             $form_params = [
                 'PONum'         => $data->penerimaan_po_num,
                 'Quantity'      => $data->netto2,
@@ -3176,7 +3176,7 @@ _Sent Via *PT SURYA PANGAN SEMESTA NGAWI*_",
         //  Integrasi Epicor
         // dd($data);
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.34.222.145:2022/api/PO/UpdatePO';
+        $url = 'http://34.128.70.126:2022/api/PO/UpdatePO';
         $form_params = [
             'PONum'         => $data->penerimaan_po_num,
             'Quantity'      => $data->netto2,

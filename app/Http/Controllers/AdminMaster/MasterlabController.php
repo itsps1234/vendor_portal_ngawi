@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\AdminMaster;
 
+use App\Http\Controllers\Controller;
 use App\Exports\DataBongkarLab1ExportExcel;
 use App\Exports\DataDealLab2ExportExcel;
 use App\Exports\DataNegoLab2ExportExcel;
@@ -11,7 +12,6 @@ use App\Exports\DataPendingLab1ExportExcel;
 use App\Exports\DataRejectLab1ExportExcel;
 use App\Exports\OutputDataLab2ExportExcel;
 use App\Exports\OutputDataLab2ExportExcelPK;
-use App\Http\Controllers\Controller;
 use App\Models\DataPO;
 
 use App\Models\FinishingQCGb;
@@ -10857,7 +10857,7 @@ class MasterlabController extends Controller
         $get_data_po            = DB::table('data_po')->where('kode_po', $get_id_lab->lab1_kode_po_pk)->first();
         //  Integrasi Epicor
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.34.222.145:2022/api/PO/ClosePO?PONum=' . $get_data_po->PONum;
+        $url = 'http://34.128.70.126:2022/api/PO/ClosePO?PONum=' . $get_data_po->PONum;
         $response = $client->get($url);
         $response = $response->getBody()->getContents();
         // dd($response); 

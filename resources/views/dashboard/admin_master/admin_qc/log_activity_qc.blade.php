@@ -78,7 +78,7 @@ SURYA PANGAN SEMESTA
                 [25, 100, 300, "All"]
             ],
             "iDisplayLength": 10,
-            ajax: "{{ route('master.log_activity_qc_index') }}",
+            ajax: "{{ route('master.lab.log_activity_qc_index') }}",
             columns: [{
                     data: "id_aktivitas_lab",
 

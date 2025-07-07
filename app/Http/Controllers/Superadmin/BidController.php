@@ -1004,6 +1004,7 @@ class BidController extends Controller
             ->join('bid_user', 'bid_user.id_biduser', '=', 'data_po.bid_user_id')
             ->join('users', 'users.id', '=', 'data_po.user_idbid')
             ->where('data_po.bid_id', $id_bid)
+            ->orderBy('data_po.kode_po', 'ASC')
             ->get())
             ->addColumn('name_bid', function ($list) {
                 $result = $list->name_bid;
@@ -1754,7 +1755,7 @@ class BidController extends Controller
                         // Integrasi Epicor
                         $Data_po = new  DataPO();
                         $client = new \GuzzleHttp\Client();
-                        $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                        $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                         $form_params = [
                             'VendorID'      => $request->vendorid,
                             'BuyerID'       => 'BBK01101',
@@ -1845,7 +1846,7 @@ class BidController extends Controller
                         // Integrasi Epicor
                         $Data_po = new  \App\Models\DataPO;
                         $client = new \GuzzleHttp\Client();
-                        $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                        $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                         $form_params = [
                             'VendorID'      => $request->vendorid,
                             'BuyerID'       => 'BBK01101',
@@ -1936,7 +1937,7 @@ class BidController extends Controller
                         // Integrasi Epicor
                         $Data_po = new  \App\Models\DataPO;
                         $client = new \GuzzleHttp\Client();
-                        $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                        $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                         $form_params = [
                             'VendorID'      => $request->vendorid,
                             'BuyerID'       => 'BBK01101',
@@ -2086,7 +2087,7 @@ _Sent Via *PT SURYA PANGAN SEMESTA NGAWI*_",
                         // Integrasi Epicor
                         $Data_po = new  \App\Models\DataPO;
                         $client = new \GuzzleHttp\Client();
-                        $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                        $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                         $form_params = [
                             'VendorID'      => $request->vendorid,
                             'BuyerID'       => 'BBK01101',
@@ -2155,7 +2156,7 @@ _Sent Via *PT SURYA PANGAN SEMESTA NGAWI*_",
                         // Integrasi Epicor
                         $Data_po = new  \App\Models\DataPO;
                         $client = new \GuzzleHttp\Client();
-                        $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                        $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                         $form_params = [
                             'VendorID'      => $request->vendorid,
                             'BuyerID'       => 'BBK01101',
@@ -2224,7 +2225,7 @@ _Sent Via *PT SURYA PANGAN SEMESTA NGAWI*_",
                         // Integrasi Epicor
                         $Data_po = new  \App\Models\DataPO;
                         $client = new \GuzzleHttp\Client();
-                        $url = 'http://34.34.222.145:2022/api/PO/InsertPO';
+                        $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
                         $form_params = [
                             'VendorID'      => $request->vendorid,
                             'BuyerID'       => 'BBK01101',

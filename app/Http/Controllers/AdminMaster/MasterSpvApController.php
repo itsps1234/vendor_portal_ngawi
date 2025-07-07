@@ -36,7 +36,7 @@ class MasterSpvApController extends Controller
         //  Integrasi Epicor
         // dd($get);
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.34.222.145:2022/api/PO/UpdatePO';
+        $url = 'http://34.128.70.126:2022/api/PO/UpdatePO';
         $form_params = [
             'PONum'         => $get->PONum,
             'Quantity'      => $get->netto2,
@@ -79,7 +79,7 @@ class MasterSpvApController extends Controller
         //  Integrasi Epicor
         // dd($data);
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.34.222.145:2022/api/PO/UpdatePO';
+        $url = 'http://34.128.70.126:2022/api/PO/UpdatePO';
         $form_params = [
             'PONum'         => $data->PONum,
             'Quantity'      => $data->netto2,
@@ -1132,7 +1132,7 @@ class MasterSpvApController extends Controller
         $data->status_epicor = '1';
         $data->update();
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.34.222.145:2022/api/PO/ApprovalPO?PONum=' . $data->penerimaan_po_num;
+        $url = 'http://34.128.70.126:2022/api/PO/ApprovalPO?PONum=' . $data->penerimaan_po_num;
         $response = $client->get($url);
         $response = $response->getBody()->getContents();
 
@@ -1154,7 +1154,7 @@ class MasterSpvApController extends Controller
         $update_status_penerimaan_po = DB::table('penerimaan_po')->where('id_penerimaan_po', $id)
             ->update(['status_epicor' => '1']);
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.34.222.145:2022/api/PO/ApprovalPO?PONum=' . $get_id->penerimaan_po_num;
+        $url = 'http://34.128.70.126:2022/api/PO/ApprovalPO?PONum=' . $get_id->penerimaan_po_num;
         $response = $client->get($url);
         $response = $response->getBody()->getContents();
         // dd($response); 
