@@ -275,7 +275,7 @@ SURYA PANGAN SEMESTA
                                 </div>
                             </div>
                             <div class="m-form__group form-group row">
-                                <label class="col-xl-3 col-lg-3 col-sm-3 col-form-label">Plan Harga Akhir - Rp.14 (Rp/Kg)</label>
+                                <label class="col-xl-3 col-lg-3 col-sm-3 col-form-label">Plan Harga Akhir</label>
                                 <div class="col-lg-1 col-xl-1 col-sm-1 col-form-label">
                                     :
                                 </div>
@@ -1153,7 +1153,8 @@ SURYA PANGAN SEMESTA
             harga_awal.value = harga_berdasarkan_harga_atas.value;
 
             var reaksi_harga = 0;
-            var potongan_bongkar_ngawi = 14;
+            // var potongan_bongkar_ngawi = 14;
+            var potongan_bongkar_ngawi = 0;
 
             hasil = harga_awal.value - potongan_bongkar_ngawi;
 
@@ -1168,38 +1169,38 @@ SURYA PANGAN SEMESTA
             var perhitungan_hampa = (berat_sample_awal_kg.value - berat_sample_akhir_kg.value) / (berat_sample_awal_kg
                 .value / 100);
             hampa.value = round(perhitungan_hampa, 1);
-            console.log("id_penerimaan = " + id_penerimaan);
-            console.log("Hampa = " + hampa.value)
-            console.log("kg after djust hampa = " + kg_after_adjust_hampa.value);
-            console.log("prosentasi kg = " + round(perhitungan_prosentasi_kg, 2));
-            console.log("susut = " + round(perhitungan_susut, 2));
-            console.log("adjust susut = " + round(perhitungan_adjust_susut, 2));
-            console.log("presentase ks kg after adjust = " + round(perhitungan_prsentase_ks_kg_after_adjust_susut, 2));
-            console.log("prsentase kg pk = " + round(perhitungan_prsentase_kg_pk, 2));
-            console.log("adjust prosentase kg pk = " + round(perhitungan_adjust_prosentase_kg_pk, 2));
-            console.log("presentase ks pk = " + round(perhitungan_presentase_ks_pk, 2));
-            console.log("presentase putih = " + round(perhitungan_presentase_putih, 2));
-            console.log("adjust prosentase kg ke putih = " + round(perhitungan_adjust_prosentase_kg_ke_putih, 2));
-            console.log("plan rend dari ks beras = " + round(perhitungan_plan_rend_dari_ks_beras, 2));
-            console.log("katul = " + round(perhitungan_katul, 2));
-            console.log("refraksi broken = " + refraksi_broken.value);
-            console.log("plan harga gabah = " + round(perhitungan_plan_harga_gabah, 1));
-            console.log("hasil awal = " + harga_awal.value);
-            console.log("hasil akhir = " + hasil);
-            console.log("-----------------------------------------------------------------")
-            console.log("perhitungan plan berat kg pertruk = " + plan_berat_kg_pertruk.value);
-            console.log("perhitungan plan berat pk pertruk = " + plan_berat_pk_pertruk.value);
-            console.log("perhitungan plan berat beras per truk = " + round(perhitungan_plan_berat_beras_pertruk, 0));
-            console.log("plan harga gabah ongkos dryer = " + round(perhitungan_plan_harga_gabah_ongkos_dryer, 2));
-            console.log("plan harga pk perkilo = " + round(perhitungan_plan_harga_pk_perkilo, 2));
-            console.log("plan harga beras perkilo = " + plan_harga_beras_perkilo.value);
-            console.log("plan total harga gabah pertruk = " + plan_total_harga_gabah_pertruk.value);
-            console.log("plan total harga pk pertruk = " + round(perhitungan_plan_total_harga_pk_pertruk, 2));
-            console.log("plan total harga beras pertruk = " + plan_total_harga_beras_pertruk.value);
-            console.log("-----------------------------------------------------------------")
-            console.log("Aktual Price + Ongkos Driyer Perkg = " + aktual_price_ongkos_driyer.value);
-            console.log("Plan Harga Aktual per truk = " + round(perhitungan_plan_harga_aktual_pertruk, 0));
-            console.log("Plan HPP Aktual = " + round(plan_hpp_aktual1, 2));
+            // console.log("id_penerimaan = " + id_penerimaan);
+            // console.log("Hampa = " + hampa.value)
+            // console.log("kg after djust hampa = " + kg_after_adjust_hampa.value);
+            // console.log("prosentasi kg = " + round(perhitungan_prosentasi_kg, 2));
+            // console.log("susut = " + round(perhitungan_susut, 2));
+            // console.log("adjust susut = " + round(perhitungan_adjust_susut, 2));
+            // console.log("presentase ks kg after adjust = " + round(perhitungan_prsentase_ks_kg_after_adjust_susut, 2));
+            // console.log("prsentase kg pk = " + round(perhitungan_prsentase_kg_pk, 2));
+            // console.log("adjust prosentase kg pk = " + round(perhitungan_adjust_prosentase_kg_pk, 2));
+            // console.log("presentase ks pk = " + round(perhitungan_presentase_ks_pk, 2));
+            // console.log("presentase putih = " + round(perhitungan_presentase_putih, 2));
+            // console.log("adjust prosentase kg ke putih = " + round(perhitungan_adjust_prosentase_kg_ke_putih, 2));
+            // console.log("plan rend dari ks beras = " + round(perhitungan_plan_rend_dari_ks_beras, 2));
+            // console.log("katul = " + round(perhitungan_katul, 2));
+            // console.log("refraksi broken = " + refraksi_broken.value);
+            // console.log("plan harga gabah = " + round(perhitungan_plan_harga_gabah, 1));
+            // console.log("hasil awal = " + harga_awal.value);
+            // console.log("hasil akhir = " + hasil);
+            // console.log("-----------------------------------------------------------------")
+            // console.log("perhitungan plan berat kg pertruk = " + plan_berat_kg_pertruk.value);
+            // console.log("perhitungan plan berat pk pertruk = " + plan_berat_pk_pertruk.value);
+            // console.log("perhitungan plan berat beras per truk = " + round(perhitungan_plan_berat_beras_pertruk, 0));
+            // console.log("plan harga gabah ongkos dryer = " + round(perhitungan_plan_harga_gabah_ongkos_dryer, 2));
+            // console.log("plan harga pk perkilo = " + round(perhitungan_plan_harga_pk_perkilo, 2));
+            // console.log("plan harga beras perkilo = " + plan_harga_beras_perkilo.value);
+            // console.log("plan total harga gabah pertruk = " + plan_total_harga_gabah_pertruk.value);
+            // console.log("plan total harga pk pertruk = " + round(perhitungan_plan_total_harga_pk_pertruk, 2));
+            // console.log("plan total harga beras pertruk = " + plan_total_harga_beras_pertruk.value);
+            // console.log("-----------------------------------------------------------------")
+            // console.log("Aktual Price + Ongkos Driyer Perkg = " + aktual_price_ongkos_driyer.value);
+            // console.log("Plan Harga Aktual per truk = " + round(perhitungan_plan_harga_aktual_pertruk, 0));
+            // console.log("Plan HPP Aktual = " + round(plan_hpp_aktual1, 2));
 
             plan_harga_gb.value = harga_awal.value;
             $('#result_harga_gb').html("Rp. " + formatRupiah(harga_awal.value, "Rp. "));

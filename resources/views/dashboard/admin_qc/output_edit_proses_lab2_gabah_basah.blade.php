@@ -314,7 +314,7 @@ SURYA PANGAN SEMESTA
                                 </div>
                             </div>
                             <div class="m-form__group form-group row">
-                                <label class="col-xl-3 col-lg-3 col-sm-3 col-form-label">Plan Harga Akhir - Rp.14 (Rp/Kg)</label>
+                                <label class="col-xl-3 col-lg-3 col-sm-3 col-form-label">Plan Harga Akhir</label>
                                 <div class="col-lg-1 col-xl-1 col-sm-1 col-form-label">
                                     :
                                 </div>
@@ -1028,7 +1028,8 @@ SURYA PANGAN SEMESTA
             harga_awal.value = harga_berdasarkan_harga_atas.value;
 
             var reaksi_harga = 0;
-            var potongan_bongkar_ngawi = 14;
+            // var potongan_bongkar_ngawi = 14;
+            var potongan_bongkar_ngawi = 0;
 
             hasil = harga_awal.value - potongan_bongkar_ngawi;
 

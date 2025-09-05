@@ -1445,7 +1445,7 @@ SURYA PANGAN SEMESTA
                                     <input type="hidden" id="batas_bid" value="{{$site_ngawi_longgrain->batas_bid}}">
                                     <p style="font-size: 10pt; text-align:center; color: rgb(110, 97, 209);"><b>{{$site_ngawi_longgrain->name_bid}}</b></p>
                                     <p style="font-size: 10pt; text-align:center; color: rgb(15, 15, 15);"><b>PO: {{date('d-m-Y', strtotime($site_ngawi_longgrain->open_po))}}</b><br>
-                                        <span class="badge badge bg-success" style="text-align:center;">SITE NGAWI</span><br>
+                                        <span style="color: #198754; font-size: 9pt; text-align:center; font-weight: bold;">SITE NGAWI</span><br>
                                         Batas Penerimaan
                                         <br>
                                         <br>

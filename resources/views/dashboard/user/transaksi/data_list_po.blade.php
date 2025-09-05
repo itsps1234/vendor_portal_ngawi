@@ -1424,128 +1424,119 @@
             @else
             @foreach($data as $data)
             <div class="col-12 pt-4 mb-3 wow fadeInUp" data-wow-delay="0.1s">
-                @if($data->status_bid >= '3' && $data->status_bid != '5' && $data->status_bid != '16')
-                <div class="position-relative rounded pt-5 pb-4 px-4" style="background-color: #dffde0;">
+                <div class="position-relative rounded pt-5 pb-4 px-4 bg-light">
                     <div class="d-inline-flex align-items-center justify-content-center bg-primary-gradient rounded-circle position-absolute top-0 start-50 translate-middle shadow" style="width:70px; height:70px;">
                         <i class="bi bi-clipboard-check text-white" style="font-size: 38px;"></i>
                     </div>
-                    <img style="transform: rotate(-0.05turn); margin-top: -15px; position: absolute; top: 0;right: 0; float:right" src="{{asset('img/po_success.png')}}" alt="" width="25%">
+                    @if($data->status_bid >= '3' && $data->status_bid != '5' && $data->status_bid != '16')
+                    <img style="transform: rotate(-0.05turn); margin-top: -10px; position: absolute; top: 0;right: 0; float:right" src="{{asset('img/po_success.png')}}" alt="" width="15%">
                     @elseif($data->status_bid=='5')
-                    <div class="position-relative rounded pt-5 pb-4 px-4" style="background-color: #fed1d1;">
-                        <div class="d-inline-flex align-items-center justify-content-center bg-primary-gradient rounded-circle position-absolute top-0 start-50 translate-middle shadow" style="width:70px; height:70px;">
-                            <i class="bi bi-clipboard-minus text-white" style="font-size: 38px;"></i>
-                        </div>
-                        <img style="transform: rotate(-0.05turn); margin-top: -15px; position: absolute; top: 0;right: 0; float:right" src="{{asset('img/po_closed.png')}}" alt="" width="25%">
-                        @else
-                        <div class="position-relative bg-light rounded pt-5 pb-4 px-4">
-                            <div class="d-inline-flex align-items-center justify-content-center bg-primary-gradient rounded-circle position-absolute top-0 start-50 translate-middle shadow" style="width:70px; height:70px;">
-                                <img src="{{asset('assets_user/assets/img/logo/icon_sps_white1.png')}}" class="rounded-circle" alt="" width="90%">
-                            </div>
-                            @endif
-                            <h6 class="mt-2 mb-3 text-center"><b>{{$data->name_bid}}</b></h6>
-                            <dl class="dl-horizontal row" style="font-size: smaller;">
-                                <dd class="col-3">No. PO</dd>
-                                <dd class="col-1">:</dd>
-                                <dd class="col-7" style="font-weight: bold;">{{getCode($data->kode_po)}}
-                                    <a data-id="{{$data->kode_po}}" type="button" class="" id="btn_liat_po" data-bs-toggle="offcanvas" data-bs-target="#view_po" aria-controls="view_po">
-                                        <h6>
-                                            <span class="badge bg-success">
-                                                <i class="fa fa-eye"></i>&nbsp;LIHAT
-                                            </span>
-                                        </h6>
-                                    </a>
-                                </dd>
-                                <dd class="col-3">Tanggal&nbsp;PO</dd>
-                                <dd class="col-1">:</dd>
-                                <dd class="col-7" style="font-weight: bold;">{{ \Carbon\Carbon::parse($data->open_po)->format('d-m-Y')}}</dd>
-
-                                <dd class="col-3">Tanggal Kedatangan</dd>
-                                <dd class="col-1">:</dd>
-                                <dd class="col-7" style="font-weight: bold;">
-                                    @if($data->waktu_penerimaan=='' || $data->waktu_penerimaan==NULL)
-                                    -
-                                    @else
-                                    {{Carbon\Carbon::parse($data->waktu_penerimaan)->format('d-m-Y')}}<br>
-                                    <h6>
-                                        <span class="badge bg-success">{{Carbon\Carbon::parse($data->waktu_penerimaan)->format('H:i:s')}}</span>
-                                    </h6>
-                                    @endif
-                                </dd>
-                                <dd class="col-3">Batas&nbsp;PO</dd>
-                                <dd class="col-1">:</dd>
-                                <dd class="col-7" style="font-weight: bold;">
-                                    {{Carbon\Carbon::parse($data->batas_bid)->format('d-m-Y')}}<br>
-                                    <h6><span class="badge bg-warning">12:00 WIB</span></h6>
-                                </dd>
-
-                                <dd class="col-3">Nopol</dd>
-                                <dd class="col-1">:</dd>
-                                <dd class="col-7" style="font-weight: bold;">
-                                    @if($data->plat_kendaraan=='' || $data->plat_kendaraan==NULL)
-                                    -
-                                    @else
-                                    {{$data->plat_kendaraan}}
-                                    @endif
-                                </dd>
-                                <dd class="col-3">Qty</dd>
-                                <dd class="col-1">:</dd>
-                                <dd class="col-7" style="font-weight: bold;">
-                                    @if($data->hasil_akhir_tonase=='' || $data->hasil_akhir_tonase==NULL)
-                                    -
-                                    @else
-                                    {{tonase($data->hasil_akhir_tonase)}}
-                                    @endif
-                                </dd>
-                                <dd class="col-3">Harga</dd>
-                                <dd class="col-1">:</dd>
-                                <dd class="col-7" style="font-weight: bold;">
-                                    @if($data->aksi_harga_gb=='DEAL')
-                                    <h3> <span class="badge bg-success">{{rupiah($data->harga_akhir_gb)}} /Kg</span></h3>
-                                    @else
-                                    -
-                                    @endif
-                                </dd>
-
-                                <dd class="col-3">Bukti&nbsp;PO</dd>
-                                <dd class="col-1">:</dd>
-                                <dd class="col-7" style="font-weight: bold;">
-                                    @if ($data->status_bid == 5)
-                                    <p>-</p>
-                                    @else
-                                    <a href="{{url('user/cetak_po',$data->id_data_po)}}" id="btn_cetak_po" name="" title="Cetak PO" class=" btn btn-sm btn-primary">
-                                        <i class="fa fa-print" style="color:white;"> Cetak PO </i>
-                                    </a>
-                                    <a href="{{url('user/scan_po',$data->id_data_po)}}" id="btn_scan_po" target="_blank" name="" title="Scan PO" class=" btn btn-sm btn-danger">
-                                        <i class="fa fa-qrcode" style="color:white;"> Scan PO </i>
-                                    </a>
-                                    @endif
-                                </dd>
-                            </dl>
-                        </div>
-                    </div>
-                    @endforeach
+                    <img style="transform: rotate(-0.05turn); margin-top: -10px; position: absolute; top: 0;right: 0; float:right" src="{{asset('img/po_closed.png')}}" alt="" width="15%">
+                    @else
                     @endif
+                    <h6 class="mt-2 mb-3 text-center"><b>{{$data->name_bid}}</b></h6>
+                    <dl class="dl-horizontal row" style="font-size: smaller;">
+                        <dd class="col-3">No. PO</dd>
+                        <dd class="col-1">:</dd>
+                        <dd class="col-7" style="font-weight: bold;">{{getCode($data->kode_po)}}
+                            <br>
+                            <a data-id="{{$data->kode_po}}" type="button" class="" id="btn_liat_po" data-bs-toggle="offcanvas" data-bs-target="#view_po" aria-controls="view_po">
+                                <span class="badge bg-primary">
+                                    <i class="fa fa-eye"></i>&nbsp;LIHAT
+                                </span>
+                            </a>
+                        </dd>
+                        <dd class="col-3">Tanggal&nbsp;PO</dd>
+                        <dd class="col-1">:</dd>
+                        <dd class="col-7" style="font-weight: bold;">{{ \Carbon\Carbon::parse($data->open_po)->format('d-m-Y')}}</dd>
+
+                        <dd class="col-3">Tanggal Kedatangan</dd>
+                        <dd class="col-1">:</dd>
+                        <dd class="col-7" style="font-weight: bold;">
+                            @if($data->waktu_penerimaan=='' || $data->waktu_penerimaan==NULL)
+                            -
+                            @else
+                            {{Carbon\Carbon::parse($data->waktu_penerimaan)->format('d-m-Y')}}<br>
+
+                            <span style="font-size: 8pt; color:#198754;">{{Carbon\Carbon::parse($data->waktu_penerimaan)->format('H:i')}} WIB</span>
+
+                            @endif
+                        </dd>
+                        <dd class="col-3">Batas&nbsp;PO</dd>
+                        <dd class="col-1">:</dd>
+                        <dd class="col-7" style="font-weight: bold;">
+                            {{Carbon\Carbon::parse($data->batas_bid)->format('d-m-Y')}}<br>
+                            <span style="font-size: 8pt; color:#F08080;">12:00 WIB</span>
+                        </dd>
+
+                        <dd class="col-3">Nopol</dd>
+                        <dd class="col-1">:</dd>
+                        <dd class="col-7" style="font-weight: bold;">
+                            @if($data->plat_kendaraan=='' || $data->plat_kendaraan==NULL)
+                            -
+                            @else
+                            {{$data->plat_kendaraan}}
+                            @endif
+                        </dd>
+                        <dd class="col-3">Qty</dd>
+                        <dd class="col-1">:</dd>
+                        <dd class="col-7" style="font-weight: bold;">
+                            @if($data->hasil_akhir_tonase=='' || $data->hasil_akhir_tonase==NULL)
+                            -
+                            @else
+                            {{tonase($data->hasil_akhir_tonase)}}
+                            @endif
+                        </dd>
+                        <dd class="col-3">Harga</dd>
+                        <dd class="col-1">:</dd>
+                        <dd class="col-7" style="font-weight: bold;">
+                            @if($data->aksi_harga_gb=='DEAL')
+                            <h3> <span class="badge bg-success">{{rupiah($data->harga_akhir_gb)}} /Kg</span></h3>
+                            @else
+                            -
+                            @endif
+                        </dd>
+
+                        <dd class="col-3">Bukti&nbsp;PO</dd>
+                        <dd class="col-1">:</dd>
+                        <dd class="col-7" style="font-weight: bold;">
+                            @if ($data->status_bid == 5)
+                            <span style="font-size: 8pt; color:#F08080;">PO CLOSED</span>
+                            @else
+                            <a href="{{url('user/cetak_po',$data->id_data_po)}}" id="btn_cetak_po" name="" title="Cetak PO" class=" btn btn-sm btn-outline-primary">
+                                <i class="fa fa-print"> </i>
+                            </a>
+                            <a href="{{url('user/scan_po',$data->id_data_po)}}" id="btn_scan_po" target="_blank" name="" title="Scan PO" class=" btn btn-sm btn-outline-danger">
+                                <i class="fa fa-qrcode"></i>
+                            </a>
+                            @endif
+                        </dd>
+                    </dl>
                 </div>
             </div>
+            @endforeach
+            @endif
         </div>
-        <!-- Features End -->
-        <div class="offcanvas offcanvas-bottom" style="box-shadow: 3px 3px 20px; border-radius: 20px 20px 0px 0px; height: max-content;" tabindex="-1" id="view_po">
-            <div class="offcanvas-body small">
-                <div class="text-center mb-3">
-                    <div id="lottie-animation" style="width: 80px; height: 80px; margin: auto;">
-                    </div>
-                    <h6 id="view_kode_po">
-
-                    </h6>
-                </div>
-            </div>
-        </div>
-
-
-        @include('dashboard.user.layouts.menu')
     </div>
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-lg-square back-to-top mb-5 pt-2"><i class="bi bi-arrow-up text-white"></i></a>
+</div>
+<!-- Features End -->
+<div class="offcanvas offcanvas-bottom" style="box-shadow: 3px 3px 20px; border-radius: 20px 20px 0px 0px; height: max-content;" tabindex="-1" id="view_po">
+    <div class="offcanvas-body small">
+        <div class="text-center mb-3">
+            <div id="lottie-animation" style="width: 40px; height: 40px; margin: auto;">
+            </div>
+            <h6 id="view_kode_po">
+
+            </h6>
+        </div>
+    </div>
+</div>
+
+
+@include('dashboard.user.layouts.menu')
+</div>
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-lg-square back-to-top mb-5 pt-2"><i class="bi bi-arrow-up text-white"></i></a>
 </div>
 @endsection
 @section('js')

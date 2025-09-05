@@ -1437,17 +1437,19 @@
                         <dd class="col-3">Waktu Lelang</dd>
                         <dd class="col-1">:</dd>
                         <dd class="col-8" style="font-weight: bold;">
-                            {{date('d-m-Y', strtotime($data->date_bid))}}<br><span class="badge bg-info">Open Lelang 08:00</span>
+                            {{date('d-m-Y', strtotime($data->date_bid))}}<br><span style="font-size: 8pt; color:#198754;">Open 08:00 WIB</span>
                         </dd>
                         <dd class="col-3">Tanggal&nbsp;PO</dd>
                         <dd class="col-1">:</dd>
                         <dd class="col-7" style="font-weight: bold;">{{ \Carbon\Carbon::parse($data->tanggal_po)->format('d-m-Y')}}</dd>
                         <dd class="col-3">Waktu Pengajuan</dd>
                         <dd class="col-1">:</dd>
-                        <dd class="col-7" style="font-weight: bold;">{{date('d-m-Y', strtotime($data->date_biduser))}}<br><span class="badge bg-success">{{date('H:i:s', strtotime($data->date_biduser))}}</span></dd>
+                        <dd class="col-7" style="font-weight: bold;">{{date('d-m-Y', strtotime($data->date_biduser))}}<br><span style="font-size: 8pt; color:#198754;">{{date('H:i', strtotime($data->date_biduser))}} WIB</span></dd>
                         <dd class="col-3">Batas Permintaan</dd>
                         <dd class="col-1">:</dd>
-                        <dd class="col-7" style="font-weight: bold;">{{date('d-m-Y', strtotime($data->batas_bid))}}<br><span class="badge bg-warning">Batas 12:00</span></dd>
+                        <dd class="col-7" style="font-weight: bold;">{{date('d-m-Y', strtotime($data->batas_bid))}}<br>
+                            <p style="font-size: 8pt; color:#F08080;">Batas 12:00 WIB</p>
+                        </dd>
                         <dd class="col-3">Jumlah Pengajuan</dd>
                         <dd class="col-1">:</dd>
                         <dd class="col-7" style="font-weight: bold;">{{$data->jumlah_kirim}} Truk</dd>
@@ -1457,12 +1459,12 @@
                             <h6>
                                 @if ($data->permintaan_kirim == '')
                                 @if(date('YmdHis', strtotime($data->batas_bid)) < date('YmdHis', strtotime($time)))
-                                    <span class="btn btn-sm btn-danger" id="btn_lelang_berakhir" data-bs-toggle="offcanvas" data-bs-target="#notif_lelang_berakhir" aria-controls="notif_lelang_berakhir">Lelang Berakhir</span>
+                                    <span class="btn btn-sm btn-outline-danger" id="btn_lelang_berakhir" data-bs-toggle="offcanvas" data-bs-target="#notif_lelang_berakhir" aria-controls="notif_lelang_berakhir">Lelang Berakhir</span>
                                     @else
-                                    <span class="btn btn-sm btn-info" id="btn_dalam_pengajuan" data-bs-toggle="offcanvas" data-bs-target="#notif_dalam_pengajuan" aria-controls="notif_dalam_pengajuan">Dalam Pengajuan</span>
+                                    <span class="btn btn-sm btn-outline-info" id="btn_dalam_pengajuan" data-bs-toggle="offcanvas" data-bs-target="#notif_dalam_pengajuan" aria-controls="notif_dalam_pengajuan">Dalam Pengajuan</span>
                                     @endif
                                     @elseif ($data->permintaan_kirim == '0')
-                                    <span class="btn btn-sm btn-danger">0 Truk</span>
+                                    <span class="btn btn-sm btn-outline-danger">0 Truk</span>
                                     @else
                                     <a id="btn_klik" href="{{route('user.data_list_po', ['id' => $data->id_biduser])}}" name="{{$data->id_approvebid}}" title="Lihat PO" class="lihat_po btn btn-outline-primary btn-sm">
                                         <i class=""> </i> {{$data->permintaan_kirim}} Truk
@@ -1483,7 +1485,7 @@
                                     <span class="btn btn-sm btn-outline-info" id="btn_dalam_pengajuan" data-bs-toggle="offcanvas" data-bs-target="#notif_dalam_pengajuan" aria-controls="notif_dalam_pengajuan">Dalam Pengajuan</span>
                                     @endif
                                     @elseif ($data->permintaan_ditolak == '0')
-                                    <span class="btn btn-sm btn-outline-danger">0 Truk</span>
+                                    <span style="color:#F08080;"> 0 Truk</span>
                                     @else
                                     <a href="javascript:void(0);" name="{{$data->id_approvebid}}" title="Lihat PO" class="lihat_po btn btn-outline-danger btn-sm">
                                         <i class=""> </i> {{$data->permintaan_ditolak}} Truk

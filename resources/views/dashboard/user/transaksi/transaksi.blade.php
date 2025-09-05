@@ -1441,11 +1441,9 @@
                         <dd class="col-1">:</dd>
                         <dd class="col-7" style="font-weight: bold;">
                             {{ \Carbon\Carbon::parse($data->date_bid)->format('d-m-Y')}}<br>
-                            <h6>
-                                <span class="badge bg-info">
-                                    Open Lelang 08:00
-                                </span>
-                            </h6>
+                            <span style="font-size: 8pt; color:#0d6efd;">
+                                Open Lelang 08:00 WIB
+                            </span>
                         </dd>
                     </dl>
                     <dl class="dl-horizontal row" style="font-size: smaller;">
@@ -1457,22 +1455,17 @@
                         <dd class="col-3">Waktu Pengajuan</dd>
                         <dd class="col-1">:</dd>
                         <dd class="col-7" style="font-weight: bold;">{{date('Y-m-d', strtotime($data->date_biduser))}}<br>
-                            <h6>
-                                <span class="badge bg-success">
-                                    {{date('H:i:s', strtotime($data->date_biduser))}}
-
-                                </span>
-                            </h6>
+                            <span style="font-size: 8pt; color:#198754;">
+                                {{date('H:i', strtotime($data->date_biduser))}} WIB
+                            </span>
                         </dd>
                     </dl>
                     <dl class="dl-horizontal row" style="font-size: smaller;">
                         <dd class="col-3">Batas Permintaan</dd>
                         <dd class="col-1">:</dd>
-                        <dd class="col-7" style="font-weight: bold;">{{date('Y-m-d', strtotime($data->batas_bid))}}<br>
-                            <h6>
+                        <dd class="col-7" style="font-weight: bold;">{{date('d-m-Y', strtotime($data->batas_bid))}}<br>
 
-                                <span class="badge bg-warning">Batas 12:00</span>
-                            </h6>
+                            <span style="font-size: 8pt; color:#F08080;">Batas 12:00 WIB</span>
                         </dd>
                     </dl>
                     <dl class="dl-horizontal row" style="font-size: smaller;">
@@ -1486,9 +1479,9 @@
                         <dd class="col-7" style="font-weight: bold;">
                             <h6>
                                 @if ($data->permintaan_kirim == '')
-                                <span class="btn btn-sm btn-info">Dalam Pengajuan</span>
+                                <span style="font-size: 11pt; color: #0d6efd;">Dalam Pengajuan</span>
                                 @elseif ($data->permintaan_kirim == '0')
-                                <span class="btn btn-sm btn-danger">0 Truk</span>
+                                <span style="font-size: 11pt; color: #0d6efd;">0 Truk</span>
                                 @else
                                 <a id="btn_klik" href="{{route('user.data_list_po', ['id' => $data->id_biduser])}}" name="{{$data->id_approvebid}}" title="Lihat PO" class="lihat_po btn btn-info btn-sm">
                                     <i class=""> </i> {{$data->permintaan_kirim}} Truk
@@ -1503,23 +1496,23 @@
                         <dd class="col-7" style="font-weight: bold;">
                             <h6>
                                 @if ($data->status_biduser == 1)
-                                <a id="btn_disetujui" name="' . $data->user_id . '" data-jumlahkirim="' . $data->jumlah_kirim . '" data-idnyabid="' . $data->id_bid . '" title="Disetujui" class=" btn btn-sm btn-success">
+                                <a id="btn_disetujui" name="' . $data->user_id . '" data-jumlahkirim="' . $data->jumlah_kirim . '" data-idnyabid="' . $data->id_bid . '" title="Disetujui" class=" btn btn-sm btn-outline-success">
                                     <i class="bi bi-check"> Disetujui </i>
                                 </a>
                                 @elseif ($data->status_biduser == 5)
-                                <a id="btn_ditolak" name="" title="Ditolak" class=" btn btn-sm btn-danger">
+                                <a id="btn_ditolak" name="" title="Ditolak" class=" btn btn-sm btn-outline-danger">
                                     <i class="bi bi-dash"> Ditolak </i>
                                 </a>
                                 @elseif ($data->status_biduser == 3)
-                                <a id="btn_disetujui" name="' . $data->user_id . '" data-jumlahkirim="' . $data->jumlah_kirim . '" data-idnyabid="' . $data->id_bid . '" title="Disetujui" class=" btn btn-sm btn-success">
+                                <a id="btn_disetujui" name="' . $data->user_id . '" data-jumlahkirim="' . $data->jumlah_kirim . '" data-idnyabid="' . $data->id_bid . '" title="Disetujui" class=" btn btn-sm btn-outline-success">
                                     <i class="bi bi-check"> Disetujui </i>
                                 </a>
                                 @elseif ($data->status_biduser == 4)
-                                <a name="' . $data->id_biduser . '" title="Pengiriman Telat" class="btn btn-sm btn-warning">
+                                <a name="' . $data->id_biduser . '" title="Pengiriman Telat" class="btn btn-sm btn-outline-warning">
                                     <i class="bi bi-clipboard-minus-fill"> Proses Pengiriman Telat </i>
                                 </a>
                                 @elseif ($data->status_biduser == 0)
-                                <a id="btn_pengajuan" title="Proses lelang" class=" btn btn-sm btn-info">
+                                <a id="btn_pengajuan" title="Proses lelang" class=" btn btn-sm btn-outline-info">
                                     <i class="bi bi-arrow-clockwise"> Pengajuan </i>
                                 </a>
                                 @endif
@@ -1535,13 +1528,20 @@
                     <div class="d-inline-flex align-items-center justify-content-center bg-primary-gradient rounded-circle position-absolute top-0 start-50 translate-middle shadow" style="width:70px; height:70px;">
                         <i class="bi bi-credit-card text-white" style="font-size: 36px;"></i>
                     </div>
+                    @if($data->status_bid >= '3' && $data->status_bid != '5' && $data->status_bid != '16')
+                    <img style="transform: rotate(-0.05turn); margin-top: -10px; position: absolute; top: 0;right: 0; float:right" src="{{asset('img/po_success.png')}}" alt="" width="15%">
+                    @elseif($data->status_bid=='5')
+                    <img style="transform: rotate(-0.05turn); margin-top: -10px; position: absolute; top: 0;right: 0; float:right" src="{{asset('img/po_closed.png')}}" alt="" width="15%">
+                    @else
+                    @endif
                     <h6 class="mt-2 mb-3 text-center"><b>{{$data->name_bid}}</b></h6>
                     <dl class="dl-horizontal row" style="font-size: smaller;">
                         <dd class="col-3">No. PO</dd>
                         <dd class="col-1">:</dd>
                         <dd class="col-7" style="font-weight: bold;">{{getCode($data->kode_po)}}
+                            <br>
                             <a data-id="{{$data->kode_po}}" class="" id="btn_liat_po">
-                                <span class="badge bg-success">
+                                <span class="badge bg-primary">
                                     <i class="fa fa-eye"></i>&nbsp;LIHAT
                                 </span>
                             </a>
@@ -1555,15 +1555,14 @@
                             @if($data->waktu_penerimaan=='' || $data->waktu_penerimaan==NULL)
                             -
                             @else
-                            {{Carbon\Carbon::parse($data->waktu_penerimaan)->format('d-m-Y')}}<br><span class="btn-success">{{Carbon\Carbon::parse($data->waktu_penerimaan)->format('H:i:s')}}</span>
+                            {{Carbon\Carbon::parse($data->waktu_penerimaan)->format('d-m-Y')}}<br><span style="font-size: 8pt; color:#198754;">{{Carbon\Carbon::parse($data->waktu_penerimaan)->format('H:i')}} WIB</span>
                             @endif
                         </dd>
                         <dd class="col-3">Batas&nbsp;PO</dd>
                         <dd class="col-1">:</dd>
                         <dd class="col-7" style="font-weight: bold;">
                             {{Carbon\Carbon::parse($data->batas_bid)->format('d-m-Y')}}<br>
-                            <h6><span class="badge bg-warning">12:00 WIB</span>
-                            </h6>
+                            <span style="font-size: 8pt; color:#F08080;">12:00 WIB</span>
                         </dd>
                         <dd class="col-3">Nopol</dd>
                         <dd class="col-1">:</dd>
@@ -1596,18 +1595,13 @@
                         <dd class="col-1">:</dd>
                         <dd class="col-7" style="font-weight: bold;">
                             @if ($data->status_bid == 5)
-                            <button onclick="return false;" name="" title="Cetak PO" class=" btn btn-sm btn-primary">
-                                <i class="fa fa-print" style="color:white;"> Cetak </i>
-                            </button>
-                            <button onclick="return false;" name="" title="Scan PO" class=" btn btn-sm btn-info">
-                                <i class="fa fa-qrcode" style="color:white;"> Scan </i>
-                            </button>
+                            <span style="font-size: 8pt; color:#F08080;"> PO CLOSED</span>
                             @else
-                            <button data-id="{{$data->id_data_po}}" id="btn_cetak_po" name="" title="Cetak PO" class=" btn btn-sm btn-primary">
-                                <i class="bi bi-printer" style="color:white;"></i>
+                            <button data-id="{{$data->id_data_po}}" id="btn_cetak_po" name="" title="Cetak PO" class=" btn btn-sm btn-outline-primary">
+                                <i class="bi bi-printer"></i>
                             </button>
-                            <button data-id="{{$data->kode_po}}" id="btn_scan_po" title="Scan PO" class=" btn btn-sm btn-danger">
-                                <i class="bi bi-qr-code-scan" style="color:white;"></i>
+                            <button data-id="{{$data->kode_po}}" id="btn_scan_po" title="Scan PO" class=" btn btn-sm btn-outline-danger">
+                                <i class="bi bi-qr-code-scan"></i>
                             </button>
                             @endif
                         </dd>
@@ -1633,11 +1627,11 @@
                 </div>
             </div>
         </div>
-        <div class="offcanvas offcanvas-bottom" style="box-shadow: 3px 3px 20px; border-radius: 20px 20px 0px 0px; height: 50%;" tabindex="-1" id="notif-scan" aria-labelledby="offcanvasBottomLabel">
+        <div class="offcanvas offcanvas-bottom" style="box-shadow: 3px 3px 20px; border-radius: 20px 20px 0px 0px; height: 30%;" tabindex="-1" id="notif-scan" aria-labelledby="offcanvasBottomLabel">
             <div class="offcanvas-body small">
                 <div class="text-center">
                     <h5>Scan PO Disini </h5>
-                    <div id="qrcode-scan" style="margin: auto;"></div>
+                    <div id="qrcode-scan" class="d-flex flex-column align-items-center" style="display: block; margin: auto;"></div>
                     <h6 id="po-number"></h6>
                 </div>
             </div>

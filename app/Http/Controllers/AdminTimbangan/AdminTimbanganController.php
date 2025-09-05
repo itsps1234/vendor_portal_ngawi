@@ -2259,7 +2259,9 @@ class AdminTimbanganController extends Controller
             ->where('penerimaan_po.tonase_akhir', '=', NULL)
             ->where('data_qc_bongkar.status_bongkar', 'FINISH')
             ->where('bid.name_bid', '=', 'GABAH BASAH LONG GRAIN')
-            ->orderBy('id_penerimaan_po', 'asc')->get())
+            ->orderBy('id_penerimaan_po', 'asc')
+            ->select('data_po.*', 'bid.name_bid', 'users.name', 'users.nama_vendor', 'penerimaan_po.id_penerimaan_po', 'penerimaan_po.tonase_awal', 'penerimaan_po.plat_kendaraan', 'penerimaan_po.tonase_akhir')
+            ->get())
             ->addColumn('name_bid', function ($list) {
                 $result = $list->name_bid;
                 return $result;
@@ -2279,7 +2281,7 @@ class AdminTimbanganController extends Controller
                 return $result;
             })
             ->addColumn('tanggal_po', function ($list) {
-                $result = $list->open_po;
+                $result = $list->tanggal_po;
                 return $result;
             })
             ->addColumn('tonase_awal', function ($list) {

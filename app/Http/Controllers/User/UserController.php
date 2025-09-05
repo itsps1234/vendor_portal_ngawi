@@ -347,12 +347,13 @@ class UserController extends Controller
     public function getcount_notifikasi(Request $request)
     {
         $date = date('Y-m-d');
+        $date_biduser = date('Y-m-d 23:59:00');
         $id = Auth::user()->id;
         $data_pengajuan = Biduser::Join('users', 'users.id', '=', 'bid_user.user_id')
             ->Join('bid', 'bid.id_bid', '=', 'bid_user.bid_id')
             ->where('bid_user.user_id', $id)
             ->where('bid_user.status_biduser', 0)
-            ->where('bid.open_po', '>=', $date)
+            ->where('bid_user.date_biduser', '>=', $date_biduser)
             ->select('users.*', 'bid.*', 'bid_user.*')
             ->orderBy('id_biduser', 'desc')
             ->count();
@@ -381,7 +382,7 @@ class UserController extends Controller
                 '=',
                 'data_po.kode_po'
             )
-            ->where('data_po.tanggal_po', '>=', $date)
+            ->where('data_po.tanggal_bongkar', '>=', $date)
             ->where('data_po.user_idbid', $id)
             ->orderBy('data_po.id_data_po', 'DESC')
             ->count();
@@ -3396,6 +3397,7 @@ Berlaku 4 Menit",
     public function transaksi()
     {
         $date = date('Y-m-d');
+        $date_biduser = date('Y-m-d 23:59:00');
         if (Auth::check()) {
             $id = Auth::user()->id;
             $data_pengajuan = Biduser::Join('users', 'users.id', '=', 'bid_user.user_id')
@@ -3403,7 +3405,8 @@ Berlaku 4 Menit",
                 ->where('bid_user.user_id', $id)
                 ->where('bid_user.status_biduser', 0)
                 ->where('bid.bid_status', '1')
-                ->select('users.nama_vendor', 'bid.*', 'bid_user.*')
+                ->where('bid_user.date_biduser', '>=', $date_biduser)
+                ->select('users.nama_vendor', 'users.id', 'bid.*', 'bid_user.*')
                 ->orderBy('id_biduser', 'desc')
                 ->get();
             // dd($data_pengajuan);
@@ -3432,7 +3435,7 @@ Berlaku 4 Menit",
                     '=',
                     'data_po.kode_po'
                 )
-                ->where('bid.bid_status', '1')
+                ->where('data_po.tanggal_bongkar', '>=', $date)
                 ->where('data_po.user_idbid', $id)
                 ->orderBy('data_po.id_data_po', 'DESC')
                 ->get();
@@ -3459,10 +3462,10 @@ Berlaku 4 Menit",
                 '=',
                 'bid_user.id_biduser'
             )
-            ->select('users.*', 'bid.*', 'bid_user.*', 'approve_bid.*')
             ->where('users.id', $id)
-            ->orderBy('date_biduser', 'desc')
             ->limit(10)
+            ->orderBy('bid_user.id_biduser', 'DESC')
+            ->select('users.id', 'users.vendorid', 'users.name', 'bid.name_bid', 'bid.date_bid', 'bid.batas_bid', 'bid.id_bid', 'bid_user.*', 'approve_bid.*')
             ->get();
         // dd($data);
         return view(
