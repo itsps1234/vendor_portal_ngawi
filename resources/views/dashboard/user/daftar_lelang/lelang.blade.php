@@ -1473,9 +1473,9 @@ SURYA PANGAN SEMESTA
                     </div>
                 </a>
                 @endforeach
+                <br>
+                <br>
                 @foreach ($site_ngawi_pandanwangi as $site_ngawi_pandanwangi)
-                <br>
-                <br>
                 <a id="btn_lelang_detail" href="{{url('user/lelang_detail/'.$site_ngawi_pandanwangi->id_bid)}}">
                     <div class="card wow fadeInUp" data-wow-delay="0.1s" style="box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;border-radius: 15px; padding: 10;">
                         <div class="card-body" style="padding: 5; margin: 0;">
@@ -1507,6 +1507,48 @@ SURYA PANGAN SEMESTA
                         </div>
                         <div class="notif_status">
                             @if ($site_ngawi_pandanwangi->bid_status == 1)
+                            <h6>
+                                BUKA
+                            </h6>
+                            @else
+                            TUTUP
+                            @endif
+                        </div>
+                    </div>
+                </a>
+                @endforeach
+                @foreach ($site_other as $site_other)
+                <a id="btn_lelang_detail" href="{{url('user/lelang_detail/'.$site_other->id_bid)}}">
+                    <div class="card wow fadeInUp" data-wow-delay="0.1s" style="box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;border-radius: 15px; padding: 10;">
+                        <div class="card-body" style="padding: 5; margin: 0;">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="logo-icon">
+                                        <img class="img_gabah" src="{{asset('img_gabah.png')}}" alt="...">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <input type="hidden" id="batas_bid" value="{{$site_other->batas_bid}}">
+                                    <p style="font-size: 10pt; text-align:center; color: rgb(31, 148, 70);"><b>{{$site_other->name_bid}}</b></p>
+                                    <p style="font-size: 10pt; text-align:center; color: rgb(15, 15, 15);"><b>PO: {{date('d-m-Y', strtotime($site_other->open_po))}}</b><br>
+                                        <span class="badge badge bg-success" style="text-align:center;">SITE NGAWI</span><br>
+                                        Batas Penerimaan
+                                        <br>
+                                        <br>
+                                        <span class="day" style="background-color:rgb(31, 148, 70); color: #fff; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;"></span>
+                                        <span class="text-countdown">Hari</span>
+                                        <span class="hour" style="background-color:rgb(31, 148, 70); color: #fff; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;"></span>
+                                        <span class="text-countdown">Jam</span>
+                                        <span class="min" style="background-color:rgb(31, 148, 70); color: #fff; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;"></span>
+                                        <span class="text-countdown">Menit</span>
+                                        <span class="sec" style="background-color:rgb(31, 148, 70); color: #fff; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;"></span>
+                                        <span class="text-countdown">Detik</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="notif_status">
+                            @if ($site_other->bid_status == 1)
                             <h6>
                                 BUKA
                             </h6>

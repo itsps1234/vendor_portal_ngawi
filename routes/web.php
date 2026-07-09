@@ -848,6 +848,7 @@ Route::prefix('qc')->name('qc.')->group(function () {
         Route::get('/spv/output_lab1_gb_pandan_wangi_index', [SpvQcAdminController::class, 'output_lab1_gb_pandan_wangi_index'])->name('spv.output_lab1_gb_pandan_wangi_index');
         Route::get('/spv/output_lab1_gb_ketan_putih_index', [SpvQcAdminController::class, 'output_lab1_gb_ketan_putih_index'])->name('spv.output_lab1_gb_ketan_putih_index');
         Route::get('/spv/output_lab1_pk_index', [SpvQcAdminController::class, 'output_lab1_pk_index'])->name('spv.output_lab1_pk_index');
+        Route::get('/spv/output_lab1_pk_new_index', [SpvQcAdminController::class, 'output_lab1_pk_new_index'])->name('spv.output_lab1_pk_new_index');
         Route::get('/spv/approve_lab1_gb/{id?}', [SpvQcAdminController::class, 'approve_lab1_gb'])->name('spv.approve_lab1_gb');
         Route::get('/spv/count_outputlab1_gb', [SpvQcAdminController::class, 'count_outputlab1_gb'])->name('spv.count_outputlab1_gb');
         Route::get('/spv/count_outputlab2_gb', [SpvQcAdminController::class, 'count_outputlab2_gb'])->name('spv.count_outputlab2_gb');
@@ -869,10 +870,15 @@ Route::prefix('qc')->name('qc.')->group(function () {
         Route::get('/spv/output_lab2_gb_pandan_wangi_index', [SpvQcAdminController::class, 'output_lab2_gb_pandan_wangi_index'])->name('spv.output_lab2_gb_pandan_wangi_index');
         Route::get('/spv/output_lab2_gb_ketan_putih_index', [SpvQcAdminController::class, 'output_lab2_gb_ketan_putih_index'])->name('spv.output_lab2_gb_ketan_putih_index');
         Route::get('/spv/output_lab2_pk_index', [SpvQcAdminController::class, 'output_lab2_pk_index'])->name('spv.output_lab2_pk_index');
+        Route::get('/spv/output_lab2_pk_new_index', [SpvQcAdminController::class, 'output_lab2_pk_new_index'])->name('spv.output_lab2_pk_new_index');
         Route::get('/spv/approve_lab2_gb/{id?}', [SpvQcAdminController::class, 'approve_lab2_gb'])->name('spv.approve_lab2_gb');
         Route::get('/spv/pilih_kategori_reguler/{id?}', [SpvQcAdminController::class, 'pilih_kategori_reguler'])->name('spv.pilih_kategori_reguler');
         Route::get('/spv/pilih_kategori_bulog/{id?}', [SpvQcAdminController::class, 'pilih_kategori_bulog'])->name('spv.pilih_kategori_bulog');
         Route::get('/spv/approve_lab2_gb/{id?}', [SpvQcAdminController::class, 'approve_lab2_gb'])->name('spv.approve_lab2_gb');
+
+        // Update Harga Akhir
+        Route::post('/spv/update_harga_lab2_gb', [SpvQcAdminController::class, 'update_harga_lab2_gb'])->name('spv.update_harga_lab2_gb');
+
         Route::get('/spv/approve_lab2_pk/{id?}', [SpvQcAdminController::class, 'approve_lab2_pk'])->name('spv.approve_lab2_pk');
         Route::post('/spv/update_harga_akhir_gb', [SpvQcAdminController::class, 'update_harga_akhir_gb'])->name('spv.update_harga_akhir_gb');
         Route::post('/spv/update_harga_akhir_pk', [SpvQcAdminController::class, 'update_harga_akhir_pk'])->name('spv.update_harga_akhir_pk');
@@ -1004,6 +1010,7 @@ Route::prefix('ap')->name('ap.')->group(function () {
         Route::get('/data_pembelian_gb_pandan_wangi_index', [AdminAPController::class, 'data_pembelian_gb_pandan_wangi_index'])->name('data_pembelian_gb_pandan_wangi_index');
         Route::get('/data_pembelian_gb_ketan_putih_index', [AdminAPController::class, 'data_pembelian_gb_ketan_putih_index'])->name('data_pembelian_gb_ketan_putih_index');
         Route::get('/data_pembelian_pk_index', [AdminAPController::class, 'data_pembelian_pk_index'])->name('data_pembelian_pk_index');
+        Route::get('/data_pembelian_pk_verified_index', [AdminAPController::class, 'data_pembelian_pk_verified_index'])->name('data_pembelian_pk_verified_index');
         Route::get('/getcount_notifmenuall', [AdminAPController::class, 'getcount_notifmenuall'])->name('getcount_notifmenuall');
         Route::get('/count_data_verified', [AdminAPController::class, 'count_data_verified'])->name('count_data_verified');
         Route::get('/getcount_verified', [AdminAPController::class, 'getcount_verified'])->name('getcount_verified');
@@ -1076,6 +1083,8 @@ Route::prefix('ap')->name('ap.')->group(function () {
 
         Route::post('/spv/download_data_faktur_pemebelian_aol', [AdminSpvApController::class, 'download_data_faktur_pemebelian_aol'])->name('spv.download_data_faktur_pemebelian_aol');
         Route::post('/spv/download_data_faktur_pemebelian_aol1', [AdminSpvApController::class, 'download_data_faktur_pemebelian_aol1'])->name('spv.download_data_faktur_pemebelian_aol1');
+        Route::post('/spv/download_data_faktur_pemebelian_pk_aol', [AdminSpvApController::class, 'download_data_faktur_pemebelian_pk_aol'])->name('spv.download_data_faktur_pemebelian_pk_aol');
+        Route::post('/spv/download_data_faktur_pemebelian_pk_aol1', [AdminSpvApController::class, 'download_data_faktur_pemebelian_pk_aol1'])->name('spv.download_data_faktur_pemebelian_pk_aol1');
         Route::get('/getnotifikasispvap', [AdminSpvApController::class, 'get_notifikasispvap'])->name('spv.get_notifikasispvap');
         Route::get('/spv/get_notif_spvap_all', [AdminSpvApController::class, 'get_notif_spvap_all'])->name('spv.get_notif_spvap_all');
         Route::get('/spv/get_notif_spvap_all_index', [AdminSpvApController::class, 'get_notif_spvap_all_index'])->name('spv.get_notif_spvap_all_index');
@@ -1287,6 +1296,7 @@ Route::prefix('sourching')->name('sourching.')->group(function () {
         Route::get('/data_sourching_deal_gb_pandan_wangi_index', [SuperadminController::class, 'data_sourching_deal_gb_pandan_wangi_index'])->name('data_sourching_deal_gb_pandan_wangi_index');
         Route::get('/data_sourching_deal_gb_ketan_putih_index', [SuperadminController::class, 'data_sourching_deal_gb_ketan_putih_index'])->name('data_sourching_deal_gb_ketan_putih_index');
         Route::get('/data_sourching_deal_pk_index', [SuperadminController::class, 'data_sourching_deal_pk_index'])->name('data_sourching_deal_pk_index');
+        Route::get('/data_sourching_deal_pk_new_index', [SuperadminController::class, 'data_sourching_deal_pk_new_index'])->name('data_sourching_deal_pk_new_index');
 
         // Nego
         Route::get('/data_sourching_nego', [SuperadminController::class, 'data_sourching_nego'])->name('data_sourching_nego');

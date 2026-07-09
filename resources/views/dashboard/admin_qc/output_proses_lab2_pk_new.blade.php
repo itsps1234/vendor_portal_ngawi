@@ -1,4 +1,4 @@
-@extends('dashboard.admin_master.layout.main')
+@extends('dashboard.admin_qc.layout.main')
 @section('title')
 SURYA PANGAN SEMESTA
 @endsection
@@ -9,16 +9,26 @@ SURYA PANGAN SEMESTA
         <div class="kt-container  kt-container--fluid ">
             <div class="kt-subheader__main">
                 <h3 class="kt-subheader__title">
-                    E-PROCUREMENT
+                    PT. SURYA PANGAN SEMESTA
                 </h3>
+                <span class="btn-outline btn-sm btn-info mr-3">NGAWI</span>
                 <span class="kt-subheader__separator kt-hidden"></span>
                 <div class="kt-subheader__breadcrumbs">
-                    <a href="#" onclick="return false" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+                    <a href="#" onclick="return false" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-fast-next"></i></a>
                     <span class="kt-subheader__breadcrumbs-separator"></span>
                     <a href="#" onclick="return false" class="kt-subheader__breadcrumbs-link">
-                        SURYA PANGAN SEMESTA
+                        Hasil Lab Bongkaran
                     </a>
-                    <span class="btn-outline btn-sm btn-info">Site Ngawi</span>
+                    <a href="#" onclick="return false" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-fast-next"></i></a>
+                    <span class="kt-subheader__breadcrumbs-separator"></span>
+                    <a href="#" onclick="return false" class="kt-subheader__breadcrumbs-link">
+                        Hasil Data
+                    </a>
+                    <a href="#" onclick="return false" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-fast-next"></i></a>
+                    <span class="kt-subheader__breadcrumbs-separator"></span>
+                    <a href="#" onclick="return false" class="kt-subheader__breadcrumbs-link">
+                        beras PK
+                    </a>
                 </div>
             </div>
         </div>
@@ -37,7 +47,7 @@ SURYA PANGAN SEMESTA
                         </h3>
                     </div>
                 </div>
-                <form class="" method="post" action="{{route('master.download_output_lab2_pk_excel')}}" enctype="multipart/form-data">
+                <form class="" method="post" action="{{route('qc.lab.download_output_lab2_pk_excel')}}" enctype="multipart/form-data">
                     <div style="margin-left: 10px; margin-top:10px;" class="row input-daterange">
                         {{ csrf_field() }}
                         {{ method_field('POST') }}
@@ -58,79 +68,19 @@ SURYA PANGAN SEMESTA
                     <table class="table table-bordered" id="datatable" style="table-layout: auto;">
                         <thead>
                             <tr>
-                                <th style="text-align: center;width:2%" rowspan="2">No</th>
-                                <th style="text-align: center;width:auto" rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kode&nbsp;PO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                                <th style="text-align: center;width:auto" rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Supplier&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                                <th style="text-align: center;width:auto" rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nopol&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                                <th style="text-align: center;width:auto" rowspan="2">Status </th>
-                                <th style="text-align: center;width:auto" rowspan="2">Tanggal&nbsp;PO</th>
-                                <th style="text-align: center;width:auto" rowspan="2">Asal&nbsp;Gabah</th>
-                                <th style="text-align: center;width:auto" rowspan="2">No.&nbsp;DTM</th>
-                                <th style="text-align: center;width:auto" rowspan="2">Hasil&nbsp;Tonase&nbsp;Akhir</th>
-                                <th style="text-align: center;width:auto" rowspan="2">KA</th>
-                                <th bgcolor="#F8F8FF" style="text-align: center;width:20px" colspan="7">Berat Sample (g)</th>
-                                <th style="text-align: center;width:auto" rowspan="2">WH</th>
-                                <th style="text-align: center;width:auto" rowspan="2">TR</th>
-                                <th style="text-align: center;width:auto" rowspan="2">MD</th>
-                                <th bgcolor="#FF8C00" style="text-align: center;width:auto" colspan="7">Presentase (%) </th>
-                                <th bgcolor="#ADD8E6" style="text-align: center;width:auto" colspan="5">Refraksi</th>
-                                <th bgcolor="#8FBC8F" style="text-align: center;width:auto" colspan="4">Reward</th>
-                                <th style="text-align: center;width:auto" rowspan="2">Kualitas&nbsp;Bongkaran</th>
-                                <th style="text-align: center;width:auto" rowspan="2">Harga&nbsp;Papan&nbsp;(Rp.)</th>
-                                <th style="text-align: center;width:auto" rowspan="2">Plan&nbsp;Harga&nbsp;Bongkaran&nbsp;(Rp.)</th>
-                                <th style="text-align: center;width:auto" rowspan="2">Harga&nbsp;Bongkaran&nbsp;(Rp.)</th>
-                                <th style="text-align: center;width:auto" rowspan="2">Jumlah&nbsp;Z&nbsp;Dibawa</th>
-
-                                <th style="text-align: center;width:auto" rowspan="2">Jumlah&nbsp;Z&nbsp;Ditolak</th>
-                                <th style="text-align: center;width:auto" rowspan="2">(%)&nbsp;Pass</th>
-                                <th style="text-align: center;width:auto" rowspan="2">(%)&nbsp;Reject</th>
-                                <th style="text-align: center;width:auto" rowspan="2">Plan&nbsp;Tonase&nbsp;PK</th>
-                                <th style="text-align: center;width:auto" rowspan="2">Plan&nbsp;Total&nbsp;Harga</th>
-                                <th style="text-align: center;width:auto" rowspan="2">Plan&nbsp;Tonoase&nbsp;Beras</th>
-                                <th bgcolor="#D3D3D3" style="text-align: center;width:auto" colspan="12">Selisih</th>
+                                <th style="text-align: center;width:2%">No</th>
+                                <th style="text-align: center;width:auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kode&nbsp;PO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                <th style="text-align: center;width:auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Supplier&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                <th style="text-align: center;width:auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nopol&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                <th style="text-align: center;width:auto">Status </th>
+                                <th style="text-align: center;width:auto">Tanggal&nbsp;PO</th>
+                                <th style="text-align: center;width:auto">Asal&nbsp;</th>
+                                <th style="text-align: center;width:auto">No.&nbsp;DTM</th>
+                                <th style="text-align: center;width:auto">Hasil&nbsp;Tonase&nbsp;Akhir</th>
+                                <th style="text-align: center;width:auto">Lokasi&nbsp;Bongkar</th>
+                                <th style="text-align: center;width:auto">Harga&nbsp;Bongkaran&nbsp;(Rp.)</th>
                             </tr>
-                            <tr>
-                                <th style="text-align: center;width:auto">PK</th>
-                                <th style="text-align: center;width:auto">PK&nbsp;Bersih</th>
-                                <th style="text-align: center;width:auto">&nbsp;Beras&nbsp;</th>
-                                <th style="text-align: center;width:auto">Butir&nbsp;Patah</th>
-                                <th style="text-align: center;width:auto">&nbsp;Hampa&nbsp;</th>
-                                <th style="text-align: center;width:auto">&nbsp;Katul&nbsp;</th>
-                                <th style="text-align: center;width:auto">&nbsp;Reject&nbsp;</th>
 
-                                <th style="text-align: center;width:auto">&nbsp;Hampa&nbsp;</th>
-                                <th style="text-align: center;width:auto">&nbsp;PK&nbsp;Bersih&nbsp;</th>
-                                <th style="text-align: center;width:auto">&nbsp;Katul&nbsp;</th>
-                                <th style="text-align: center;width:auto">&nbsp;Beras&nbsp;</th>
-                                <th style="text-align: center;width:auto">&nbsp;Butir&nbsp;Patah&nbsp;PK&nbsp;</th>
-                                <th style="text-align: center;width:auto">&nbsp;Butir&nbsp;Patah&nbsp;Beras&nbsp;PK&nbsp;</th>
-                                <th style="text-align: center;width:auto">&nbsp;Reject&nbsp;</th>
-
-                                <th style="text-align: center;width:auto">&nbsp;KA&nbsp;</th>
-                                <th style="text-align: center;width:auto">&nbsp;Hampa&nbsp;</th>
-                                <th style="text-align: center;width:auto">&nbsp;Katul&nbsp;</th>
-                                <th style="text-align: center;width:auto">&nbsp;TR&nbsp;</th>
-                                <th style="text-align: center;width:auto">&nbsp;Butir&nbsp;Patah&nbsp;</th>
-
-                                <th style="text-align: center;width:auto">&nbsp;Hampa&nbsp;</th>
-                                <th style="text-align: center;width:auto">&nbsp;Katul&nbsp;</th>
-                                <th style="text-align: center;width:auto">&nbsp;TR&nbsp;</th>
-                                <th style="text-align: center;width:auto">&nbsp;Butir&nbsp;Patah&nbsp;</th>
-
-                                <th style="text-align: center;width:auto">&nbsp;KA&nbsp;</th>
-                                <th style="text-align: center;width:auto">&nbsp;Hampa&nbsp;</th>
-                                <th style="text-align: center;width:auto">&nbsp;Rendemen&nbsp;PK&nbsp;</th>
-                                <th style="text-align: center;width:auto">&nbsp;Rendemen&nbsp;Beras&nbsp;</th>
-                                <!--8-->
-                                <th style="text-align: center;width:auto">&nbsp;Katul&nbsp;</th>
-                                <th style="text-align: center;width:auto">&nbsp;Butir&nbsp;Patah&nbsp;</th>
-                                <th style="text-align: center;width:auto">&nbsp;WH&nbsp;</th>
-                                <th style="text-align: center;width:auto">&nbsp;TR&nbsp;</th>
-                                <th style="text-align: center;width:auto">&nbsp;MD&nbsp;</th>
-                                <th style="text-align: center;width:auto">&nbsp;Harga&nbsp;</th>
-                                <th style="text-align: center;width:auto">&nbsp;Kualitas&nbsp;Incoming&nbsp;</th>
-                                <th style="text-align: center;width:auto">&nbsp;Kualitas&nbsp;Bongkaran&nbsp;</th>
-                            </tr>
                         </thead>
                         <tbody style="text-align: center">
                         </tbody>
@@ -141,199 +91,6 @@ SURYA PANGAN SEMESTA
     </div>
 </div>
 
-<div class="modal fade" id="to_edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <form id="formeditoutput" class="m-form m-form--fit m-form--label-align-right" method="post" action="{{ route('master.update_lab2_pk') }}" enctype="multipart/form-data">
-                {{ csrf_field() }}
-                {{ method_field('POST') }}
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Update LAB 2 PK</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input type="text" id="lab2_token" name="lab2_token" value="">
-                    <input type="hidden" id="lab1_id_data_po_pk" name="lab1_id_data_po_pk">
-                    <input type="hidden" id="lab1_id_penerimaan_po_pk" name="lab1_id_penerimaan_po_pk">
-                    <input type="hidden" id="lab1_id_bid_user_pk" name="lab1_id_bid_user_pk">
-                    <input type="hidden" id="tanggal_po_pk" name="tanggal_po_pk">
-                    <input type="hidden" id="waktu_penerimaan_pk" name="waktu_penerimaan_pk">
-                    <input type="hidden" id="date_bid_pk" name="date_bid_pk">
-
-                    {{-- tambahan input --}}
-                    <!--<label>presentase</label>-->
-                    <input type="text" id="presentase_hampa_pk" name="presentase_hampa_pk">
-                    <input type="text" id="presentase_pk_bersih_pk" name="presentase_pk_bersih_pk">
-                    <input type="text" id="presentase_katul_pk" name="presentase_katul_pk">
-                    <input type="text" id="presentase_beras_pk" name="presentase_beras_pk">
-                    <input type="text" id="presentase_butir_patah_pk" name="presentase_butir_patah_pk">
-                    <input type="text" id="presentase_butir_patah_beras_pk" name="presentase_butir_patah_beras_pk">
-                    <input type="text" id="presentase_reject_pk" name="presentase_reject_pk">
-                    <!--<label>Refraksi</label>-->
-                    <input type="text" id="refraksi_ka_pk" name="refraksi_ka_pk">
-                    <input type="text" id="refraksi_hampa_pk" name="refraksi_hampa_pk">
-                    <input type="text" id="refraksi_katul_pk" name="refraksi_katul_pk">
-                    <input type="text" id="refraksi_tr_pk" name="refraksi_tr_pk">
-                    <input type="text" id="refraksi_butir_patah_pk" name="refraksi_butir_patah_pk">
-                    <!--<label>Reward</label>-->
-                    <input type="text" id="reward_hampa_pk" name="reward_hampa_pk">
-                    <input type="text" id="reward_katul_pk" name="reward_katul_pk">
-                    <input type="text" id="reward_tr_pk" name="reward_tr_pk">
-                    <input type="text" id="reward_butir_patah_pk" name="reward_butir_patah_pk">
-                    <!--<label>Kualitas</label>-->
-                    <input type="text" id="plan_kualitas_pk" name="plan_kualitas_pk">
-                    <input type="text" id="harga_atas_pk" name="harga_atas_pk">
-                    <input type="text" id="plan_harga_bongkaran" name="plan_harga_bongkaran">
-                    <input type="text" id="plan_harga_aktual_pk" name="plan_harga_aktual_pk">
-                    <input type="text" id="harga_awal_pk" name="harga_awal_pk">
-                    <!--<label>Analisa Checker</label>-->
-                    <input type="text" id="presentase_pass" name="presentase_pass">
-                    <input type="text" id="presentase_reject" name="presentase_reject">
-                    <!--<label>Tonase</label>-->
-                    <input type="text" id="plan_tonase_pk" name="plan_tonase_pk">
-                    <input type="hidden" id="plan_total_harga_pk" name="plan_total_harga_pk">
-                    <input type="hidden" id="plan_tonase_beras_pk" name="plan_tonase_beras_pk">
-                    <!--<label>SELISIH</label>-->
-                    <input type="hidden" id="selisih_ka_pk" name="selisih_ka_pk">
-                    <input type="hidden" id="selisih_presentase_hampa_pk" name="selisih_presentase_hampa_pk">
-                    <input type="hidden" id="selisih_presentase_rendemen_pk_pk" name="selisih_presentase_rendemen_pk_pk">
-                    <input type="hidden" id="selisih_presentase_katul_pk" name="selisih_presentase_katul_pk">
-                    <input type="hidden" id="selisih_presentase_rendemen_beras_pk" name="selisih_presentase_rendemen_beras_pk">
-                    <input type="hidden" id="selisih_presentase_butir_patah_pk" name="selisih_presentase_butir_patah_pk">
-                    <input type="hidden" id="selisih_wh_pk" name="selisih_wh_pk">
-                    <input type="hidden" id="selisih_tr_pk" name="selisih_tr_pk">
-                    <input type="hidden" id="selisih_md_pk" name="selisih_md_pk">
-                    <input type="hidden" id="selisih_harga_pk" name="selisih_harga_pk">
-                    <input type="hidden" id="selisih_aktual_kualitas_pk" name="selisih_aktual_kualitas_pk">
-                    <input type="hidden" id="selisih_kualitas_bongkaran_pk" name="selisih_kualitas_bongkaran_pk">
-                    <!--<label>INPUT LAB 1</label>-->
-                    <input type="hidden" id="lab1_ka_pk" name="lab1_ka_pk">
-                    <input type="hidden" id="lab1_presentase_hampa_pk" name="lab1_presentase_hampa_pk">
-                    <input type="hidden" id="lab1_presentase_pk_bersih_pk" name="lab1_presentase_pk_bersih_pk">
-                    <input type="hidden" id="lab1_presentase_katul_pk" name="lab1_presentase_katul_pk">
-                    <input type="hidden" id="lab1_presentase_beras_pk" name="lab1_presentase_beras_pk">
-                    <input type="hidden" id="lab1_presentase_butir_patah_beras_adjust_pk" name="lab1_presentase_butir_patah_beras_adjust_pk">
-                    <input type="hidden" id="lab1_wh_pk" name="lab1_wh_pk">
-                    <input type="hidden" id="lab1_tr_pk" name="lab1_tr_pk">
-                    <input type="hidden" id="lab1_md_pk" name="lab1_md_pk">
-                    <input type="hidden" id="lab1_harga_awal_pk" name="lab1_harga_awal_pk">
-                    <input type="hidden" id="lab1_aktual_kualitas_pk" name="lab1_aktual_kualitas_pk">
-
-                    <div id="parameter_ka_pk" class="form-group"></div>
-                    <div id="parameter_hampa_pk" class="form-group"></div>
-                    <div id="parameter_katul_pk" class="form-group"></div>
-                    <div id="parameter_tr_pk" class="form-group"></div>
-                    <div id="parameter_butir_patah_pk" class="form-group"></div>
-                    <div id="parameter_reward_hampa_pk" class="form-group"></div>
-                    <div id="parameter_reward_katul_pk" class="form-group"></div>
-                    <div id="parameter_reward_tr_pk" class="form-group"></div>
-                    <div id="parameter_reward_butir_patah_pk" class="form-group"></div>
-                    <div id="parameter_butir_patah_pk_kualitas" class="form-group"></div>
-                    <div class="form-group">
-                        <div class="">
-                            <label>Code PO</label>
-                            <input type="text" id="lab1_kode_po_pk" name="lab1_kode_po_pk" class="form-control m-input" readonly>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="">
-                            <label>Plat</label>
-                            <input type="text" id="lab1_plat_pk" readonly name="lab1_plat_pk" class="form-control m-input">
-                        </div>
-                    </div>
-
-                    {{-- edit form --}}
-                    <div class="m-form__group form-group">
-                        <label for="">KA</label>
-                        <input type="text" step="any" required name="ka_pk" id="ka_pk" class="form-control m-input" value="">
-                    </div>
-                    <div class="m-form__group form-group">
-                        <label for="">PK</label>
-                        <input type="text" step="any" required name="pk_pk" id="pk_pk" class="form-control m-input" value="">
-                    </div>
-                    <div class="m-form__group form-group">
-                        <label for="">PK Bersih</label>
-                        <input type="text" step="any" required name="pk_bersih_pk" id="pk_bersih_pk" class="form-control m-input" value="">
-                    </div>
-                    <div class="m-form__group form-group">
-                        <label for="">Beras </label>
-                        <input type="text" step="any" required name="beras_pk" id="beras_pk" class="form-control m-input" value="">
-                    </div>
-                    <div class="m-form__group form-group">
-                        <label for="">Butir Patah</label>
-                        <input type="text" step="any" required name="butir_patah_pk" id="butir_patah_pk" class="form-control m-input" value="">
-                    </div>
-                    <div class="m-form__group form-group">
-                        <label for="">Reject</label>
-                        <input type="text" step="any" required name="reject_pk" id="reject_pk" class="form-control m-input" value="">
-                    </div>
-                    <div class="m-form__group form-group">
-                        <label for="">Hampa</label>
-                        <input type="text" step="any" required readonly name="hampa_pk" id="hampa_pk" class="form-control m-input" value="">
-                    </div>
-                    <div class="m-form__group form-group">
-                        <label for="">Katul</label>
-                        <input type="text" step="any" required readonly name="katul_pk" id="katul_pk" class="form-control m-input" value="">
-                    </div>
-                    <div class="m-form__group form-group">
-                        <label for="">WH</label>
-                        <input type="text" step="any" required name="wh_pk" id="wh_pk" class="form-control m-input" value="">
-                    </div>
-                    <div class="m-form__group form-group">
-                        <label for="">TR</label>
-                        <input type="text" step="any" required name="tr_pk" id="tr_pk" class="form-control m-input" value="">
-                    </div>
-                    <div class="m-form__group form-group">
-                        <label for="">MD</label>
-                        <input type="text" step="any" required name="md_pk" id="md_pk" class="form-control m-input" value="">
-                    </div>
-                    <div class="m-form__group form-group">
-                        <label for="">Harga Bongkaran (Kg)</label>
-                        <input readonly type="text" step="any" required name="harga_bongkaran_pk" id="harga_bongkaran_pk" value="" class="form-control m-input">
-                    </div>
-                    <div class="m-form__group form-group">
-                        <label for="">Aksi Harga</label>
-                        <input type="text" readonly name="aksi_harga_pk" id="aksi_harga_pk" value="ON PROCESS" class="form-control m-input">
-
-                    </div>
-                    <div class="m-form__group form-group">
-                        <label for="">Lokasi Bongkar</label>
-                        <input type="text" readonly required name="lokasi_bongkar_pk" id="lokasi_bongkar_pk" required class="form-control m-input">
-                    </div>
-                    <div class="m-form__group form-group">
-                        <label for="">DTM</label>
-                        <input type="text" readonly required name="no_dtm_pk" id="no_dtm_pk" required class="form-control m-input">
-                    </div>
-                    <div class="m-form__group form-group">
-                        <label for="">Suveyor</label>
-                        <input type="text" required name="surveyor_bongkar" readonly id="surveyor_bongkar" class="form-control m-input">
-                    </div>
-                    <div class="m-form__group form-group">
-                        <label for="">Keterangan</label>
-                        <input type="text" required name="keterangan_bongkar" readonly id="keterangan_bongkar" class="form-control m-input">
-                    </div>
-                    <div class="m-form__group form-group">
-                        <label for="">Waktu</label>
-                        <input type="text" required name="waktu_bongkar" readonly id="waktu_bongkar" class="form-control m-input">
-                    </div>
-                    <div class="m-form__group form-group">
-                        <label for="">Z yang dibawa</label>
-                        <input type="text" required name="z_yang_dibawa" readonly id="z_yang_dibawa" class="form-control m-input">
-                    </div>
-                    <div class="m-form__group form-group">
-                        <label for="">Z yang ditolak</label>
-                        <input type="text" required name="z_yang_ditolak" readonly id="z_yang_ditolak" class="form-control m-input">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger m-btn" data-dismiss="modal">Close</button>
-                    <button id="btn_update" class="btn btn-success m-btn pull-right">Save</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
 @endsection
 @section('js')
@@ -369,7 +126,7 @@ SURYA PANGAN SEMESTA
                 ],
                 "iDisplayLength": 10,
                 ajax: {
-                    url: "{{ route('master.output_lab2_pk_qc_index') }}",
+                    url: "{{ route('qc.lab.output_lab2_pk_new_index') }}",
                     data: {
                         from_date: from_date,
                         to_date: to_date
@@ -406,156 +163,16 @@ SURYA PANGAN SEMESTA
                     {
                         data: 'hasil_akhir_tonase'
                     },
+
                     {
-                        data: 'ka_pk'
+                        data: 'lokasi_bongkar_pk'
                     },
-                    {
-                        data: 'pk_pk'
-                    },
-                    {
-                        data: 'pk_bersih_pk'
-                    },
-                    {
-                        data: 'beras_pk'
-                    },
-                    {
-                        data: 'butir_patah_pk'
-                    },
-                    {
-                        data: 'reject_pk'
-                    },
-                    {
-                        data: 'hampa_pk'
-                    },
-                    {
-                        data: 'katul_pk'
-                    },
-                    {
-                        data: 'wh_pk'
-                    },
-                    {
-                        data: 'tr_pk'
-                    },
-                    {
-                        data: 'md_pk'
-                    },
-                    {
-                        data: 'presentase_hampa_pk'
-                    },
-                    {
-                        data: 'presentase_pk_bersih_pk'
-                    },
-                    {
-                        data: 'presentase_katul_pk'
-                    },
-                    {
-                        data: 'presentase_beras_pk'
-                    },
-                    {
-                        data: 'presentase_butir_patah_pk'
-                    },
-                    {
-                        data: 'presentase_butir_patah_beras_pk'
-                    },
-                    {
-                        data: 'presentase_reject_pk'
-                    },
-                    {
-                        data: 'refraksi_ka_pk'
-                    },
-                    {
-                        data: 'refraksi_hampa_pk'
-                    },
-                    {
-                        data: 'refraksi_katul_pk'
-                    },
-                    {
-                        data: 'refraksi_tr_pk'
-                    },
-                    {
-                        data: 'refraksi_butir_patah_pk'
-                    },
-                    {
-                        data: 'reward_hampa_pk'
-                    },
-                    {
-                        data: 'reward_katul_pk'
-                    },
-                    {
-                        data: 'reward_tr_pk'
-                    },
-                    {
-                        data: 'reward_butir_patah_pk'
-                    },
-                    {
-                        data: 'plan_kualitas_pk'
-                    },
-                    {
-                        data: 'harga_atas_pk'
-                    },
-                    {
-                        data: 'plan_harga_bongkaran'
-                    },
+
                     {
                         data: 'harga_bongkaran_pk'
                     },
-                    {
-                        data: 'z_yang_dibawa'
-                    },
-                    {
-                        data: 'z_yang_ditolak'
-                    },
-                    {
-                        data: 'presentase_pass'
-                    },
-                    {
-                        data: 'presentase_reject'
-                    },
-                    {
-                        data: 'plan_tonase_pk'
-                    },
-                    {
-                        data: 'plan_total_harga_pk'
-                    },
-                    {
-                        data: 'plan_tonase_beras_pk'
-                    },
-                    {
-                        data: 'selisih_ka_pk'
-                    },
-                    {
-                        data: 'selisih_hampa_pk'
-                    },
-                    {
-                        data: 'selisih_rendemen_pk'
-                    },
-                    {
-                        data: 'selisih_rendemen_beras_pk'
-                    },
-                    {
-                        data: 'selisih_katul_pk'
-                    },
-                    {
-                        data: 'selisih_butir_patah_pk'
-                    },
-                    {
-                        data: 'selisih_wh_pk'
-                    },
-                    {
-                        data: 'selisih_tr_pk'
-                    },
-                    {
-                        data: 'selisih_md_pk'
-                    },
-                    {
-                        data: 'selisih_harga_pk'
-                    },
-                    {
-                        data: 'selisih_aktual_kualitas_pk'
-                    },
-                    {
-                        data: 'selisih_kualitas_bongkaran_pk'
-                    }
+
+
                 ],
                 "order": []
             });
@@ -678,7 +295,7 @@ SURYA PANGAN SEMESTA
             }).then((result) => {
                 if (result.value) {
                     $.ajax({
-                        url: "{{route('master.approve_lab2_qc_pk')}}/" + cek,
+                        url: "{{route('qc.lab.approve_lab2_pk')}}/" + cek,
                         type: "GET",
                         error: function() {
                             alert('Something is wrong');
@@ -728,18 +345,18 @@ SURYA PANGAN SEMESTA
             var id = $(this).attr("name");
             var tanggal_po = $(this).data('tanggalpo');
             var idtopprice = $(this).data('id');
-            var url = "{{ route('master.edit_lab2_pk') }}" + "/" + id;
-            var url2 = "{{route('master.get_parameter_lab_pk_kadar_air') }}" + "/" + tanggal_po;
-            var url3 = "{{route('master.get_parameter_lab_pk_hampa') }}" + "/" + tanggal_po;
-            var url4 = "{{route('master.get_parameter_lab_pk_katul') }}" + "/" + tanggal_po;
-            var url5 = "{{route('master.get_parameter_lab_pk_tr') }}" + "/" + tanggal_po;
-            var url6 = "{{route('master.get_parameter_lab_pk_butiran_patah') }}" + "/" + tanggal_po;
-            var url7 = "{{route('master.get_parameter_lab_pk_kualitas') }}" + "/" + tanggal_po;
+            var url = "{{ route('qc.lab.edit_lab2_pk') }}" + "/" + id;
+            var url2 = "{{route('qc.lab.get_parameter_lab_pk_kadar_air') }}" + "/" + tanggal_po;
+            var url3 = "{{route('qc.lab.get_parameter_lab_pk_hampa') }}" + "/" + tanggal_po;
+            var url4 = "{{route('qc.lab.get_parameter_lab_pk_katul') }}" + "/" + tanggal_po;
+            var url5 = "{{route('qc.lab.get_parameter_lab_pk_tr') }}" + "/" + tanggal_po;
+            var url6 = "{{route('qc.lab.get_parameter_lab_pk_butiran_patah') }}" + "/" + tanggal_po;
+            var url7 = "{{route('qc.lab.get_parameter_lab_pk_kualitas') }}" + "/" + tanggal_po;
             var url8 = "{{route('get_price_top_pecah_kulit') }}" + "/" + idtopprice;
-            var url9 = "{{route('master.get_parameter_lab_pk_reward_hampa') }}" + "/" + tanggal_po;
-            var url10 = "{{route('master.get_parameter_lab_pk_reward_tr') }}" + "/" + tanggal_po;
-            var url11 = "{{route('master.get_parameter_lab_pk_reward_katul') }}" + "/" + tanggal_po;
-            var url12 = "{{route('master.get_parameter_lab_pk_reward_butir_patah') }}" + "/" + tanggal_po;
+            var url9 = "{{route('qc.lab.get_parameter_lab_pk_reward_hampa') }}" + "/" + tanggal_po;
+            var url10 = "{{route('qc.lab.get_parameter_lab_pk_reward_tr') }}" + "/" + tanggal_po;
+            var url11 = "{{route('qc.lab.get_parameter_lab_pk_reward_katul') }}" + "/" + tanggal_po;
+            var url12 = "{{route('qc.lab.get_parameter_lab_pk_reward_butir_patah') }}" + "/" + tanggal_po;
             $('#formeditoutput').trigger('reset');
             $('#to_edit').on('hidden.bs.modal', function(e) {
                 location.reload();
@@ -1229,7 +846,7 @@ SURYA PANGAN SEMESTA
                             allowOutsideClick: false
                         }).then((result) => {
                             if (result.value) {
-                                window.location.href = "{{ route('master.parameter_pk_refraksi') }}";
+                                window.location.href = "{{ route('qc.lab.parameter_pk_refraksi') }}";
                             }
                         })
                     } else if (record == '1' | record == '2') {
@@ -1240,7 +857,7 @@ SURYA PANGAN SEMESTA
                             allowOutsideClick: false
                         }).then((result) => {
                             if (result.value) {
-                                window.location.href = "{{ route('master.parameter_pk_refraksi') }}";
+                                window.location.href = "{{ route('qc.lab.parameter_pk_refraksi') }}";
 
                             }
                         })
@@ -1263,7 +880,7 @@ SURYA PANGAN SEMESTA
                             allowOutsideClick: false
                         }).then((result) => {
                             if (result.value) {
-                                window.location.href = "{{ route('master.parameter_pk_refraksi') }}";
+                                window.location.href = "{{ route('qc.lab.parameter_pk_refraksi') }}";
                             }
                         })
                     } else if (record == '1' | record == '2') {
@@ -1274,7 +891,7 @@ SURYA PANGAN SEMESTA
                             allowOutsideClick: false
                         }).then((result) => {
                             if (result.value) {
-                                window.location.href = "{{ route('master.parameter_pk_refraksi') }}";
+                                window.location.href = "{{ route('qc.lab.parameter_pk_refraksi') }}";
 
                             }
                         })
@@ -1297,7 +914,7 @@ SURYA PANGAN SEMESTA
                             allowOutsideClick: false
                         }).then((result) => {
                             if (result.value) {
-                                window.location.href = "{{ route('master.parameter_pk_refraksi') }}";
+                                window.location.href = "{{ route('qc.lab.parameter_pk_refraksi') }}";
                             }
                         })
                     } else if (record == '1' | record == '2') {
@@ -1308,7 +925,7 @@ SURYA PANGAN SEMESTA
                             allowOutsideClick: false
                         }).then((result) => {
                             if (result.value) {
-                                window.location.href = "{{ route('master.parameter_pk_refraksi') }}";
+                                window.location.href = "{{ route('qc.lab.parameter_pk_refraksi') }}";
 
                             }
                         })
@@ -1331,7 +948,7 @@ SURYA PANGAN SEMESTA
                             allowOutsideClick: false
                         }).then((result) => {
                             if (result.value) {
-                                window.location.href = "{{ route('master.parameter_pk_refraksi') }}";
+                                window.location.href = "{{ route('qc.lab.parameter_pk_refraksi') }}";
                             }
                         })
                     } else if (record == '1' | record == '2' | record == '3') {
@@ -1342,7 +959,7 @@ SURYA PANGAN SEMESTA
                             allowOutsideClick: false
                         }).then((result) => {
                             if (result.value) {
-                                window.location.href = "{{ route('master.parameter_pk_refraksi') }}";
+                                window.location.href = "{{ route('qc.lab.parameter_pk_refraksi') }}";
 
                             }
                         })
@@ -1365,7 +982,7 @@ SURYA PANGAN SEMESTA
                             allowOutsideClick: false
                         }).then((result) => {
                             if (result.value) {
-                                window.location.href = "{{ route('master.parameter_pk_refraksi') }}";
+                                window.location.href = "{{ route('qc.lab.parameter_pk_refraksi') }}";
                             }
                         })
                     } else if (record == '1' | record == '2') {
@@ -1376,7 +993,7 @@ SURYA PANGAN SEMESTA
                             allowOutsideClick: false
                         }).then((result) => {
                             if (result.value) {
-                                window.location.href = "{{ route('master.parameter_pk_refraksi') }}";
+                                window.location.href = "{{ route('qc.lab.parameter_pk_refraksi') }}";
 
                             }
                         })
@@ -1401,7 +1018,7 @@ SURYA PANGAN SEMESTA
                             allowOutsideClick: false
                         }).then((result) => {
                             if (result.value) {
-                                window.location.href = "{{ route('master.parameter_lab_pk_reward') }}";
+                                window.location.href = "{{ route('qc.lab.parameter_lab_pk_reward') }}";
                             }
                         })
                     }
@@ -1422,7 +1039,7 @@ SURYA PANGAN SEMESTA
                             allowOutsideClick: false
                         }).then((result) => {
                             if (result.value) {
-                                window.location.href = "{{ route('master.parameter_lab_pk_reward') }}";
+                                window.location.href = "{{ route('qc.lab.parameter_lab_pk_reward') }}";
                             }
                         })
                     }
@@ -1443,7 +1060,7 @@ SURYA PANGAN SEMESTA
                             allowOutsideClick: false
                         }).then((result) => {
                             if (result.value) {
-                                window.location.href = "{{ route('master.parameter_lab_pk_reward') }}";
+                                window.location.href = "{{ route('qc.lab.parameter_lab_pk_reward') }}";
                             }
                         })
                     }
@@ -1464,7 +1081,7 @@ SURYA PANGAN SEMESTA
                             allowOutsideClick: false
                         }).then((result) => {
                             if (result.value) {
-                                window.location.href = "{{ route('master.parameter_lab_pk_reward') }}";
+                                window.location.href = "{{ route('qc.lab.parameter_lab_pk_reward') }}";
                             }
                         })
                     }
@@ -1487,7 +1104,7 @@ SURYA PANGAN SEMESTA
                             allowOutsideClick: false
                         }).then((result) => {
                             if (result.value) {
-                                window.location.href = "{{ route('master.parameter_lab_pk_kualitas') }}";
+                                window.location.href = "{{ route('qc.lab.parameter_lab_pk_kualitas') }}";
 
                             }
                         })
@@ -1499,7 +1116,7 @@ SURYA PANGAN SEMESTA
                             allowOutsideClick: false
                         }).then((result) => {
                             if (result.value) {
-                                window.location.href = "{{ route('master.parameter_lab_pk_kualitas') }}";
+                                window.location.href = "{{ route('qc.lab.parameter_lab_pk_kualitas') }}";
 
                             }
                         })

@@ -2,19 +2,15 @@
 
 namespace App\Exports;
 
-use App\Models\PenerimaanPO;
-use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\WithHeadings;
-use App\Models\AdminTimbangan;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Events\AfterSheet;
-use Illuminate\Http\Request;
+use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithTitle;
+use Maatwebsite\Excel\Events\AfterSheet;
 
-class DataFakturPembelianAOL implements FromCollection, WithHeadings, WithEvents, WithTitle, WithCustomStartCell
+class DataFakturPembelianPKAOL implements FromCollection, WithHeadings, WithEvents, WithTitle, WithCustomStartCell
 {
     /**
      * @return \Illuminate\Support\Collection
@@ -37,15 +33,11 @@ class DataFakturPembelianAOL implements FromCollection, WithHeadings, WithEvents
             'Kode PO',
             'Vendor ID',
             'Nama Vendor',
-            'Nama Bank',
-            'Nomer Rekening',
             'Kode Barang',
             'Nama Barang',
             'Plat Kendaraan',
             'No. DTM',
             'Lokasi Bongkar',
-            'Tonase Awal',
-            'Tonase Akhir',
             'Hasil Tonase',
             'Harga Akhir',
 
@@ -67,12 +59,12 @@ class DataFakturPembelianAOL implements FromCollection, WithHeadings, WithEvents
                 ->join('users', 'users.id', '=', 'data_po.user_idbid')
                 ->join('penerimaan_po', 'penerimaan_po.penerimaan_id_data_po', '=', 'data_po.id_data_po')
                 ->join('item', 'item.nama_item', '=', 'bid.name_bid')
-                ->join('lab2_gb', 'lab2_gb.lab2_kode_po_gb', '=', 'data_po.kode_po')
+                ->join('lab2_pk_new', 'lab2_pk_new.lab2_kode_po_pk', '=', 'data_po.kode_po')
                 ->where('penerimaan_po.status_penerimaan', 13)
                 ->where('penerimaan_po.analisa', '=', 'verified')
                 ->where('penerimaan_po.status_epicor', NULL)
-                ->where('lab2_gb.aksi_harga_gb', 'DEAL')
-                ->select('PONum', 'tanggal_po', 'tanggal_bongkar', 'kode_po', 'vendorid', 'nama_vendor', 'nama_bank', 'nomer_rekening', 'kode_item', 'name_bid', 'plat_kendaraan', 'dtm_gb', 'lokasi_bongkar_gb', 'tonase_awal', 'tonase_akhir', 'hasil_akhir_tonase', 'harga_akhir_gb')
+                ->where('lab2_pk_new.aksi_harga_pk', 'DEAL')
+                ->select('PONum', 'tanggal_po', 'tanggal_bongkar', 'kode_po', 'vendorid', 'nama_vendor', 'kode_item', 'name_bid', 'plat_kendaraan', 'no_dtm_pk', 'lokasi_bongkar_pk', 'hasil_akhir_tonase', 'harga_bongkaran_pk')
                 ->get();
         } else {
             return DB::table('data_po')
@@ -80,13 +72,13 @@ class DataFakturPembelianAOL implements FromCollection, WithHeadings, WithEvents
                 ->join('users', 'users.id', '=', 'data_po.user_idbid')
                 ->join('penerimaan_po', 'penerimaan_po.penerimaan_id_data_po', '=', 'data_po.id_data_po')
                 ->join('item', 'item.nama_item', '=', 'bid.name_bid')
-                ->join('lab2_gb', 'lab2_gb.lab2_kode_po_gb', '=', 'data_po.kode_po')
+                ->join('lab2_pk_new', 'lab2_pk_new.lab2_kode_po_pk', '=', 'data_po.kode_po')
                 ->whereBetween('data_po.tanggal_po', array($this->from_date, $this->to_date))
                 ->where('penerimaan_po.status_penerimaan', 13)
                 ->where('penerimaan_po.analisa', '=', 'verified')
                 ->where('penerimaan_po.status_epicor', NULL)
-                ->where('lab2_gb.aksi_harga_gb', 'DEAL')
-                ->select('PONum', 'tanggal_po', 'tanggal_bongkar', 'kode_po', 'vendorid', 'nama_vendor', 'nama_bank', 'nomer_rekening', 'kode_item', 'name_bid', 'plat_kendaraan', 'dtm_gb', 'lokasi_bongkar_gb', 'tonase_awal', 'tonase_akhir', 'hasil_akhir_tonase', 'harga_akhir_gb')
+                ->where('lab2_pk_new.aksi_harga_pk', 'DEAL')
+                ->select('PONum', 'tanggal_po', 'tanggal_bongkar', 'kode_po', 'vendorid', 'nama_vendor', 'kode_item', 'name_bid', 'plat_kendaraan', 'no_dtm_pk', 'lokasi_bongkar_pk', 'hasil_akhir_tonase', 'harga_bongkaran_pk')
                 ->get();
         }
     }

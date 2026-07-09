@@ -53,6 +53,17 @@ SURYA PANGAN SEMESTA
                     <div class="col-md-4">
                         <button type="button" name="filter" id="filter" class="btn btn-primary">Filter</button>
                         <button type="button" name="refresh" id="refresh" class="btn btn-default">Refresh</button>
+                        <div class="btn-group">
+                            <button type="button" id="btn_export" class="btn btn-success dropdown-toggle" data-toggle="dropdown"></button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <button id="btn_export_kirimepicor" class="dropdown-item">Kirim&nbsp;Epicor</button>
+                                </li>
+                                <li>
+                                    <button id="btn_export_terimaepicor" class="dropdown-item">Diterima&nbsp;Epicor</button>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <div class="kt-portlet__body">
@@ -78,9 +89,7 @@ SURYA PANGAN SEMESTA
                                         <th style="text-align: center;">&nbsp;&nbsp;Tanggal&nbsp;PO&nbsp;&nbsp;</th>
                                         <th style="text-align: center;">&nbsp;&nbsp;Nopol&nbsp;Kendaraan&nbsp;&nbsp;</th>
                                         <th style="text-align: center;">&nbsp;&nbsp;No.&nbsp;DTM&nbsp;&nbsp;</th>
-                                        <th style="text-align: center;">&nbsp;&nbsp;Bruto&nbsp;&nbsp;</th>
-                                        <th style="text-align: center;">&nbsp;&nbsp;Tara&nbsp;&nbsp;</th>
-                                        <th style="text-align: center;">&nbsp;&nbsp;Netto&nbsp;&nbsp;</th>
+                                        <th style="text-align: center;">&nbsp;&nbsp;Tonase&nbsp;Final&nbsp;&nbsp;</th>
                                         <th style="text-align: center;">&nbsp;&nbsp;Harga&nbsp;Akhir&nbsp;&nbsp;</th>
                                         <th style="text-align: center;">&nbsp;&nbsp;Status&nbsp;Approved&nbsp;&nbsp;</th>
                                         <th style="text-align: center;">&nbsp;&nbsp;Status&nbsp;Epicor&nbsp;&nbsp;</th>
@@ -104,9 +113,7 @@ SURYA PANGAN SEMESTA
                                         <th style="text-align: center;">&nbsp;&nbsp;Tanggal&nbsp;PO&nbsp;&nbsp;</th>
                                         <th style="text-align: center;">&nbsp;&nbsp;Nopol&nbsp;Kendaraan&nbsp;&nbsp;</th>
                                         <th style="text-align: center;">&nbsp;&nbsp;No.&nbsp;DTM&nbsp;&nbsp;</th>
-                                        <th style="text-align: center;">&nbsp;&nbsp;Bruto&nbsp;&nbsp;</th>
-                                        <th style="text-align: center;">&nbsp;&nbsp;Tara&nbsp;&nbsp;</th>
-                                        <th style="text-align: center;">&nbsp;&nbsp;Netto&nbsp;&nbsp;</th>
+                                        <th style="text-align: center;">&nbsp;&nbsp;Tonase&nbsp;Final&nbsp;&nbsp;</th>
                                         <th style="text-align: center;">&nbsp;&nbsp;Harga&nbsp;Akhir&nbsp;&nbsp;</th>
                                         <th style="text-align: center;">&nbsp;&nbsp;Status&nbsp;Approved&nbsp;&nbsp;</th>
                                         <th style="text-align: center;">&nbsp;&nbsp;Status&nbsp;Epicor&nbsp;&nbsp;</th>
@@ -180,6 +187,10 @@ SURYA PANGAN SEMESTA
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
     $(document).ready(function() {
+        $('#btn_export').prepend('<i class="fa fa-file-excel"></i>Excel');
+        $('#btn_export_kirimepicor').prepend('<i class="fa fa-file-excel"></i>&nbsp;');
+        $('#btn_export_terimaepicor').prepend('<i class="fa fa-file-excel"></i>&nbsp;');
+
         $('.input-daterange').datepicker({
             todayBtn: 'linked',
             format: 'yyyy-mm-dd',
@@ -236,12 +247,7 @@ SURYA PANGAN SEMESTA
                     {
                         data: 'no_dtm_pk'
                     },
-                    {
-                        data: 'tonase_awal'
-                    },
-                    {
-                        data: 'tonase_akhir'
-                    },
+
                     {
                         data: 'hasil_akhir_tonase'
                     },
@@ -330,12 +336,7 @@ SURYA PANGAN SEMESTA
                     {
                         data: 'no_dtm_pk'
                     },
-                    {
-                        data: 'tonase_awal'
-                    },
-                    {
-                        data: 'tonase_akhir'
-                    },
+
                     {
                         data: 'hasil_akhir_tonase'
                     },
@@ -551,6 +552,90 @@ SURYA PANGAN SEMESTA
                 }
             });
 
+        });
+        $('#btn_export_kirimepicor').click(function() {
+            var from_date = $('#from_date').val();
+            var to_date = $('#to_date').val();
+            // console.log(from_date, to_date);
+            $('#btn_export').empty();
+            $('#btn_export').prepend('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>&nbsp;Excel');
+            $.ajax({
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    from_date: from_date,
+                    to_date: to_date,
+                },
+                url: "{{route('ap.spv.download_data_faktur_pemebelian_pk_aol')}}",
+                type: "POST",
+                cache: false,
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                error: function() {
+                    Swal.fire({
+                        title: 'Gagal!',
+                        text: 'Gagal Export Excel',
+                        icon: 'error',
+                        timer: 1500
+                    })
+                    $('#btn_export').empty();
+                    $('#btn_export').prepend('<i class="fa fa-file-excel"></i>Excel');
+                },
+                success: function(data, status, xhr) {
+                    $('#btn_export').empty();
+                    $('#btn_export').prepend('<i class="fa fa-file-excel"></i>Excel');
+                    var d = new Date();
+                    var l = d.getDate() + '-' + (d.getMonth() + 1) + '-' + d.getFullYear();
+                    var n = d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(data);
+                    link.download = `DATA PESANAN PEMBELIAN BERAS PECAH KULIT NGAWI(` + l + ` ` + n + `).xlsx`;
+                    link.click();
+
+                }
+            });
+        });
+        $('#btn_export_terimaepicor').click(function() {
+            var from_date = $('#from_date').val();
+            var to_date = $('#to_date').val();
+            console.log(from_date, to_date);
+            $('#btn_export').empty();
+            $('#btn_export').prepend('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>&nbsp;Excel');
+            $.ajax({
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    from_date: from_date,
+                    to_date: to_date,
+                },
+                url: "{{route('ap.spv.download_data_faktur_pemebelian_pk_aol1')}}",
+                type: "POST",
+                cache: false,
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                error: function() {
+                    Swal.fire({
+                        title: 'Gagal!',
+                        text: 'Gagal Export Excel',
+                        icon: 'error',
+                        timer: 1500
+                    })
+                    $('#btn_export').empty();
+                    $('#btn_export').prepend('<i class="fa fa-file-excel"></i>Excel');
+                },
+                success: function(data, status, xhr) {
+                    $('#btn_export').empty();
+                    $('#btn_export').prepend('<i class="fa fa-file-excel"></i>Excel');
+                    var d = new Date();
+                    var l = d.getDate() + '-' + (d.getMonth() + 1) + '-' + d.getFullYear();
+                    var n = d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(data);
+                    link.download = `DATA PESANAN PEMBELIAN BERAS PECAH KULIT (EPICOR) NGAWI(` + l + ` ` + n + `).xlsx`;
+                    link.click();
+
+                }
+            });
         });
         $('body').on('click', '#btn_approve_pk', function() {
             var cek = $(this).data('id');

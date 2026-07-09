@@ -94,6 +94,9 @@ SURYA PANGAN SEMESTA
                                                 <th style="text-align: center;width:auto">Status </th>
                                                 <th style="text-align: center;width:auto">Tanggal&nbsp;PO</th>
                                                 <th style="text-align: center;width:auto">Tanggal&nbsp;Bongkaran</th>
+                                                <th style="text-align: center;width:auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Harga&nbsp;Awal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                <th style="text-align: center;width:auto">Reaksi&nbsp;Harga</th>
+                                                <th style="text-align: center;width:auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Harga&nbsp;Akhir&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                                 <th style="text-align: center;width:auto">Asal&nbsp;Gabah</th>
                                                 <th style="text-align: center;width:auto">DTM&nbsp;KS</th>
                                                 <th style="text-align: center;width:auto">Lokasi&nbsp;Bongkar</th>
@@ -131,10 +134,7 @@ SURYA PANGAN SEMESTA
 
                                                 <th style="text-align: center;width:auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Harga&nbsp;Tempat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                                 <th style="text-align: center;width:auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Harga&nbsp;Atas&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                                                <th style="text-align: center;width:auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Harga&nbsp;Awal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                                 <th style="text-align: center;width:auto">Aksi&nbsp;Harga</th>
-                                                <th style="text-align: center;width:auto">Reaksi&nbsp;Harga</th>
-                                                <th style="text-align: center;width:auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Harga&nbsp;Akhir&nbsp;(&minus;Rp.&nbsp;14)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                                 <th style="text-align: center;width:auto">Keterangan&nbsp;Harga</th>
                                             </tr>
                                         </thead>
@@ -156,6 +156,9 @@ SURYA PANGAN SEMESTA
                                                 <th style="text-align: center;width:auto">Waktu&nbsp;Approve</th>
                                                 <th style="text-align: center;width:auto">Tanggal&nbsp;PO</th>
                                                 <th style="text-align: center;width:auto">Tanggal&nbsp;Bongkaran</th>
+                                                <th style="text-align: center;width:auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Harga&nbsp;Awal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                <th style="text-align: center;width:auto">Reaksi&nbsp;Harga</th>
+                                                <th style="text-align: center;width:auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Harga&nbsp;Akhir&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                                 <th style="text-align: center;width:auto">Asal&nbsp;Gabah</th>
                                                 <th style="text-align: center;width:auto">DTM&nbsp;KS</th>
                                                 <th style="text-align: center;width:auto">Lokasi&nbsp;Bongkar</th>
@@ -193,10 +196,7 @@ SURYA PANGAN SEMESTA
 
                                                 <th style="text-align: center;width:auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Harga&nbsp;Tempat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                                 <th style="text-align: center;width:auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Harga&nbsp;Atas&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                                                <th style="text-align: center;width:auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Harga&nbsp;Awal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                                 <th style="text-align: center;width:auto">Aksi&nbsp;Harga</th>
-                                                <th style="text-align: center;width:auto">Reaksi&nbsp;Harga</th>
-                                                <th style="text-align: center;width:auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Harga&nbsp;Akhir&nbsp;(&minus;Rp.&nbsp;14)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                                 <th style="text-align: center;width:auto">Keterangan&nbsp;Harga</th>
                                             </tr>
                                         </thead>
@@ -254,7 +254,7 @@ SURYA PANGAN SEMESTA
                                         <th style="text-align: center;width:auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Harga&nbsp;Awal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                         <th style="text-align: center;width:auto">Aksi&nbsp;Harga</th>
                                         <th style="text-align: center;width:auto">Reaksi&nbsp;Harga</th>
-                                        <th style="text-align: center;width:auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Harga&nbsp;Akhir&nbsp;&minus;&nbsp;Rp.&nbsp;14&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                        <th style="text-align: center;width:auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Harga&nbsp;Akhir&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                         <th style="text-align: center;width:auto">Keterangan&nbsp;Harga</th>
                                     </tr>
                                 </thead>
@@ -310,13 +310,65 @@ SURYA PANGAN SEMESTA
                                         <th style="text-align: center;width:auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Harga&nbsp;Awal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                         <th style="text-align: center;width:auto">Aksi&nbsp;Harga</th>
                                         <th style="text-align: center;width:auto">Reaksi&nbsp;Harga</th>
-                                        <th style="text-align: center;width:auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Harga&nbsp;Akhir&nbsp;&minus;&nbsp;Rp.&nbsp;14&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                        <th style="text-align: center;width:auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Harga&nbsp;Akhir&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                         <th style="text-align: center;width:auto">Keterangan&nbsp;Harga</th>
                                     </tr>
                                 </thead>
                                 <tbody style="text-align: center">
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="modal fade" id="modal_edit_harga" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Edit Harga </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="javascript:void(0);" method="post" id="form_edit_harga">
+                                            @csrf
+                                            <input type="hidden" name="id_lab2_gb" id="id_lab2_gb" value="">
+                                            <div class="form-group row">
+                                                <label for="kode_po" class="col-sm-3 col-form-label">Kode PO</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" readonly class="form-control" id="kode_po" name="kode_po" value="">
+                                                </div>
+                                            </div>
+                                            <div class=" form-group row">
+                                                <label for="harga_lab2" class="col-sm-3 col-form-label">Harga Lab2</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="harga_lab2" name="harga_lab2" readonly placeholder="Harga Akhir">
+                                                </div>
+                                            </div>
+                                            <div class=" form-group row">
+                                                <label for="input_perubahan" class="col-sm-3 col-form-label">Input Perubahan</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="input_perubahan" name="input_perubahan" placeholder="Input Perubahan">
+                                                </div>
+                                            </div>
+                                            <div class=" form-group row">
+                                                <label for="harga_akhir_gb_edit" class="col-sm-3 col-form-label">Harga Akhir</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="harga_akhir_gb_edit" name="harga_akhir_gb_edit" readonly placeholder="Harga Akhir">
+                                                </div>
+                                            </div>
+                                            <div class=" form-group row">
+                                                <label for="keterangan_perubahan" class="col-sm-3 col-form-label">Keterangan Perubahan</label>
+                                                <div class="col-sm-9">
+                                                    <textarea class="form-control" id="keterangan_perubahan" name="keterangan_perubahan" placeholder="Keterangan Perubahan"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                <button type="button" class="btn btn-primary" id="btn_update_harga_gb">Simpan Perubahan</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -340,7 +392,7 @@ SURYA PANGAN SEMESTA
 
         function load_data(from_date = '', to_date = '') {
             var table = $('#data_longgrain').DataTable({
-                "scrollY": true,
+                " scrollY": true,
                 "scrollX": true,
                 processing: true,
                 language: {
@@ -389,6 +441,15 @@ SURYA PANGAN SEMESTA
                     },
                     {
                         data: 'tanggal_bongkar'
+                    },
+                    {
+                        data: 'harga_awal'
+                    },
+                    {
+                        data: 'reaksi_harga'
+                    },
+                    {
+                        data: 'harga_akhir'
                     },
                     {
                         data: 'keterangan_penerimaan_po'
@@ -491,16 +552,7 @@ SURYA PANGAN SEMESTA
                         data: 'harga_berdasarkan_harga_atas'
                     },
                     {
-                        data: 'harga_awal'
-                    },
-                    {
                         data: 'aksi_harga'
-                    },
-                    {
-                        data: 'reaksi_harga'
-                    },
-                    {
-                        data: 'harga_akhir'
                     },
                     {
                         data: 'keterangan_harga_akhir_gb'
@@ -522,7 +574,7 @@ SURYA PANGAN SEMESTA
                 },
                 "order": []
             });
-            $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+            $('a[data-toggle="tab" ]').on('shown.bs.tab', function(e) {
                 table.columns.adjust().draw().responsive.recalc();
             })
 
@@ -701,7 +753,7 @@ SURYA PANGAN SEMESTA
                 },
                 "order": []
             });
-            $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+            $('a[data-toggle="tab" ]').on('shown.bs.tab', function(e) {
                 table2.columns.adjust().draw().responsive.recalc();
             })
             var table3 = $('#data_kp').DataTable({
@@ -878,7 +930,7 @@ SURYA PANGAN SEMESTA
                 },
                 "order": []
             });
-            $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+            $('a[data-toggle="tab" ]').on('shown.bs.tab', function(e) {
                 table3.columns.adjust().draw().responsive.recalc();
             })
             var table4 = $('#data_longgrain_approved').DataTable({
@@ -934,6 +986,15 @@ SURYA PANGAN SEMESTA
                     },
                     {
                         data: 'tanggal_bongkar'
+                    },
+                    {
+                        data: 'harga_awal'
+                    },
+                    {
+                        data: 'reaksi_harga'
+                    },
+                    {
+                        data: 'harga_akhir'
                     },
                     {
                         data: 'keterangan_penerimaan_po'
@@ -1036,16 +1097,7 @@ SURYA PANGAN SEMESTA
                         data: 'harga_berdasarkan_harga_atas'
                     },
                     {
-                        data: 'harga_awal'
-                    },
-                    {
                         data: 'aksi_harga'
-                    },
-                    {
-                        data: 'reaksi_harga'
-                    },
-                    {
-                        data: 'harga_akhir'
                     },
                     {
                         data: 'keterangan_harga_akhir_gb'
@@ -1067,7 +1119,7 @@ SURYA PANGAN SEMESTA
                 },
                 "order": []
             });
-            $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+            $('a[data-toggle="tab" ]').on('shown.bs.tab', function(e) {
                 table4.columns.adjust().draw().responsive.recalc();
             })
         }
@@ -1110,6 +1162,112 @@ SURYA PANGAN SEMESTA
             $('#data_kp').DataTable().destroy();
             load_data();
         });
+        $(document).on('click', '#btn_edit_harga', function() {
+            console.log('ok');
+            var id = $(this).data('id');
+            var harga_akhir = $(this).data('hargaakhir');
+            var reaksi = $(this).data('reaksi');
+            var lab2_kode_po_gb = $(this).data('kodepo');
+            var hasil = harga_akhir + reaksi;
+            $('#id_lab2_gb').val(id);
+            $('#harga_lab2').val(harga_akhir);
+            $('#input_perubahan').val(reaksi);
+            $('#harga_akhir_gb_edit').val(hasil);
+            $('#kode_po').val(lab2_kode_po_gb);
+            $('#modal_edit_harga').modal('show');
+        });
+        $(document).on('keyup', '#input_perubahan', function() {
+            this.value = this.value.replace(/[^0-9-]/g, '');
+            var harga_akhir = $('#harga_lab2').val();
+            var input_perubahan = $(this).val();
+            var harga_akhir_baru = parseInt(harga_akhir) + parseInt(input_perubahan);
+            if (isNaN(harga_akhir_baru)) {
+                harga_akhir_baru = 0;
+            }
+            $('#harga_akhir_gb_edit').val(harga_akhir_baru);
+        });
+        $('#btn_update_harga_gb').click(function() {
+            var id = $('#id_lab2_gb').val();
+            var harga_akhir_baru = $('#harga_akhir_gb_edit').val();
+            var input_perubahan = $('#input_perubahan').val();
+            var harga_awal = $('#harga_lab2').val();
+            var keterangan_perubahan = $('#keterangan_perubahan').val();
+            Swal.fire({
+                title: 'Konfirmasi',
+                icon: 'warning',
+                text: "Apakah anda yakin ingin mengubah harga akhir gabah ?",
+                showCancelButton: true,
+                inputValue: 0,
+                confirmButtonText: 'Yes',
+            }).then(function(result) {
+                if (result.value) {
+                    Swal.fire({
+                        title: 'Harap Tuggu Sebentar!',
+                        html: 'Proses Menyimpan Data...', // add html attribute if you want or remove
+                        allowOutsideClick: false,
+                        onBeforeOpen: () => {
+                            Swal.showLoading()
+                        }
+                    })
+                    $.ajax({
+                        type: "POST",
+                        url: "{{route('qc.spv.update_harga_lab2_gb')}}",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            id: id,
+                            harga_akhir_baru: harga_akhir_baru,
+                            input_perubahan: input_perubahan,
+                            keterangan_perubahan: keterangan_perubahan,
+                            harga_awal: harga_awal
+                        },
+                        success: function(response) {
+                            // console.log(response);
+                            $('#modal_edit_harga').modal('hide');
+                            $('#data_longgrain').DataTable().ajax.reload();
+                            $('#data_pw').DataTable().ajax.reload();
+                            $('#data_kp').DataTable().ajax.reload();
+                            $('#form_edit_harga')[0].reset();
+                            Swal.close();
+                            if (response.status == 'success') {
+                                Swal.fire({
+                                    title: 'Sukses!',
+                                    text: 'Harga Akhir Gabah Berhasil Di Update',
+                                    icon: 'success',
+                                    timer: 4500
+
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: response.message,
+                                    icon: 'error'
+                                });
+                            }
+                        },
+                        error: function(response) {
+                            // console.log(response);
+                            Swal.close();
+                            Swal.fire({
+                                title: 'Error',
+                                text: response.responseJSON.message,
+                                icon: 'error',
+                                timer: 4500
+                            });
+
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Gagal!',
+                        text: 'Data anda Tidak di Simpan.',
+                        icon: 'error',
+                        timer: 4500
+                    });
+                }
+            })
+
+        });
+
     });
 </script>
 <script type="text/javascript">

@@ -40,7 +40,7 @@ SURYA PANGAN SEMESTA
                             <i class="flaticon-user"></i>
                         </span>
                         <h3 class="kt-portlet__head-title">
-                            Gabah Basah
+                            Beras Pecah Kulit
                         </h3>
                     </div>
                 </div>
@@ -176,8 +176,8 @@ SURYA PANGAN SEMESTA
                     </div>
                     <div class="form-group">
                         <div class="">
-                            <label>Asal Gabah</label>
-                            <input id="keterangan_penerimaan_po" name="keterangan_penerimaan_po" placeholder="Asal Gabah" required type="text" class="form-control m-input">
+                            <label>Asal</label>
+                            <input id="keterangan_penerimaan_po" name="keterangan_penerimaan_po" placeholder="Asal" required type="text" class="form-control m-input">
                         </div>
                     </div>
                     <div class="form-group">
@@ -243,7 +243,7 @@ SURYA PANGAN SEMESTA
                     </div>
                     <div class="form-group">
                         <div class="">
-                            <label>Asal Gabah</label>
+                            <label>Asal</label>
                             <input name="keterangan_penerimaan_po" required type="text" class="form-control m-input">
                         </div>
                     </div>
@@ -416,13 +416,13 @@ SURYA PANGAN SEMESTA
 
                 // Updated Schedule Week 1 - 07 Mar 22
 
-                if (data.name_bid == 'GABAH BASAH CIHERANG') {
+                if (data.name_bid == 'BERAS PECAH KULIT CIHERANG') {
                     $('td:eq(1)', row).css('background-color', '#CCE5FF'); //Original Date
-                } else if (data.name_bid == 'GABAH BASAH PANDAN WANGI') {
+                } else if (data.name_bid == 'BERAS PECAH KULIT PANDAN WANGI') {
                     $('td:eq(1)', row).css('background-color', '#CCFFCC'); // Behind of Original Date
-                } else if (data.name_bid == 'GABAH BASAH KETAN PUTIH') {
+                } else if (data.name_bid == 'BERAS PECAH KULIT KETAN PUTIH') {
                     $('td:eq(1)', row).css('background-color', '#D5D5D5'); // Behind of Original Date
-                } else if (data.name_bid == 'GABAH BASAH LONG GRAIN') {
+                } else if (data.name_bid == 'BERAS PECAH KULIT LONG GRAIN') {
                     $('td:eq(1)', row).css('color', '#6666FF'); // Behind of Original Date
                 }
             },
@@ -473,13 +473,13 @@ SURYA PANGAN SEMESTA
 
                 // Updated Schedule Week 1 - 07 Mar 22
 
-                if (data.name_bid == 'GABAH BASAH CIHERANG') {
+                if (data.name_bid == 'BERAS PECAH KULIT CIHERANG') {
                     $('td:eq(1)', row).css('background-color', '#CCE5FF'); //Original Date
-                } else if (data.name_bid == 'GABAH BASAH PANDAN WANGI') {
+                } else if (data.name_bid == 'BERAS PECAH KULIT PANDAN WANGI') {
                     $('td:eq(1)', row).css('background-color', '#CCFFCC'); // Behind of Original Date
-                } else if (data.name_bid == 'GABAH BASAH KETAN PUTIH') {
+                } else if (data.name_bid == 'BERAS PECAH KULIT KETAN PUTIH') {
                     $('td:eq(1)', row).css('background-color', '#D5D5D5'); // Behind of Original Date
-                } else if (data.name_bid == 'GABAH BASAH LONG GRAIN') {
+                } else if (data.name_bid == 'BERAS PECAH KULIT LONG GRAIN') {
                     $('td:eq(1)', row).css('color', '#6666FF'); // Behind of Original Date
                 }
             },
@@ -530,13 +530,13 @@ SURYA PANGAN SEMESTA
 
                 // Updated Schedule Week 1 - 07 Mar 22
 
-                if (data.name_bid == 'GABAH BASAH CIHERANG') {
+                if (data.name_bid == 'BERAS PECAH KULIT CIHERANG') {
                     $('td:eq(1)', row).css('background-color', '#CCE5FF'); //Original Date
-                } else if (data.name_bid == 'GABAH BASAH PANDAN WANGI') {
+                } else if (data.name_bid == 'BERAS PECAH KULIT PANDAN WANGI') {
                     $('td:eq(1)', row).css('background-color', '#CCFFCC'); // Behind of Original Date
-                } else if (data.name_bid == 'GABAH BASAH KETAN PUTIH') {
+                } else if (data.name_bid == 'BERAS PECAH KULIT KETAN PUTIH') {
                     $('td:eq(1)', row).css('background-color', '#D5D5D5'); // Behind of Original Date
-                } else if (data.name_bid == 'GABAH BASAH LONG GRAIN') {
+                } else if (data.name_bid == 'BERAS PECAH KULIT LONG GRAIN') {
                     $('td:eq(1)', row).css('color', '#6666FF'); // Behind of Original Date
                 }
             },

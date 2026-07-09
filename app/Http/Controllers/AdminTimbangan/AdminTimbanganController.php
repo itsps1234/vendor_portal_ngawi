@@ -1470,7 +1470,11 @@ class AdminTimbanganController extends Controller
                         return $result;
                     })
                     ->addColumn('no_dtm', function ($list) {
-                        $result = $list->DataBongkar->no_dtm;
+                        if ($list->DataBongkar == null) {
+                            $result = "-";
+                        } else {
+                            $result = $list->DataBongkar->no_dtm;
+                        }
                         return $result;
                     })
                     ->addColumn('nama_vendor', function ($list) {
@@ -2255,11 +2259,11 @@ class AdminTimbanganController extends Controller
         return Datatables::of(DataPO::join('bid', 'bid.id_bid', '=', 'data_po.bid_id')
             ->join('users', 'users.id', '=', 'data_po.user_idbid')
             ->join('penerimaan_po', 'penerimaan_po.penerimaan_id_data_po', '=', 'data_po.id_data_po')
-            ->join('data_qc_bongkar', 'data_qc_bongkar.kode_po_bongkar', '=', 'data_po.kode_po')
-            ->where('penerimaan_po.tonase_akhir', '=', NULL)
-            ->where('data_qc_bongkar.status_bongkar', 'FINISH')
-            ->where('bid.name_bid', '=', 'GABAH BASAH LONG GRAIN')
-            ->orderBy('id_penerimaan_po', 'asc')
+            // ->join('data_qc_bongkar', 'data_qc_bongkar.kode_po_bongkar', '=', 'data_po.kode_po')
+            ->whereIn('penerimaan_po.status_penerimaan', [9, 10, 11])
+            ->whereNotNull('penerimaan_po.tonase_awal')
+            ->whereNull('penerimaan_po.tonase_akhir')
+            ->orderBy('id_penerimaan_po', 'ASC')
             ->select('data_po.*', 'bid.name_bid', 'users.name', 'users.nama_vendor', 'penerimaan_po.id_penerimaan_po', 'penerimaan_po.tonase_awal', 'penerimaan_po.plat_kendaraan', 'penerimaan_po.tonase_akhir')
             ->get())
             ->addColumn('name_bid', function ($list) {

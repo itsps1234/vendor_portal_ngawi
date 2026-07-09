@@ -12,6 +12,7 @@ use App\Models\BidUser;
 use App\Models\ApproveBid;
 use App\Models\Transaksi;
 use App\Models\DataPO;
+use App\Models\FinishingQCPk;
 use App\Models\HargaAtas;
 use App\Models\HargaBawah;
 use App\Models\Item;
@@ -1060,7 +1061,11 @@ class BidController extends Controller
                 } else if ($list->status_bid == 12) {
                     return  '<span style="margin:2px;" class="btn btn-label-primary btn-sm"><b>Pengajuan Approve SPV QC</b></span>';
                 } else if ($list->status_bid == 13) {
-                    $cek_lab2 = Lab2GabahBasah::where('lab2_kode_po_gb', $list->kode_po)->first();
+                    if ($list->name_bid == 'BERAS PECAH KULIT LONG GRAIN') {
+                        $cek_lab2 = FinishingQCPk::where('lab2_kode_po_pk', $list->kode_po)->first();
+                    } else {
+                        $cek_lab2 = Lab2GabahBasah::where('lab2_kode_po_gb', $list->kode_po)->first();
+                    }
                     if ($cek_lab2->aksi_harga_gb == 'ON PROCESS') {
                         return  '<span style="margin:2px;" class="btn btn-label-primary btn-sm"><b>Proses Deal</b></span>';
                     } else {
@@ -1762,7 +1767,9 @@ class BidController extends Controller
                             'TermsCode'     => 'PT01',
                             'PartNum'       => $request->kode_item,
                             'Quantity'      => 8000,
+                            'UnitPrice_c'   => 5000,
                             'UnitPrice'     => 5000,
+                            'TotalUnitPrice_c' => 40000000,
                             'PartDesc'      => $request->message_admin,
                             'nobks_c'       => 0,
                             'codepo_c'      => $kode_po,
@@ -1853,7 +1860,9 @@ class BidController extends Controller
                             'TermsCode'     => 'PT01',
                             'PartNum'       => $request->kode_item,
                             'Quantity'      => 8000,
+                            'UnitPrice_c'   => 5000,
                             'UnitPrice'     => 5000,
+                            'TotalUnitPrice_c' => 40000000,
                             'PartDesc'      => $request->message_admin,
                             'nobks_c'       => 0,
                             'codepo_c'      => $kode_po,
@@ -1944,13 +1953,356 @@ class BidController extends Controller
                             'TermsCode'     => 'PT01',
                             'PartNum'       => $request->kode_item,
                             'Quantity'      => 8000,
+                            'UnitPrice_c'   => 5000,
                             'UnitPrice'     => 5000,
+                            'TotalUnitPrice_c' => 40000000,
                             'PartDesc'      => $request->message_admin,
                             'nobks_c'       => 0,
                             'codepo_c'      => $kode_po,
                             'plant'         => 'NGW',
                             'WarehouseCode' => 'WHNGWDUA',
                             'BinNum'        => '0',
+                            'SPS_Nopol_c'   => 'AG',
+                            'PTI_PONum_c'   => $kode_po,
+                            'SPS_PODate_c'  => $request->tanggal_po,
+                        ];
+
+                        $promise = $client->postAsync($url, ['form_params' => $form_params]);
+                        $promise->then(
+                            function (Response $response) use ($Data_po, $last_id, $request, $kode_po, $kode_po_aol, $buat_po, $i) {
+                                echo $response = $response->getBody()->getContents();
+                                for ($i = 0; $i < $buat_po; $i++) {
+                                    $Data_po->id_approvebid                 = $last_id->id_approvebid;
+                                    $Data_po->bid_user_id                   = $request->id_biduser;
+                                    $Data_po->user_idbid                    = $request->user_idbid;
+                                    $Data_po->bid_id                        = $request->bid_id;
+                                    $Data_po->status_bid                    = $request->status_bid;
+                                    $Data_po->permintaan_kirim              = $request->permintaan_diterima;
+                                    $Data_po->permintaan_ditolak            = $request->permintaan_ditolak;
+                                    $Data_po->kode_po                       = $kode_po;
+                                    $Data_po->message_admin                 = $request->message_admin;
+                                    $Data_po->tanggal_po                    = $request->tanggal_po;
+                                    $Data_po->tanggal_bongkar               = $request->tanggal_bongkar;
+                                    $Data_po->PONum                         = $response;
+                                    $Data_po->kode_po_aol                   = $kode_po_aol;
+                                    $Data_po->kode_matauang_aol             = $request->kode_matauang_aol;
+                                    $Data_po->kurs_aol                      = $request->kurs_aol;
+                                    $Data_po->diskon_persen_aol             = $request->diskon_persen_aol;
+                                    $Data_po->diskon_rp_aol                 = $request->diskon_rp_aol;
+                                    $Data_po->kuantitas_aol                 = $request->kuantitas_aol;
+                                    $Data_po->satuan_aol                    = $request->satuan_aol;
+                                    $Data_po->harga_aol                     = $request->harga_aol;
+                                    $Data_po->diskon1_persen_aol            = $request->diskon1_persen_aol;
+                                    $Data_po->diskon1_rp_aol                = $request->diskon1_rp_aol;
+                                    $Data_po->total_harga_aol               = $request->total_harga_aol;
+                                    $Data_po->departemen_aol                = $request->departemen_aol;
+                                    $Data_po->projek_aol                    = $request->projek_aol;
+                                    $Data_po->permintaan_barang_aol         = $request->permintaan_barang_aol;
+                                    $Data_po->catatan_aol                   = $request->catatan_aol;
+                                    $Data_po->kena_pajak_aol                = $request->kena_pajak_aol;
+                                    $Data_po->total_termasuk_pajak_aol      = $request->total_termasuk_pajak_aol;
+                                    $Data_po->tgl_pengiriman_aol            = $request->tgl_pengiriman_aol;
+                                    $Data_po->pengiriman_aol                = $request->pengiriman_aol;
+                                    $Data_po->cabang_aol                    = $request->cabang_aol;
+                                    $Data_po->batas_penerimaan_po           = Carbon::parse($request->batas_penerimaan)->format('Y-m-d 12:00:00');
+                                    $Data_po->save();
+                                }
+                                $data = new LogAktivitySourching();
+                                $data->name_user    = Auth::guard('sourching')->user()->name;
+                                $data->id_objek_aktivitas_sourching  = $Data_po->id_data_po;
+                                $data->aktivitas_sourching  = 'Approve PO Baru. Kode PO: ' . $kode_po;
+                                $data->keterangan_aktivitas  = 'Selesai';
+                                $data->created_at           = date('Y-m-d H:i:s');
+                                $data->save();
+
+                                $po = new trackerPO();
+                                $po->nama_admin_tracker  = Auth::guard('sourching')->user()->name;
+                                $po->nama_supplier_tracker    = $request->name_supplier;
+                                $po->kode_po_tracker  = $kode_po;
+                                $po->tanggal_po_tracker  = $request->tanggal_po;
+                                $po->id_data_po_tracker  = $Data_po->id_data_po;
+                                $po->pengajuan_po_user_tracker  = $request->date_biduser;
+                                $po->status_po_tracker  = $request->status_bid;
+                                $po->proses_tracker = 'Approve Sourching';
+                                $po->approve_sourching_tracker  = date('Y-m-d H:i:s');
+                                $po->save();
+                            }
+                        );
+                        sleep(1);
+                        $result = $promise->wait();
+                        // dd($result);
+                    }
+                }
+                $curl = curl_init();
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => 'https://api.fonnte.com/send',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS => array(
+                        'target' => $get_user->nomer_hp,
+                        'message' =>
+                        "PEMBERITAHUAN!
+    
+Hallo *$get_user->name*
+    
+    
+*PT SURYA PANGAN SEMESTA NGAWI* Ingin menyampaikan informasi bahwa PO Tanggal : *" . Carbon::parse($tanggal_po)->format('d-m-Y') . "*
+        Pengajuan : $data->jumlah_kirim PO
+        Diterima    : $request->permintaan_diterima PO
+        Ditolak      : $request->permintaan_ditolak PO
+    
+Terima kasih
+_Sent Via *PT SURYA PANGAN SEMESTA NGAWI*_",
+                        'countryCode' => '62', //optional
+                    ),
+                    CURLOPT_HTTPHEADER => array(
+                        'Authorization: t37BRkrNu+4F!rUJXQdB' //change TOKEN to your actual token
+                    ),
+                ));
+
+                $response = curl_exec($curl);
+                if (curl_errno($curl)) {
+                    $error_msg = curl_error($curl);
+                }
+                curl_close($curl);
+
+                if (isset($error_msg)) {
+                    echo $error_msg;
+                }
+                echo $response;
+            } else if ($get_partnum->nama_item == 'BERAS PECAH KULIT LONG GRAIN') {
+                $pesan = new ApproveBid();
+                $pesan->bid_user_id         = $request->id_biduser;
+                $pesan->user_idbid          = $request->user_idbid;
+                $pesan->bid_id              = $request->bid_id;
+                $pesan->status_bid          = $request->status_bid;
+                $pesan->permintaan_kirim    = $request->permintaan_diterima;
+                $pesan->permintaan_ditolak  = $request->permintaan_ditolak;
+                $pesan->message_admin       = $request->message_admin;
+                $pesan->tanggal_po          = $tanggal_po;
+                $pesan->batas_penerimaan    = Carbon::parse($request->batas_penerimaan)->format('Y-m-d 12:00:00');
+                $pesan->save();
+
+                for ($i = 0; $i < $buat_po; $i++) {
+                    $hour = date('H');
+                    $last_id = ApproveBid::orderBy('id_approvebid', 'DESC')->first();
+                    $antrian1 = DataPO::where('tanggal_po', $request->tanggal_po)->count();
+                    $antrian1 = ($antrian1 + 1);
+                    if (strlen((string) $antrian1) == 1) {
+                        // dd('1');
+                        $antrian1 = '00' . ($antrian1);
+                        $kode_po = 'PO.NGW.BPK.BKS/' . date('Y', strtotime($get_tanggal_po->open_po)) . date('m', strtotime($get_tanggal_po->open_po)) . date('d', strtotime($get_tanggal_po->open_po)) . '/' . $antrian1;
+                        $kode_po_aol = 'PO.BPK.' . date('m', strtotime($get_tanggal_po->open_po)) . '.' . Carbon::parse($get_tanggal_po->open_po)->format('y') . '.';
+                        // Integrasi Epicor
+                        $Data_po = new  DataPO();
+                        $client = new \GuzzleHttp\Client();
+                        $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
+                        $form_params = [
+                            'VendorID'      => $request->vendorid,
+                            'BuyerID'       => 'BBK01101',
+                            'TermsCode'     => 'PT01',
+                            'PartNum'       => $request->kode_item,
+                            'Quantity'      => 8000,
+                            'UnitPrice_c'   => 5000,
+                            'UnitPrice'     => 5000,
+                            'TotalUnitPrice_c' => 40000000,
+                            'PartDesc'      => $request->message_admin,
+                            'nobks_c'       => 0,
+                            'codepo_c'      => $kode_po,
+                            'plant'         => 'NGW',
+                            'WarehouseCode' => 'WHNGWHUA',
+                            'BinNum'        => 'BNNGWHUA01',
+                            'SPS_Nopol_c'   => 'AG',
+                            'PTI_PONum_c'   => $kode_po,
+                            'SPS_PODate_c'   => $request->tanggal_po,
+                        ];
+
+                        $promise = $client->postAsync($url, ['form_params' => $form_params]);
+                        $promise->then(
+                            function (Response $response) use ($Data_po, $last_id, $request, $kode_po, $kode_po_aol, $buat_po, $i) {
+                                echo $response = $response->getBody()->getContents();
+                                for ($i = 0; $i < $buat_po; $i++) {
+                                    $Data_po->id_approvebid                 = $last_id->id_approvebid;
+                                    $Data_po->bid_user_id                   = $request->id_biduser;
+                                    $Data_po->user_idbid                    = $request->user_idbid;
+                                    $Data_po->bid_id                        = $request->bid_id;
+                                    $Data_po->status_bid                    = $request->status_bid;
+                                    $Data_po->permintaan_kirim              = $request->permintaan_diterima;
+                                    $Data_po->permintaan_ditolak            = $request->permintaan_ditolak;
+                                    $Data_po->kode_po                       = $kode_po;
+                                    $Data_po->message_admin                 = $request->message_admin;
+                                    $Data_po->tanggal_po                    = $request->tanggal_po;
+                                    $Data_po->tanggal_bongkar               = $request->tanggal_bongkar;
+                                    $Data_po->PONum                         = $response;
+                                    $Data_po->kode_po_aol                   = $kode_po_aol;
+                                    $Data_po->kode_matauang_aol             = $request->kode_matauang_aol;
+                                    $Data_po->kurs_aol                      = $request->kurs_aol;
+                                    $Data_po->diskon_persen_aol             = $request->diskon_persen_aol;
+                                    $Data_po->diskon_rp_aol                 = $request->diskon_rp_aol;
+                                    $Data_po->kuantitas_aol                 = $request->kuantitas_aol;
+                                    $Data_po->satuan_aol                    = $request->satuan_aol;
+                                    $Data_po->harga_aol                     = $request->harga_aol;
+                                    $Data_po->diskon1_persen_aol            = $request->diskon1_persen_aol;
+                                    $Data_po->diskon1_rp_aol                = $request->diskon1_rp_aol;
+                                    $Data_po->total_harga_aol               = $request->total_harga_aol;
+                                    $Data_po->departemen_aol                = $request->departemen_aol;
+                                    $Data_po->projek_aol                    = $request->projek_aol;
+                                    $Data_po->permintaan_barang_aol         = $request->permintaan_barang_aol;
+                                    $Data_po->catatan_aol                   = $request->catatan_aol;
+                                    $Data_po->kena_pajak_aol                = $request->kena_pajak_aol;
+                                    $Data_po->total_termasuk_pajak_aol      = $request->total_termasuk_pajak_aol;
+                                    $Data_po->tgl_pengiriman_aol            = $request->tgl_pengiriman_aol;
+                                    $Data_po->pengiriman_aol                = $request->pengiriman_aol;
+                                    $Data_po->cabang_aol                    = $request->cabang_aol;
+                                    $Data_po->batas_penerimaan_po           = Carbon::parse($request->batas_penerimaan)->format('Y-m-d 12:00:00');
+                                    $Data_po->save();
+                                }
+                                $data = new LogAktivitySourching();
+                                $data->name_user    = Auth::guard('sourching')->user()->name;
+                                $data->id_objek_aktivitas_sourching  = $Data_po->id_data_po;
+                                $data->aktivitas_sourching  = 'Approve PO Baru. Kode PO: ' . $kode_po;
+                                $data->keterangan_aktivitas  = 'Selesai';
+                                $data->created_at           = date('Y-m-d H:i:s');
+                                $data->save();
+
+                                $po = new trackerPO();
+                                $po->nama_admin_tracker  = Auth::guard('sourching')->user()->name;
+                                $po->nama_supplier_tracker    = $request->name_supplier;
+                                $po->kode_po_tracker  = $kode_po;
+                                $po->tanggal_po_tracker  = $request->tanggal_po;
+                                $po->id_data_po_tracker  = $Data_po->id_data_po;
+                                $po->pengajuan_po_user_tracker  = $request->date_biduser;
+                                $po->status_po_tracker  = $request->status_bid;
+                                $po->proses_tracker = 'Approve Sourching';
+                                $po->approve_sourching_tracker  = date('Y-m-d H:i:s');
+                                $po->save();
+                            }
+                        );
+                        sleep(1);
+                        $result = $promise->wait();
+                        // dd($result);
+                    } elseif (strlen((string) $antrian1) == 2) {
+                        // dd('2');
+                        $antrian1 = '0' . ($antrian1);
+                        $kode_po = 'PO.NGW.BPK.BKS/' . date('Y', strtotime($get_tanggal_po->open_po)) . date('m', strtotime($get_tanggal_po->open_po)) . date('d', strtotime($get_tanggal_po->open_po)) . '/' . $antrian1;
+                        $kode_po_aol = 'PO.BPK.' . date('m', strtotime($get_tanggal_po->open_po)) . '.' . Carbon::parse($get_tanggal_po->open_po)->format('y') . '.';
+                        // Integrasi Epicor
+                        $Data_po = new  \App\Models\DataPO;
+                        $client = new \GuzzleHttp\Client();
+                        $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
+                        $form_params = [
+                            'VendorID'      => $request->vendorid,
+                            'BuyerID'       => 'BBK01101',
+                            'TermsCode'     => 'PT01',
+                            'PartNum'       => $request->kode_item,
+                            'Quantity'      => 8000,
+                            'UnitPrice_c'   => 5000,
+                            'UnitPrice'     => 5000,
+                            'TotalUnitPrice_c' => 40000000,
+                            'PartDesc'      => $request->message_admin,
+                            'nobks_c'       => 0,
+                            'codepo_c'      => $kode_po,
+                            'plant'         => 'NGW',
+                            'WarehouseCode' => 'WHNGWHUA',
+                            'BinNum'        => 'BNNGWHUA01',
+                            'SPS_Nopol_c'   => 'AG',
+                            'PTI_PONum_c'   => $kode_po,
+                            'SPS_PODate_c'  => $request->tanggal_po,
+                        ];
+
+                        $promise = $client->postAsync($url, ['form_params' => $form_params]);
+                        $promise->then(
+                            function (Response $response) use ($Data_po, $last_id, $request, $kode_po, $kode_po_aol, $buat_po, $i) {
+                                echo $response = $response->getBody()->getContents();
+                                for ($i = 0; $i < $buat_po; $i++) {
+                                    $Data_po->id_approvebid                 = $last_id->id_approvebid;
+                                    $Data_po->bid_user_id                   = $request->id_biduser;
+                                    $Data_po->user_idbid                    = $request->user_idbid;
+                                    $Data_po->bid_id                        = $request->bid_id;
+                                    $Data_po->status_bid                    = $request->status_bid;
+                                    $Data_po->permintaan_kirim              = $request->permintaan_diterima;
+                                    $Data_po->permintaan_ditolak            = $request->permintaan_ditolak;
+                                    $Data_po->kode_po                       = $kode_po;
+                                    $Data_po->message_admin                 = $request->message_admin;
+                                    $Data_po->tanggal_po                    = $request->tanggal_po;
+                                    $Data_po->tanggal_bongkar               = $request->tanggal_bongkar;
+                                    $Data_po->PONum                         = $response;
+                                    $Data_po->kode_po_aol                   = $kode_po_aol;
+                                    $Data_po->kode_matauang_aol             = $request->kode_matauang_aol;
+                                    $Data_po->kurs_aol                      = $request->kurs_aol;
+                                    $Data_po->diskon_persen_aol             = $request->diskon_persen_aol;
+                                    $Data_po->diskon_rp_aol                 = $request->diskon_rp_aol;
+                                    $Data_po->kuantitas_aol                 = $request->kuantitas_aol;
+                                    $Data_po->satuan_aol                    = $request->satuan_aol;
+                                    $Data_po->harga_aol                     = $request->harga_aol;
+                                    $Data_po->diskon1_persen_aol            = $request->diskon1_persen_aol;
+                                    $Data_po->diskon1_rp_aol                = $request->diskon1_rp_aol;
+                                    $Data_po->total_harga_aol               = $request->total_harga_aol;
+                                    $Data_po->departemen_aol                = $request->departemen_aol;
+                                    $Data_po->projek_aol                    = $request->projek_aol;
+                                    $Data_po->permintaan_barang_aol         = $request->permintaan_barang_aol;
+                                    $Data_po->catatan_aol                   = $request->catatan_aol;
+                                    $Data_po->kena_pajak_aol                = $request->kena_pajak_aol;
+                                    $Data_po->total_termasuk_pajak_aol      = $request->total_termasuk_pajak_aol;
+                                    $Data_po->tgl_pengiriman_aol            = $request->tgl_pengiriman_aol;
+                                    $Data_po->pengiriman_aol                = $request->pengiriman_aol;
+                                    $Data_po->cabang_aol                    = $request->cabang_aol;
+                                    $Data_po->batas_penerimaan_po           = Carbon::parse($request->batas_penerimaan)->format('Y-m-d 12:00:00');
+                                    $Data_po->save();
+                                }
+                                $data = new LogAktivitySourching();
+                                $data->name_user    = Auth::guard('sourching')->user()->name;
+                                $data->id_objek_aktivitas_sourching  = $Data_po->id_data_po;
+                                $data->aktivitas_sourching  = 'Approve PO Baru. Kode PO: ' . $kode_po;
+                                $data->keterangan_aktivitas  = 'Selesai';
+                                $data->created_at           = date('Y-m-d H:i:s');
+                                $data->save();
+
+                                $po = new trackerPO();
+                                $po->nama_admin_tracker  = Auth::guard('sourching')->user()->name;
+                                $po->nama_supplier_tracker    = $request->name_supplier;
+                                $po->kode_po_tracker  = $kode_po;
+                                $po->tanggal_po_tracker  = $request->tanggal_po;
+                                $po->id_data_po_tracker  = $Data_po->id_data_po;
+                                $po->pengajuan_po_user_tracker  = $request->date_biduser;
+                                $po->status_po_tracker  = $request->status_bid;
+                                $po->proses_tracker = 'Approve Sourching';
+                                $po->approve_sourching_tracker  = date('Y-m-d H:i:s');
+                                $po->save();
+                            }
+                        );
+                        sleep(1);
+                        $result = $promise->wait();
+                        // dd($result);
+                    } else {
+                        // dd('3');
+                        $antrian1 = ($antrian1);
+                        $kode_po = 'PO.NGW.BPK.BKS/' . date('Y', strtotime($get_tanggal_po->open_po)) . date('m', strtotime($get_tanggal_po->open_po)) . date('d', strtotime($get_tanggal_po->open_po)) . '/' . $antrian1;
+                        $kode_po_aol = 'PO.BPK.' . date('m', strtotime($get_tanggal_po->open_po)) . '.' . Carbon::parse($get_tanggal_po->open_po)->format('y') . '.';
+                        // Integrasi Epicor
+                        $Data_po = new  \App\Models\DataPO;
+                        $client = new \GuzzleHttp\Client();
+                        $url = 'http://34.128.70.126:2022/api/PO/InsertPO';
+                        $form_params = [
+                            'VendorID'      => $request->vendorid,
+                            'BuyerID'       => 'BBK01101',
+                            'TermsCode'     => 'PT01',
+                            'PartNum'       => $request->kode_item,
+                            'Quantity'      => 8000,
+                            'UnitPrice_c'   => 5000,
+                            'UnitPrice'     => 5000,
+                            'TotalUnitPrice_c' => 40000000,
+                            'PartDesc'      => $request->message_admin,
+                            'nobks_c'       => 0,
+                            'codepo_c'      => $kode_po,
+                            'plant'         => 'NGW',
+                            'WarehouseCode' => 'WHNGWHUA',
+                            'BinNum'        => 'BNNGWHUA01',
                             'SPS_Nopol_c'   => 'AG',
                             'PTI_PONum_c'   => $kode_po,
                             'SPS_PODate_c'  => $request->tanggal_po,
@@ -2094,7 +2446,9 @@ _Sent Via *PT SURYA PANGAN SEMESTA NGAWI*_",
                             'TermsCode'     => 'PT01',
                             'PartNum'       => $request->kode_item,
                             'Quantity'      => 8000,
+                            'UnitPrice_c'   => 5000,
                             'UnitPrice'     => 5000,
+                            'TotalUnitPrice_c' => 40000000,
                             'PartDesc'      => $request->message_admin,
                             'nobks_c'       => 0,
                             'codepo_c'      => $kode_po,
@@ -2163,7 +2517,9 @@ _Sent Via *PT SURYA PANGAN SEMESTA NGAWI*_",
                             'TermsCode'     => 'PT01',
                             'PartNum'       => $request->kode_item,
                             'Quantity'      => 8000,
+                            'UnitPrice_c'   => 5000,
                             'UnitPrice'     => 5000,
+                            'TotalUnitPrice_c' => 40000000,
                             'PartDesc'      => $request->message_admin,
                             'nobks_c'       => 0,
                             'codepo_c'      => $kode_po,
@@ -2232,7 +2588,9 @@ _Sent Via *PT SURYA PANGAN SEMESTA NGAWI*_",
                             'TermsCode'     => 'PT01',
                             'PartNum'       => $request->kode_item,
                             'Quantity'      => 8000,
+                            'UnitPrice_c'   => 5000,
                             'UnitPrice'     => 5000,
+                            'TotalUnitPrice_c' => 40000000,
                             'PartDesc'      => $request->message_admin,
                             'nobks_c'       => 0,
                             'codepo_c'      => $kode_po,

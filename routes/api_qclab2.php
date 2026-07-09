@@ -9,6 +9,7 @@ Route::get('/lab/proses_lab2_pecah_kulit', [QcLab2Controller::class, 'proses_lab
 Route::get('/lab/proses_lab2_beras_ds', [QcLab2Controller::class, 'proses_lab2_beras_ds'])->name('lab.proses_lab2_beras_ds');
 
 Route::get('/lab/proses_add_lab2_gabah_basah/{id?}', [QcLab2Controller::class, 'proses_add_lab2_gabah_basah'])->name('lab.proses_add_lab2_gabah_basah');
+Route::get('/lab/proses_add_lab2_pecah_kulit/{id?}', [QcLab2Controller::class, 'proses_add_lab2_pecah_kulit'])->name('lab.proses_add_lab2_pecah_kulit');
 
 //Proses Lab2 Index
 Route::get('/lab/proses_lab2_gabah_basah_longgrain_index', [QcLab2Controller::class, 'proses_lab2_gabah_basah_longgrain_index'])->name('lab.proses_lab2_gabah_basah_longgrain_index');
@@ -22,6 +23,7 @@ Route::get('/lab/proses_lab2_beras_ds_index', [QcLab2Controller::class, 'proses_
 // Hasil Data Lab 2 
 Route::get('/lab/output_proses_lab2_gb', [QcLab2Controller::class, 'output_proses_lab2_gb'])->name('lab.output_proses_lab2_gb');
 Route::get('/lab/output_proses_lab2_pk', [QcLab2Controller::class, 'output_proses_lab2_pk'])->name('lab.output_proses_lab2_pk');
+Route::get('/lab/output_proses_lab2_pk_new', [QcLab2Controller::class, 'output_proses_lab2_pk_new'])->name('lab.output_proses_lab2_pk_new');
 
 Route::get('/lab/output_edit_proses_lab2_gb/{id?}', [QcLab2Controller::class, 'output_edit_proses_lab2_gb'])->name('lab.output_edit_proses_lab2_gb');
 
@@ -46,11 +48,13 @@ Route::get('/lab/output_lab2_gb_pandan_wangi_index', [QcLab2Controller::class, '
 Route::get('/lab/output_lab2_gb_pandan_wangi_approved_index', [QcLab2Controller::class, 'output_lab2_gb_pandan_wangi_approved_index'])->name('lab.output_lab2_gb_pandan_wangi_approved_index');
 Route::get('/lab/output_lab2_gb_ketan_putih_index', [QcLab2Controller::class, 'output_lab2_gb_ketan_putih_index'])->name('lab.output_lab2_gb_ketan_putih_index');
 Route::get('/lab/output_lab2_pk_index', [QcLab2Controller::class, 'output_lab2_pk_index'])->name('lab.output_lab2_pk_index');
+Route::get('/lab/output_lab2_pk_new_index', [QcLab2Controller::class, 'output_lab2_pk_new_index'])->name('lab.output_lab2_pk_new_index');
 Route::get('/lab/count_outputlab2_gb', [QcLab2Controller::class, 'count_outputlab2_gb'])->name('lab.count_outputlab2_gb');
 
 // Edit & Update Lab 2
 Route::post('/lab/update_lab2_gb', [QcLab2Controller::class, 'update_lab2_gb'])->name('lab.update_lab2_gb');
 Route::post('/lab/update_lab2_pk', [QcLab2Controller::class, 'update_lab2_pk'])->name('lab.update_lab2_pk');
+Route::post('/lab/tolak_pk', [QcLab2Controller::class, 'tolak_pk'])->name('lab.tolak_pk');
 Route::get('/lab/edit_lab2_gb/{id?}', [QcLab2Controller::class, 'edit_lab2_gb'])->name('lab.edit_lab2_gb');
 Route::get('/lab/edit_lab2_pk/{id?}', [QcLab2Controller::class, 'edit_lab2_pk'])->name('lab.edit_lab2_pk');
 Route::get('/lab/approve_lab2_gb/{id?}', [QcLab2Controller::class, 'approve_lab2_gb'])->name('lab.approve_lab2_gb');
@@ -62,5 +66,6 @@ Route::get('/lab/finishing_qc', [QcLab2Controller::class, 'finishing_qc'])->name
 
 Route::post('/lab/save_proses_lab2_gb', [QcLab2Controller::class, 'save_proses_lab2_gb'])->name('lab.save_proses_lab2_gb');
 Route::post('/lab/save_proses_lab2_pk', [QcLab2Controller::class, 'save_proses_lab2_pk'])->name('lab.save_proses_lab2_pk');
+Route::post('/lab/save_proses_lab2_pk_new', [QcLab2Controller::class, 'save_proses_lab2_pk_new'])->name('lab.save_proses_lab2_pk_new');
 Route::get('/lab/get_plan_hpp_gabah_basah/{id?}', [QcLab2Controller::class, 'get_plan_hpp_gabah_basah'])->name('lab.get_plan_hpp_gabah_basah');
 Route::get('/lab/finishing_qc_lab_2', [QcLab2Controller::class, 'finishing_qc_lab_2'])->name('lab.finishing_qc_lab_2');

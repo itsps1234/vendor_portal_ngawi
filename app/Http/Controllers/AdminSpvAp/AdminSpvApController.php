@@ -4,6 +4,8 @@ namespace App\Http\Controllers\AdminSpvAp;
 
 use App\Exports\DataFakturPembelianAOL;
 use App\Exports\DataFakturPembelianAOL1;
+use App\Exports\DataFakturPembelianPKAOL;
+use App\Exports\DataFakturPembelianPKAOL1;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DataTables;
@@ -134,6 +136,8 @@ class AdminSpvApController extends Controller
             'PONum'         => $get->PONum,
             'Quantity'      => $get->netto2,
             'UnitPrice'     => $get_harga,
+            'UnitPrice_c'   => $get_harga,
+            'TotalUnitPrice_c' => ($get_harga * $get->netto2),
             'nobks_c'       => $get->dtm_gb,
             'codepo_c'      => $get->penerimaan_kode_po,
             'plant'         => 'NGW',
@@ -176,9 +180,7 @@ class AdminSpvApController extends Controller
     public function approve_receipt_pk($id)
     {
         $data = PenerimaanPO::join('data_po', 'data_po.id_data_po', '=', 'penerimaan_po.penerimaan_id_data_po')
-            ->join('lab2_pk', 'lab2_pk.lab2_kode_po_pk', '=', 'penerimaan_po.penerimaan_kode_po')
-            ->where('penerimaan_po.id_penerimaan_po', $id)->first();
-        $get_bin_num = PenerimaanPO::join('lab1_pk', 'lab1_pk.lab1_id_penerimaan_po_pk', 'penerimaan_po.id_penerimaan_po')
+            ->join('lab2_pk_new', 'lab2_pk_new.lab2_kode_po_pk', '=', 'penerimaan_po.penerimaan_kode_po')
             ->where('penerimaan_po.id_penerimaan_po', $id)->first();
         // dd($get_bin_num->lokasi_bongkar_gb);
 
@@ -190,11 +192,13 @@ class AdminSpvApController extends Controller
             'PONum'         => $data->PONum,
             'Quantity'      => $data->netto2,
             'UnitPrice'     => $data->harga_bongkaran_pk,
+            'UnitPrice_c'   => $data->harga_bongkaran_pk,
+            'TotalUnitPrice_c' => ($data->harga_bongkaran_pk * $data->netto2),
             'nobks_c'       => $data->no_dtm_pk,
             'codepo_c'      => $data->penerimaan_kode_po,
             'plant'         => 'NGW',
-            'WarehouseCode' => 'WHDRNGW',
-            // 'BinNum' => $bin_num,
+            'WarehouseCode' => 'WHNGWHUA',
+            'BinNum' => 'BNNGWHUA01',
             'SPS_Nopol_c' => $data->plat_kendaraan,
             'PTI_PONum_c' => $data->penerimaan_kode_po,
             'SPS_PODate_c'   => $data->tanggal_po,
@@ -1208,7 +1212,7 @@ class AdminSpvApController extends Controller
     }
     public function getcount_notif_menuall()
     {
-        $count_approve_pembelian = DataPO::join('bid', 'bid.id_bid', '=', 'data_po.bid_id')
+        $count_approve_pembelian_gb = DataPO::join('bid', 'bid.id_bid', '=', 'data_po.bid_id')
             ->join('users', 'users.id', '=', 'data_po.user_idbid')
             ->join('penerimaan_po', 'penerimaan_po.penerimaan_id_data_po', '=', 'data_po.id_data_po')
             ->join('lab2_gb', 'lab2_gb.lab2_kode_po_gb', '=', 'data_po.kode_po')
@@ -1218,6 +1222,17 @@ class AdminSpvApController extends Controller
             ->where('lab2_gb.aksi_harga_gb', 'DEAL')
             ->orderBy('lab2_gb.id_lab2_gb', 'DESC')
             ->count();
+        $count_approve_pembelian_pk = DataPO::join('bid', 'bid.id_bid', '=', 'data_po.bid_id')
+            ->join('users', 'users.id', '=', 'data_po.user_idbid')
+            ->join('penerimaan_po', 'penerimaan_po.penerimaan_id_data_po', '=', 'data_po.id_data_po')
+            ->join('lab2_pk_new', 'lab2_pk_new.lab2_kode_po_pk', '=', 'data_po.kode_po')
+            ->where('penerimaan_po.status_penerimaan', 13)
+            ->where('penerimaan_po.analisa', '=', 'verified')
+            ->where('penerimaan_po.status_epicor', NULL)
+            ->where('lab2_pk_new.aksi_harga_pk', 'DEAL')
+            ->orderBy('lab2_pk_new.id_lab2_pk', 'DESC')
+            ->count();
+        $count_approve_pembelian = $count_approve_pembelian_gb + $count_approve_pembelian_pk;
         $count_approve_revisi = DataPO::join('bid', 'bid.id_bid', '=', 'data_po.bid_id')
             ->join('users', 'users.id', '=', 'data_po.user_idbid')
             ->join('penerimaan_po', 'penerimaan_po.penerimaan_id_data_po', '=', 'data_po.id_data_po')
@@ -1247,13 +1262,13 @@ class AdminSpvApController extends Controller
                     ->join('users', 'users.id', '=', 'data_po.user_idbid')
                     ->join('penerimaan_po', 'penerimaan_po.penerimaan_id_data_po', '=', 'data_po.id_data_po')
                     ->join('admins', 'admins.id', '=', 'penerimaan_po.penerima_po')
-                    ->join('lab2_pk', 'lab2_pk.lab2_kode_po_pk', '=', 'data_po.kode_po')
+                    ->join('lab2_pk_new', 'lab2_pk_new.lab2_kode_po_pk', '=', 'data_po.kode_po')
                     ->whereBetween('data_po.tanggal_po', array($request->from_date, $request->to_date))
                     ->where('penerimaan_po.status_penerimaan', 13)
                     ->where('penerimaan_po.analisa', '=', 'verified')
                     ->where('penerimaan_po.status_epicor', NULL)
-                    ->where('lab2_pk.aksi_harga_pk', 'DEAL')
-                    ->orderBy('lab2_pk.id_lab2_pk', 'DESC')
+                    ->where('lab2_pk_new.aksi_harga_pk', 'DEAL')
+                    ->orderBy('lab2_pk_new.id_lab2_pk', 'DESC')
                     ->get())
                     ->addColumn('site', function ($list) {
                         $result = 'NGAWI';
@@ -1292,6 +1307,14 @@ class AdminSpvApController extends Controller
 
                         return $result;
                     })
+                    ->addColumn('tanggal_receipt', function ($list) {
+                        if ($list->tanggal_bongkar == NULL) {
+                            return '<span class="btn btn-label-primary btn-sm"><b>-</b></span>';
+                        } else {
+                            $result = \Carbon\Carbon::parse($list->tanggal_bongkar)->isoFormat('DD-MM-Y');
+                            return '<span class="btn btn-label-primary btn-sm"><b>' . $result . '</b></span>';
+                        }
+                    })
                     ->addColumn('approved', function ($list) {
                         if ($list->status_approved_receipt == 1) {
                             return
@@ -1320,8 +1343,7 @@ class AdminSpvApController extends Controller
                             } else {
                                 return
                                     '<a id="btn_information" style="margin:2px;"  title="Information" class=" btn btn-outline-info m-btn m-btn--icon btn-sm m-btn--icon-only">
-                    Kirim Epicor
-                </a>';
+                    Kirim Epicor </a>';
                             }
                         }
                     })
@@ -1337,19 +1359,19 @@ class AdminSpvApController extends Controller
                         }
                         return $result;
                     })
-                    ->rawColumns(['site', 'kode_po', 'approved', 'nama_vendor', 'tanggal_po', 'selected', 'plat_kendaraan', 'tonase_awal', 'tonase_akhir', 'hasil_akhir_tonase', 'harga_akhir', 'ckelola'])
+                    ->rawColumns(['site', 'tanggal_receipt', 'kode_po', 'approved', 'nama_vendor', 'tanggal_po', 'selected', 'plat_kendaraan', 'tonase_awal', 'tonase_akhir', 'hasil_akhir_tonase', 'harga_akhir', 'ckelola'])
                     ->make(true);
             } else {
                 return Datatables::of(DataPO::join('bid', 'bid.id_bid', '=', 'data_po.bid_id')
                     ->join('users', 'users.id', '=', 'data_po.user_idbid')
                     ->join('penerimaan_po', 'penerimaan_po.penerimaan_id_data_po', '=', 'data_po.id_data_po')
                     ->join('admins', 'admins.id', '=', 'penerimaan_po.penerima_po')
-                    ->join('lab2_pk', 'lab2_pk.lab2_kode_po_pk', '=', 'data_po.kode_po')
+                    ->join('lab2_pk_new', 'lab2_pk_new.lab2_kode_po_pk', '=', 'data_po.kode_po')
                     ->where('penerimaan_po.status_penerimaan', 13)
                     ->where('penerimaan_po.analisa', '=', 'verified')
-                    ->where('lab2_pk.aksi_harga_pk', 'DEAL')
+                    ->where('lab2_pk_new.aksi_harga_pk', 'DEAL')
                     ->where('penerimaan_po.status_epicor', NULL)
-                    ->orderBy('lab2_pk.created_at_pk', 'DESC')
+                    ->orderBy('lab2_pk_new.created_at_pk', 'DESC')
                     ->get())
                     ->addColumn('site', function ($list) {
                         $result = 'NGAWI';
@@ -1387,6 +1409,14 @@ class AdminSpvApController extends Controller
                         $result = rupiah($list->harga_bongkaran_pk);
 
                         return $result;
+                    })
+                    ->addColumn('tanggal_receipt', function ($list) {
+                        if ($list->tanggal_bongkar == NULL) {
+                            return '<span class="btn btn-label-primary btn-sm"><b>-</b></span>';
+                        } else {
+                            $result = \Carbon\Carbon::parse($list->tanggal_bongkar)->isoFormat('DD-MM-Y');
+                            return '<span class="btn btn-label-primary btn-sm"><b>' . $result . '</b></span>';
+                        }
                     })
                     ->addColumn('approved', function ($list) {
                         if ($list->status_approved_receipt == 1) {
@@ -1433,7 +1463,7 @@ class AdminSpvApController extends Controller
                         }
                         return $result;
                     })
-                    ->rawColumns(['site', 'kode_po', 'approved', 'nama_vendor', 'tanggal_po', 'selected', 'plat_kendaraan', 'tonase_awal', 'tonase_akhir', 'hasil_akhir_tonase', 'harga_akhir', 'ckelola'])
+                    ->rawColumns(['site', 'kode_po', 'tanggal_receipt', 'approved', 'nama_vendor', 'tanggal_po', 'selected', 'plat_kendaraan', 'tonase_awal', 'tonase_akhir', 'hasil_akhir_tonase', 'harga_akhir', 'ckelola'])
                     ->make(true);
             }
         }
@@ -1446,13 +1476,13 @@ class AdminSpvApController extends Controller
                     ->join('users', 'users.id', '=', 'data_po.user_idbid')
                     ->join('penerimaan_po', 'penerimaan_po.penerimaan_id_data_po', '=', 'data_po.id_data_po')
                     ->join('admins', 'admins.id', '=', 'penerimaan_po.penerima_po')
-                    ->join('lab2_pk', 'lab2_pk.lab2_kode_po_pk', '=', 'data_po.kode_po')
+                    ->join('lab2_pk_new', 'lab2_pk_new.lab2_kode_po_pk', '=', 'data_po.kode_po')
                     ->whereBetween('data_po.tanggal_po', array($request->from_date, $request->to_date))
                     ->where('penerimaan_po.status_penerimaan', 13)
                     ->where('penerimaan_po.analisa', '=', 'verified')
                     ->where('penerimaan_po.status_epicor', '1')
-                    ->where('lab2_pk.aksi_harga_pk', 'DEAL')
-                    ->orderBy('lab2_pk.id_lab2_pk', 'DESC')
+                    ->where('lab2_pk_new.aksi_harga_pk', 'DEAL')
+                    ->orderBy('lab2_pk_new.id_lab2_pk', 'DESC')
                     ->get())
                     ->addColumn('site', function ($list) {
                         $result = 'NGAWI';
@@ -1490,6 +1520,14 @@ class AdminSpvApController extends Controller
                         $result = rupiah($list->harga_bongkaran_pk);
 
                         return $result;
+                    })
+                    ->addColumn('tanggal_receipt', function ($list) {
+                        if ($list->tanggal_bongkar == NULL) {
+                            return '<span class="btn btn-label-primary btn-sm"><b>-</b></span>';
+                        } else {
+                            $result = \Carbon\Carbon::parse($list->tanggal_bongkar)->isoFormat('DD-MM-Y');
+                            return '<span class="btn btn-label-primary btn-sm"><b>' . $result . '</b></span>';
+                        }
                     })
                     ->addColumn('approved', function ($list) {
                         if ($list->status_approved_receipt == 1) {
@@ -1536,19 +1574,19 @@ class AdminSpvApController extends Controller
                         }
                         return $result;
                     })
-                    ->rawColumns(['site', 'kode_po', 'approved', 'nama_vendor', 'tanggal_po', 'selected', 'plat_kendaraan', 'tonase_awal', 'tonase_akhir', 'hasil_akhir_tonase', 'harga_akhir', 'ckelola'])
+                    ->rawColumns(['site', 'tanggal_receipt', 'kode_po', 'approved', 'nama_vendor', 'tanggal_po', 'selected', 'plat_kendaraan', 'tonase_awal', 'tonase_akhir', 'hasil_akhir_tonase', 'harga_akhir', 'ckelola'])
                     ->make(true);
             } else {
                 return Datatables::of(DataPO::join('bid', 'bid.id_bid', '=', 'data_po.bid_id')
                     ->join('users', 'users.id', '=', 'data_po.user_idbid')
                     ->join('penerimaan_po', 'penerimaan_po.penerimaan_id_data_po', '=', 'data_po.id_data_po')
                     ->join('admins', 'admins.id', '=', 'penerimaan_po.penerima_po')
-                    ->join('lab2_pk', 'lab2_pk.lab2_kode_po_pk', '=', 'data_po.kode_po')
+                    ->join('lab2_pk_new', 'lab2_pk_new.lab2_kode_po_pk', '=', 'data_po.kode_po')
                     ->where('penerimaan_po.status_penerimaan', 13)
                     ->where('penerimaan_po.analisa', '=', 'verified')
-                    ->where('lab2_pk.aksi_harga_pk', 'DEAL')
+                    ->where('lab2_pk_new.aksi_harga_pk', 'DEAL')
                     ->where('penerimaan_po.status_epicor', '1')
-                    ->orderBy('lab2_pk.created_at_pk', 'DESC')
+                    ->orderBy('lab2_pk_new.created_at_pk', 'DESC')
                     ->get())
                     ->addColumn('site', function ($list) {
                         $result = 'NGAWI';
@@ -1688,17 +1726,20 @@ class AdminSpvApController extends Controller
     }
     public function kirim_epicor_pk($id)
     {
-        $get_id = PenerimaanPO::where('id_penerimaan_po', $id)
+        $get_id = DataPO::where('id_data_po', $id)
             ->first();
-        $receipt_date = Carbon::parse('')->format('d/m/y');
-        // dd($get_id->PONum);
-        //  Integrasi Epicor
-        $update_status_penerimaan_po = PenerimaanPO::where('id_penerimaan_po', $id)
-            ->update(['status_epicor' => '1']);
+        if ($get_id->tanggal_bongkar == '' || $get_id->tanggal_bongkar == NULL) {
+            $tanggal_receipt = date('Y-m-d');
+        } else {
+
+            $tanggal_receipt = $get_id->tanggal_bongkar;
+        }
         $client = new \GuzzleHttp\Client();
-        $url = 'http://34.128.70.126:2022/api/PO/ApprovalPO?PONum=' . $get_id->penerimaan_po_num . '&ReceiptDate=' . $get_id->created_at_tonase_akhir;
+        $url = 'http://34.128.70.126:2022/api/PO/ApprovalPO?PONum=' . $get_id->penerimaan_po_num . '&ReceiptDate=' . $tanggal_receipt;
         $response = $client->get($url);
         $response = $response->getBody()->getContents();
+        $update_status_penerimaan_po = PenerimaanPO::where('penerimaan_po_num', $get_id->PONum)
+            ->update(['status_epicor' => '1']);
         // dd($response); 
         // return json_encode($update_status_penerimaan_po);
         $log                               = new LogAktivitySpvAp();
@@ -1894,6 +1935,20 @@ class AdminSpvApController extends Controller
         $to_date  = $request->to_date;
         // dd($from_date . '-' . $to_date);
         return Excel::download(new DataFakturPembelianAOL1($from_date, $to_date), 'Data Faktur Pembelian(EPICOR) PT. SURYA PANGAN SEMESTA NGAWI.xlsx');
+    }
+    public function download_data_faktur_pemebelian_pk_aol(Request $request)
+    {
+        $from_date  = $request->from_date;
+        $to_date  = $request->to_date;
+        // dd($from_date . '-' . $to_date);
+        return Excel::download(new DataFakturPembelianPKAOL($from_date, $to_date), 'Data Faktur Pembelian PT. SURYA PANGAN SEMESTA NGAWI.xlsx');
+    }
+    public function download_data_faktur_pemebelian_pk_aol1(Request $request)
+    {
+        $from_date  = $request->from_date;
+        $to_date  = $request->to_date;
+        // dd($from_date . '-' . $to_date);
+        return Excel::download(new DataFakturPembelianPKAOL1($from_date, $to_date), 'Data Faktur Pembelian(EPICOR) PT. SURYA PANGAN SEMESTA NGAWI.xlsx');
     }
     public function get_notifikasispvap()
     {

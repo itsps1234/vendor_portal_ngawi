@@ -19,9 +19,9 @@
                 <a href="{{ url('timbangan/timbangan_awal') }}" class="kt-menu__link kt-menu__toggle">
                     <i class="kt-menu__link-icon  flaticon2-checking kt-font-info"></i>
                     <span class="kt-menu__link-text">Timbangan Masuk</span>
-                    <span id="count_tonaseawal" class="badge badge badge-info" style="position:absolute; right: 0%; width: max-content; background-color: #9f187c;">
+                    <!-- <span id="count_tonaseawal" class="badge badge badge-info" style="position:absolute; right: 0%; width: max-content; background-color: #9f187c;">
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                    </span>
+                    </span> -->
                 </a>
             </li>
             <li class="kt-menu__item  kt-menu__item--{{set_active('timbangan/data_timbangan_awal')}}" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
@@ -34,9 +34,9 @@
                 <a href="{{ url('timbangan/timbangan_akhir') }}" class="kt-menu__link kt-menu__toggle">
                     <i class="kt-menu__link-icon     flaticon2-checking kt-font-success"></i>
                     <span class="kt-menu__link-text">Timbangan Keluar</span>
-                    <span id="count_tonaseakhir" class="badge badge badge-info" style="position:absolute; right: 0%; width: max-content; background-color: #9f187c;">
+                    <!-- <span id="count_tonaseakhir" class="badge badge badge-info" style="position:absolute; right: 0%; width: max-content; background-color: #9f187c;">
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                    </span>
+                    </span> -->
                 </a>
             </li>
             <li class="kt-menu__item  kt-menu__item--{{set_active('timbangan/data_timbangan_akhir')}}" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
@@ -49,9 +49,9 @@
                 <a href="{{ url('timbangan/data_revisi_timbangan') }}" class="kt-menu__link kt-menu__toggle">
                     <i class="kt-menu__link-icon   flaticon2-checking kt-font-warning"></i>
                     <span class="kt-menu__link-text">Data Revisi</span>
-                    <span id="count_revisitonase" class="badge badge badge-info" style="position:absolute; right: 0%; width: max-content; background-color: #9f187c;">
+                    <!-- <span id="count_revisitonase" class="badge badge badge-info" style="position:absolute; right: 0%; width: max-content; background-color: #9f187c;">
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                    </span>
+                    </span> -->
                 </a>
             </li>
             <li class="kt-menu__item  kt-menu__item--{{set_active('timbangan/account_timbangan')}}" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">

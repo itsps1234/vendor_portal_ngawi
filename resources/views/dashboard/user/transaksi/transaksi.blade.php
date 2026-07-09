@@ -1573,7 +1573,7 @@
                             {{$data->plat_kendaraan}}
                             @endif
                         </dd>
-                        <dd class="col-3">Qty</dd>
+                        <!-- <dd class="col-3">Qty</dd>
                         <dd class="col-1">:</dd>
                         <dd class="col-7" style="font-weight: bold;">
                             @if($data->hasil_akhir_tonase=='' || $data->hasil_akhir_tonase==NULL)
@@ -1581,8 +1581,8 @@
                             @else
                             {{tonase($data->hasil_akhir_tonase)}}
                             @endif
-                        </dd>
-                        <dd class="col-3">Harga</dd>
+                        </dd> -->
+                        <!-- <dd class="col-3">Harga</dd>
                         <dd class="col-1">:</dd>
                         <dd class="col-7" style="font-weight: bold;">
                             @if($data->aksi_harga_gb=='DEAL')
@@ -1590,16 +1590,16 @@
                             @else
                             -
                             @endif
-                        </dd>
+                        </dd> -->
                         <dd class="col-3">Bukti&nbsp;PO</dd>
                         <dd class="col-1">:</dd>
                         <dd class="col-7" style="font-weight: bold;">
                             @if ($data->status_bid == 5)
                             <span style="font-size: 8pt; color:#F08080;"> PO CLOSED</span>
                             @else
-                            <button data-id="{{$data->id_data_po}}" id="btn_cetak_po" name="" title="Cetak PO" class=" btn btn-sm btn-outline-primary">
+                            <!-- <button data-id="{{$data->id_data_po}}" id="btn_cetak_po" name="" title="Cetak PO" class=" btn btn-sm btn-outline-primary">
                                 <i class="bi bi-printer"></i>
-                            </button>
+                            </button> -->
                             <button data-id="{{$data->kode_po}}" id="btn_scan_po" title="Scan PO" class=" btn btn-sm btn-outline-danger">
                                 <i class="bi bi-qr-code-scan"></i>
                             </button>

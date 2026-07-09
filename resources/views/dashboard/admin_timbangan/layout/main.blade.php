@@ -350,7 +350,7 @@
     }
 
     //Set interval waktu menampilkan (1 detik = 1000)
-    setInterval(get_all_notifikasi, 3000);
+    // setInterval(get_all_notifikasi, 3000);
     setInterval(newnotif, 3500);
 </script>
 

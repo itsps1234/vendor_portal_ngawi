@@ -121,6 +121,10 @@ class QcLab2Controller extends Controller
     {
         return view('dashboard.admin_qc.output_proses_lab2_pk');
     }
+    public function output_proses_lab2_pk_new()
+    {
+        return view('dashboard.admin_qc.output_proses_lab2_pk_new');
+    }
 
     public function output_deal_lab2_gb()
     {
@@ -142,6 +146,12 @@ class QcLab2Controller extends Controller
         return view('dashboard.admin_qc.output_nego_lab2_pk');
     }
     public function output_gabah_lab2()
+    {
+        $plan_hpp_gabah_basah = PlanHppGabahBasah::get();
+        $harga_atas = HargaAtasGabahBasah::orderBy('id_harga_atas', 'desc')->first();
+        return view('dashboard.admin_qc.output_gabah_lab2', ['plan_hpp_gabah_basah' => $plan_hpp_gabah_basah]);
+    }
+    public function tolak_pk()
     {
         $plan_hpp_gabah_basah = PlanHppGabahBasah::get();
         $harga_atas = HargaAtasGabahBasah::orderBy('id_harga_atas', 'desc')->first();
@@ -211,6 +221,14 @@ class QcLab2Controller extends Controller
             })
             ->rawColumns(['kode_po', 'nama_vendor', 'tanggal_po', 'tanggal_bongkar', 'waktu_penerimaan', 'nama_penerima_po', 'plat_kendaraan', 'ckelola', 'detail_hasil_qc'])
             ->make(true);
+    }
+    public function proses_add_lab2_pecah_kulit($id)
+    {
+        $data = PenerimaanPO::join('data_po', 'data_po.kode_po', '=', 'penerimaan_po.penerimaan_kode_po')
+            ->join('bid', 'bid.id_bid', '=', 'data_po.bid_id')
+            ->join('users', 'users.id', '=', 'data_po.user_idbid')
+            ->where('id_penerimaan_po', $id)->first();
+        return view('dashboard.admin_qc.proses_add_lab2_pecah_kulit_new', compact('data'));
     }
     public function proses_lab2_gabah_basah_longgrain_index()
     {
@@ -475,11 +493,11 @@ class QcLab2Controller extends Controller
     public function proses_lab2_beras_ds_index() {}
     public function approve_lab2_pk($id)
     {
-        $get_kode_po            = DB::table('lab2_pk')->where('id_lab2_pk', $id)->first();
+        $get_kode_po            = FinishingQCPk::where('id_lab2_pk', $id)->first();
         $update_data_po         = DataPO::where('kode_po', $get_kode_po->lab2_kode_po_pk)->update(['status_bid' => 12]);
         $update_pernerimaan_po  = PenerimaanPO::where('penerimaan_kode_po', $get_kode_po->lab2_kode_po_pk)->update(['status_penerimaan' => 12]);
         $update_data_incoming   = DB::table('lab1_pk')->where('lab1_kode_po_pk', $get_kode_po->lab2_kode_po_pk)->update(['status_lab1_pk' => 12]);
-        $update_data_finishing  = DB::table('lab2_pk')->where('id_lab2_pk', $id)->update(['status_approved_pk' => NULL, 'status_lab2_pk' => 12]);
+        $update_data_finishing  = FinishingQCPk::where('id_lab2_pk', $id)->update(['status_approved_pk' => NULL, 'status_lab2_pk' => 12]);
         // return redirect()->back();
     }
 
@@ -741,6 +759,56 @@ class QcLab2Controller extends Controller
             ->update(['status_lab1_pk' => 11, 'aksi_harga_pk' => $request->aksi_harga_pk]);
 
         return redirect()->back();
+    }
+    public function save_proses_lab2_pk_new(Request $request)
+    {
+        // dd($request->all());
+
+        $data                                       = new FinishingQCPk();
+        $data->lab2_token                           = Str::random(30);
+        $data->lab2_kode_po_pk                      = $request->lab1_kode_po_pk;
+        $data->lab2_plat_pk                         = $request->lab1_plat_pk;
+        $data->ka_pk                                = 0;
+        $data->pk_pk                                = 0;
+        $data->pk_bersih_pk                         = 0;
+        $data->beras_pk                             = 0;
+        $data->lokasi_bongkar_pk                    = $request->lokasi_bongkar_pk;
+        $data->butir_patah_pk                       = 0;
+        $data->reject_pk                            = 0;
+        $data->hampa_pk                             = 0;
+        $data->katul_pk                             = 0;
+        $data->wh_pk                                = 0;
+        $data->aksi_harga_pk                        = $request->aksi_harga_pk;
+        $data->status_lab2_pk                       = 11;
+        $data->created_at_pk                        = date('Y-m-d H:i:s');
+        $data->tr_pk                                = 0;
+        $data->md_pk                                = 0;
+        $data->harga_bongkaran_pk                   = str_replace('.', '', $request->harga_bongkaran_pk);
+        $data->no_dtm_pk                            = 'BRS.NGW-' . $request->no_dtm_pk;
+        $data->surveyor_bongkar                     = 0;
+        $data->keterangan_bongkar                   = 0;
+        $data->waktu_bongkar                        = 0;
+        $data->z_yang_dibawa                        = 0;
+        $data->z_yang_ditolak                       = 0;
+        $data->tonase_pk                            = str_replace('.', '', $request->tonase_pk);
+        // dd($data);
+        $data->save();
+
+        $update_status_penerimaan_po = PenerimaanPO::where('id_penerimaan_po', $request->lab1_id_penerimaan_po_pk)->where('penerimaan_kode_po', $request->lab1_kode_po_pk)
+            ->update([
+                'hasil_akhir_tonase' => str_replace('.', '', $request->tonase_pk),
+                'created_at_tonase_akhir' => date('Y-m-d H:i:s'),
+                'netto2' => str_replace('.', '', $request->tonase_pk),
+                'status_penerimaan' => 11
+            ]);
+
+        $update_status_data_po = DataPO::where('id_data_po', $request->lab1_id_data_po_pk)->where('kode_po', $request->lab1_kode_po_pk)
+            ->update(['status_bid' => 11]);
+
+        // $update_status_gabahincoming = Lab1GabahBasah::where('lab1_id_data_po_pk', $request->lab1_id_data_po_pk)->where('lab1_kode_po_pk', $request->lab1_kode_po_pk)
+        //     ->update(['status_lab1_pk' => 11, 'aksi_harga_pk' => $request->aksi_harga_pk]);
+
+        return redirect()->route('qc.lab.proses_lab1_pecah_kulit_new');
     }
     public function edit_lab2_pk($id)
     {
@@ -7543,6 +7611,517 @@ class QcLab2Controller extends Controller
                     })
 
                     ->rawColumns(['kode_po', 'nama_vendor', 'status_lab2_pk', 'tanggal_po', 'keterangan_penerimaan_po', 'no_dtm', 'plat_kendaraan', 'hasil_akhir_tonase', 'ka_pk', 'wh_pk', 'tr_pk', 'pk_pk', 'presentase_hampa_pk', 'presentase_pk_bersih_pk', 'presentase_katul_pk', 'presentase_beras_pk', 'presentase_butir_patah_pk', 'presentase_butir_patah_beras_pk', 'presentase_reject_pk', 'refraksi_ka_pk', 'refraksi_hampa_pk', 'refraksi_katul_pk', 'refraksi_butir_patah_pk', 'reward_hampa_pk', 'reward_katul_pk', 'reward_tr_pk', 'reward_butir_patah_pk', 'harga_atas_pk', 'plan_harga_bongkaran', 'presentase_pass', 'harga_bongkaran_pk', 'presentase_reject', 'plan_total_harga_pk', 'selisih_ka_pk', 'selisih_presentase_hampa_pk', 'selisih_presentase_rendemen_pk_pk', 'selisih_presentase_katul_pk', 'selisih_presentase_rendemen_beras_pk', 'selisih_presentase_butir_patah_pk', 'selisih_wh_pk', 'selisih_tr_pk', 'selisih_harga_pk'])
+                    ->make(true);
+            }
+        }
+    }
+    public function output_lab2_pk_new_index(Request $request)
+    {
+        if (request()->ajax()) {
+
+            if (!empty($request->from_date)) {
+                return Datatables::of(DataPO::join('bid', 'bid.id_bid', '=', 'data_po.bid_id')
+                    ->join('users', 'users.id', '=', 'data_po.user_idbid')
+                    ->join('penerimaan_po', 'penerimaan_po.penerimaan_id_data_po', '=', 'data_po.id_data_po')
+                    ->join('lab2_pk', 'lab2_pk.lab2_kode_po_pk', '=', 'data_po.kode_po')
+                    ->join('data_qc_bongkar', 'data_qc_bongkar.kode_po_bongkar', '=', 'data_po.kode_po')
+                    ->whereBetween('data_po.tanggal_po', array($request->from_date, $request->to_date))
+                    ->orderBy('id_lab2_pk', 'DESC')
+                    ->select('penerimaan_po.*', 'data_po.tanggal_po', 'users.nama_vendor', 'bid.name_bid', 'lab2_pk.*')
+                    ->get())
+                    ->addColumn('kode_po', function ($list) {
+                        $result = $list->kode_po;
+                        return $result;
+                    })
+                    ->addColumn('nama_vendor', function ($list) {
+                        $result = $list->nama_vendor;
+                        return $result;
+                    })
+                    ->addColumn('status_lab2_pk', function ($list) {
+                        if ($list->status_lab2_pk == 11) {
+                            return
+                                '<div class="dropdown">
+    					<button class="btn btn-brand dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    <i class="fa fa-spinner"></i> Check Data
+						</button>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+							<button id="approved_lab2_pk" class="dropdown-item" data-id="' . $list->id_lab2_pk . '"><i class="fas fa-check"></i>Approve SPV</button>
+							<button id="btn_edit" class="dropdown-item" name="' . $list->id_lab2_pk . '" data-id="' . $list->id_penerimaan_po . '" data-tanggalpo="' . $list->tanggal_po . '" title="Information"><i class="fas fa-edit"></i>Edit</button>
+						</div>
+					</div>';
+                        } else {
+                            return
+                                '<a style="margin:2px;" name="' . $list->id_penerimaan_po . '" data-toggle="modal" data-target="#to_pending" title="Information" class="to_pending btn btn-outline-danger m-btn m-btn--icon btn-sm m-btn--icon-only">
+                        Menunggu&nbsp;Approved&nbsp;SPV 
+                    </a>';
+                        }
+                    })
+                    ->addColumn('tanggal_po', function ($list) {
+                        $result = \Carbon\Carbon::parse($list->tanggal_po)->isoFormat('DD-MM-Y');
+                        return $result;
+                    })
+                    ->addColumn('keterangan_penerimaan_po', function ($list) {
+                        $result = $list->keterangan_penerimaan_po;
+                        return $result;
+                    })
+                    ->addColumn('no_dtm', function ($list) {
+                        $result = $list->no_dtm_pk;
+                        return $result;
+                    })
+                    ->addColumn('plat_kendaraan', function ($list) {
+                        $result = $list->plat_kendaraan;
+                        return $result;
+                    })
+                    ->addColumn('hasil_akhir_tonase', function ($list) {
+                        if ($list->hasil_akhir_tonase == NULL) {
+                            return '<span class="badge rounded-pill bg-success">Proses&nbsp;Timbangan&nbsp;2</span>';
+                        } else {
+                            $result = $list->hasil_akhir_tonase;
+                            return $result;
+                        }
+                    })
+
+                    ->addColumn('ka_pk', function ($list) {
+                        $result = $list->ka_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('pk_pk', function ($list) {
+                        $result = $list->pk_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('wh_pk', function ($list) {
+                        $result = $list->wh_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('tr_pk', function ($list) {
+                        $result = $list->tr_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('presentase_hampa_pk', function ($list) {
+                        $result = $list->presentase_hampa_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('presentase_pk_bersih_pk', function ($list) {
+                        $result = $list->presentase_pk_bersih_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('presentase_katul_pk', function ($list) {
+                        $result = $list->presentase_katul_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('presentase_beras_pk', function ($list) {
+                        $result = $list->presentase_beras_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('presentase_butir_patah_pk', function ($list) {
+                        $result = $list->presentase_butir_patah_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('presentase_butir_patah_beras_pk', function ($list) {
+                        $result = $list->presentase_butir_patah_beras_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('presentase_reject_pk', function ($list) {
+                        $result = $list->presentase_reject_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('refraksi_ka_pk', function ($list) {
+                        if ($list->refraksi_ka_pk == 'TOLAK') {
+                            return 'TOLAK';
+                        } else {
+                            $result = rupiah($list->refraksi_ka_pk);
+                            return $result;
+                        }
+                    })
+                    ->addColumn('refraksi_hampa_pk', function ($list) {
+                        if ($list->refraksi_hampa_pk == 'TOLAK') {
+                            return 'TOLAK';
+                        } else {
+                            $result = rupiah($list->refraksi_hampa_pk);
+                            return $result;
+                        }
+                    })
+                    ->addColumn('refraksi_katul_pk', function ($list) {
+                        if ($list->refraksi_katul_pk == 'TOLAK') {
+                            return 'TOLAK';
+                        } else {
+                            $result = rupiah($list->refraksi_katul_pk);
+                            return $result;
+                        }
+                    })
+                    ->addColumn('refraksi_tr_pk', function ($list) {
+                        if ($list->refraksi_tr_pk == 'TOLAK') {
+                            return 'TOLAK';
+                        } else {
+                            $result = rupiah($list->refraksi_tr_pk);
+                            return $result;
+                        }
+                    })
+                    ->addColumn('refraksi_butir_patah_pk', function ($list) {
+                        if ($list->refraksi_butir_patah_pk == 'TOLAK') {
+                            return 'TOLAK';
+                        } else {
+                            $result = rupiah($list->refraksi_butir_patah_pk);
+                            return $result;
+                        }
+                    })
+                    ->addColumn('reward_hampa_pk', function ($list) {
+                        if ($list->reward_hampa_pk == 'TOLAK') {
+                            return 'TOLAK';
+                        } else {
+                            $result = rupiah($list->reward_hampa_pk);
+                            return $result;
+                        }
+                    })
+                    ->addColumn('reward_katul_pk', function ($list) {
+                        if ($list->reward_katul_pk == 'TOLAK') {
+                            return 'TOLAK';
+                        } else {
+                            $result = rupiah($list->reward_katul_pk);
+                            return $result;
+                        }
+                    })
+                    ->addColumn('reward_tr_pk', function ($list) {
+                        if ($list->reward_tr_pk == 'TOLAK') {
+                            return 'TOLAK';
+                        } else {
+                            $result = rupiah($list->reward_tr_pk);
+                            return $result;
+                        }
+                    })
+                    ->addColumn('reward_butir_patah_pk', function ($list) {
+                        if ($list->reward_butir_patah_pk == 'TOLAK') {
+                            return 'TOLAK';
+                        } else {
+                            $result = rupiah($list->reward_butir_patah_pk);
+                            return $result;
+                        }
+                    })
+                    ->addColumn('harga_atas_pk', function ($list) {
+                        $result = $list->harga_atas_pk;
+                        return rupiah($result);
+                    })
+                    ->addColumn('plan_harga_bongkaran_pk', function ($list) {
+                        $result = $list->plan_harga_bongkaran;
+                        return rupiah($result);
+                    })
+                    ->addColumn('harga_bongkaran_pk', function ($list) {
+                        $result = $list->harga_bongkaran_pk;
+                        return rupiah($result);
+                    })
+                    ->addColumn('presentase_pass', function ($list) {
+                        $result = $list->presentase_pass;
+                        return $result . '%';
+                    })
+                    ->addColumn('presentase_reject', function ($list) {
+                        $result = $list->presentase_reject;
+                        return $result . '%';
+                    })
+                    ->addColumn('plan_total_harga_pk', function ($list) {
+                        $result = $list->plan_total_harga_pk;
+                        return rupiah($result);
+                    })
+                    ->addColumn('selisih_ka_pk', function ($list) {
+                        $result = $list->selisih_ka_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('selisih_hampa_pk', function ($list) {
+                        $result = $list->selisih_presentase_hampa_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('selisih_rendemen_pk', function ($list) {
+                        $result = $list->selisih_presentase_rendemen_pk_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('selisih_katul_pk', function ($list) {
+                        $result = $list->selisih_presentase_katul_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('selisih_rendemen_beras_pk', function ($list) {
+                        $result = $list->selisih_presentase_rendemen_beras_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('selisih_butir_patah_pk', function ($list) {
+                        $result = $list->selisih_presentase_butir_patah_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('selisih_wh_pk', function ($list) {
+                        $result = $list->selisih_wh_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('selisih_tr_pk', function ($list) {
+                        $result = $list->selisih_tr_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('selisih_harga_pk', function ($list) {
+                        $result = $list->selisih_harga_pk;
+                        return rupiah($result);
+                    })
+
+                    ->rawColumns(['kode_po', 'nama_vendor', 'status_lab2_pk', 'tanggal_po', 'keterangan_penerimaan_po', 'no_dtm', 'plat_kendaraan', 'hasil_akhir_tonase', 'ka_pk', 'wh_pk', 'tr_pk', 'pk_pk', 'presentase_hampa_pk', 'presentase_pk_bersih_pk', 'presentase_katul_pk', 'presentase_beras_pk', 'presentase_butir_patah_pk', 'presentase_butir_patah_beras_pk', 'presentase_reject_pk', 'refraksi_ka_pk', 'refraksi_hampa_pk', 'refraksi_katul_pk', 'refraksi_butir_patah_pk', 'reward_hampa_pk', 'reward_katul_pk', 'reward_tr_pk', 'reward_butir_patah_pk', 'harga_atas_pk', 'plan_harga_bongkaran', 'presentase_pass', 'harga_bongkaran_pk', 'presentase_reject', 'plan_total_harga_pk', 'selisih_ka_pk', 'selisih_presentase_hampa_pk', 'selisih_presentase_rendemen_pk_pk', 'selisih_presentase_katul_pk', 'selisih_presentase_rendemen_beras_pk', 'selisih_presentase_butir_patah_pk', 'selisih_wh_pk', 'selisih_tr_pk', 'selisih_harga_pk'])
+                    ->make(true);
+            } else {
+                return Datatables::of(DataPO::join('bid', 'bid.id_bid', '=', 'data_po.bid_id')
+                    ->join('users', 'users.id', '=', 'data_po.user_idbid')
+                    ->join('penerimaan_po', 'penerimaan_po.penerimaan_id_data_po', '=', 'data_po.id_data_po')
+                    ->join('lab2_pk_new', 'lab2_pk_new.lab2_kode_po_pk', '=', 'data_po.kode_po')
+                    ->where('lab2_pk_new.status_lab2_pk', '>=', 11)
+                    ->orderBy('lab2_pk_new.id_lab2_pk', 'DESC')
+                    ->get())
+                    ->addColumn('kode_po', function ($list) {
+                        $result = $list->kode_po;
+                        return $result;
+                    })
+                    ->addColumn('nama_vendor', function ($list) {
+                        $result = $list->nama_vendor;
+                        return $result;
+                    })
+                    ->addColumn('lokasi_bongkar_pk', function ($list) {
+                        if ($list->lokasi_bongkar_pk = 'WHNGWHUA') {
+                            $result = 'HUSKING UNIT AREA NGAWI';
+                        } else {
+                            $result = '-';
+                        }
+                        return $result;
+                    })
+                    ->addColumn('status_lab2_pk', function ($list) {
+                        if ($list->status_lab2_pk == 11) {
+                            return
+                                '<div class="dropdown">
+    					<button class="btn btn-brand dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    <i class="fa fa-spinner"></i> Check Data
+						</button>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+							<button id="approved_lab2_pk" class="dropdown-item" data-id="' . $list->id_lab2_pk . '"><i class="fas fa-check"></i>Approve SPV</button>
+						</div>
+                        </div>';
+                        } else if ($list->status_lab2_pk == 12) {
+                            if ($list->status_approved_pk == 2) {
+                                return
+                                    '<div class="dropdown">
+                                <button class="btn btn-brand dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-spinner"></i> Tolak Approve
+                                </button>
+						        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+							    <button id="btn_edit" class="dropdown-item" name="' . $list->id_lab2_pk . '" data-id="' . $list->id_penerimaan_po . '" data-tanggalpo="' . $list->tanggal_po . '" title="Information"><i class="fas fa-edit"></i>Edit</button>
+						        </div>
+                                </div>';
+                            } else {
+                                return
+                                    '<a style="margin:2px;" name="' . $list->id_penerimaan_po . '" data-toggle="modal" data-target="#to_pending" title="Information" class="to_pending btn btn-outline-danger m-btn m-btn--icon btn-sm m-btn--icon-only">
+                                Menunggu&nbsp;Approved&nbsp;SPV 
+                            </a>';
+                            }
+                        } else {
+                            return
+                                '<a style="margin:2px;" name="' . $list->id_penerimaan_po . '" title="Information" class="btn btn-outline-success m-btn m-btn--icon btn-sm m-btn--icon-only">
+                                &nbsp;Approved&nbsp;SPV 
+                            </a>';
+                        }
+                    })
+                    ->addColumn('tanggal_po', function ($list) {
+                        $result = \Carbon\Carbon::parse($list->tanggal_po)->isoFormat('DD-MM-Y');
+                        return $result;
+                    })
+                    ->addColumn('keterangan_penerimaan_po', function ($list) {
+                        $result = $list->keterangan_penerimaan_po;
+                        return $result;
+                    })
+                    ->addColumn('no_dtm', function ($list) {
+                        $result = $list->no_dtm_pk;
+                        return $result;
+                    })
+                    ->addColumn('plat_kendaraan', function ($list) {
+                        $result = $list->plat_kendaraan;
+                        return $result;
+                    })
+                    ->addColumn('hasil_akhir_tonase', function ($list) {
+                        if ($list->hasil_akhir_tonase == NULL) {
+                            return '<span class="badge rounded-pill bg-success">Proses&nbsp;Timbangan&nbsp;2</span>';
+                        } else {
+                            $result = tonase($list->hasil_akhir_tonase);
+                            return $result;
+                        }
+                    })
+
+                    ->addColumn('ka_pk', function ($list) {
+                        $result = $list->ka_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('pk_pk', function ($list) {
+                        $result = $list->pk_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('wh_pk', function ($list) {
+                        $result = $list->wh_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('tr_pk', function ($list) {
+                        $result = $list->tr_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('presentase_hampa_pk', function ($list) {
+                        $result = $list->presentase_hampa_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('presentase_pk_bersih_pk', function ($list) {
+                        $result = $list->presentase_pk_bersih_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('presentase_katul_pk', function ($list) {
+                        $result = $list->presentase_katul_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('presentase_beras_pk', function ($list) {
+                        $result = $list->presentase_beras_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('presentase_butir_patah_pk', function ($list) {
+                        $result = $list->presentase_butir_patah_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('presentase_butir_patah_beras_pk', function ($list) {
+                        $result = $list->presentase_butir_patah_beras_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('presentase_reject_pk', function ($list) {
+                        $result = $list->presentase_reject_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('refraksi_ka_pk', function ($list) {
+                        if ($list->refraksi_ka_pk == 'TOLAK') {
+                            return 'TOLAK';
+                        } else {
+                            $result = rupiah($list->refraksi_ka_pk);
+                            return $result;
+                        }
+                    })
+                    ->addColumn('refraksi_hampa_pk', function ($list) {
+                        if ($list->refraksi_hampa_pk == 'TOLAK') {
+                            return 'TOLAK';
+                        } else {
+                            $result = rupiah($list->refraksi_hampa_pk);
+                            return $result;
+                        }
+                    })
+                    ->addColumn('refraksi_katul_pk', function ($list) {
+                        if ($list->refraksi_katul_pk == 'TOLAK') {
+                            return 'TOLAK';
+                        } else {
+                            $result = rupiah($list->refraksi_katul_pk);
+                            return $result;
+                        }
+                    })
+                    ->addColumn('refraksi_tr_pk', function ($list) {
+                        if ($list->refraksi_tr_pk == 'TOLAK') {
+                            return 'TOLAK';
+                        } else {
+                            $result = rupiah($list->refraksi_tr_pk);
+                            return $result;
+                        }
+                    })
+                    ->addColumn('refraksi_butir_patah_pk', function ($list) {
+                        if ($list->refraksi_butir_patah_pk == 'TOLAK') {
+                            return 'TOLAK';
+                        } else {
+                            $result = rupiah($list->refraksi_butir_patah_pk);
+                            return $result;
+                        }
+                    })
+                    ->addColumn('reward_hampa_pk', function ($list) {
+                        if ($list->reward_hampa_pk == 'TOLAK') {
+                            return 'TOLAK';
+                        } else {
+                            $result = rupiah($list->reward_hampa_pk);
+                            return $result;
+                        }
+                    })
+                    ->addColumn('reward_katul_pk', function ($list) {
+                        if ($list->reward_katul_pk == 'TOLAK') {
+                            return 'TOLAK';
+                        } else {
+                            $result = rupiah($list->reward_katul_pk);
+                            return $result;
+                        }
+                    })
+                    ->addColumn('reward_tr_pk', function ($list) {
+                        if ($list->reward_tr_pk == 'TOLAK') {
+                            return 'TOLAK';
+                        } else {
+                            $result = rupiah($list->reward_tr_pk);
+                            return $result;
+                        }
+                    })
+                    ->addColumn('reward_butir_patah_pk', function ($list) {
+                        if ($list->reward_butir_patah_pk == 'TOLAK') {
+                            return 'TOLAK';
+                        } else {
+                            $result = rupiah($list->reward_butir_patah_pk);
+                            return $result;
+                        }
+                    })
+                    ->addColumn('harga_atas_pk', function ($list) {
+                        $result = $list->harga_atas_pk;
+                        return rupiah($result);
+                    })
+                    ->addColumn('plan_harga_bongkaran_pk', function ($list) {
+                        $result = $list->plan_harga_bongkaran;
+                        return rupiah($result);
+                    })
+                    ->addColumn('harga_bongkaran_pk', function ($list) {
+                        $result = $list->harga_bongkaran_pk;
+                        return rupiah($result);
+                    })
+                    ->addColumn('presentase_pass', function ($list) {
+                        $result = $list->presentase_pass;
+                        return $result . '%';
+                    })
+                    ->addColumn('presentase_reject', function ($list) {
+                        $result = $list->presentase_reject;
+                        return $result . '%';
+                    })
+                    ->addColumn('plan_total_harga_pk', function ($list) {
+                        $result = $list->plan_total_harga_pk;
+                        return rupiah($result);
+                    })
+                    ->addColumn('selisih_ka_pk', function ($list) {
+                        $result = $list->selisih_ka_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('selisih_hampa_pk', function ($list) {
+                        $result = $list->selisih_presentase_hampa_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('selisih_rendemen_pk', function ($list) {
+                        $result = $list->selisih_presentase_rendemen_pk_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('selisih_katul_pk', function ($list) {
+                        $result = $list->selisih_presentase_katul_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('selisih_rendemen_beras_pk', function ($list) {
+                        $result = $list->selisih_presentase_rendemen_beras_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('selisih_butir_patah_pk', function ($list) {
+                        $result = $list->selisih_presentase_butir_patah_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('selisih_wh_pk', function ($list) {
+                        $result = $list->selisih_wh_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('selisih_tr_pk', function ($list) {
+                        $result = $list->selisih_tr_pk;
+                        return $result . '%';
+                    })
+                    ->addColumn('selisih_harga_pk', function ($list) {
+                        $result = $list->selisih_harga_pk;
+                        return rupiah($result);
+                    })
+
+                    ->rawColumns(['kode_po', 'lokasi_bongkar_pk', 'nama_vendor', 'status_lab2_pk', 'tanggal_po', 'keterangan_penerimaan_po', 'no_dtm', 'plat_kendaraan', 'hasil_akhir_tonase', 'ka_pk', 'wh_pk', 'tr_pk', 'pk_pk', 'presentase_hampa_pk', 'presentase_pk_bersih_pk', 'presentase_katul_pk', 'presentase_beras_pk', 'presentase_butir_patah_pk', 'presentase_butir_patah_beras_pk', 'presentase_reject_pk', 'refraksi_ka_pk', 'refraksi_hampa_pk', 'refraksi_katul_pk', 'refraksi_butir_patah_pk', 'reward_hampa_pk', 'reward_katul_pk', 'reward_tr_pk', 'reward_butir_patah_pk', 'harga_atas_pk', 'plan_harga_bongkaran', 'presentase_pass', 'harga_bongkaran_pk', 'presentase_reject', 'plan_total_harga_pk', 'selisih_ka_pk', 'selisih_presentase_hampa_pk', 'selisih_presentase_rendemen_pk_pk', 'selisih_presentase_katul_pk', 'selisih_presentase_rendemen_beras_pk', 'selisih_presentase_butir_patah_pk', 'selisih_wh_pk', 'selisih_tr_pk', 'selisih_harga_pk'])
                     ->make(true);
             }
         }

@@ -155,20 +155,15 @@ SURYA PANGAN SEMESTA
                                     <tr>
                                         <th style="text-align: center;width:2%">No</th>
                                         <th style="text-align: center;width:2%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nama&nbsp;Item&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                        <th style="text-align: center;width:auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tanggal&nbsp;PO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                         <th style="text-align: center;width:auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lokasi&nbsp;Bongkar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                         <th style="text-align: center;width:auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nopol&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                         <th style="text-align: center;width:auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nama&nbsp;Vendor&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                         <th style="text-align: center;width:auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kode&nbsp;PO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                         <th style="text-align: center;width:auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No.&nbsp;DTM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                                        <th style="text-align: center;width:auto">&nbsp;Tonase&nbsp;Awal&nbsp;</th>
-                                        <th style="text-align: center;width:auto">&nbsp;Tonase&nbsp;Akhir&nbsp;</th>
                                         <th style="text-align: center;width:auto">&nbsp;Hasil&nbsp;Akhir&nbsp;Tonase</th>
-                                        <th style="text-align: center;width:auto">Aktual&nbsp;Kualitas</th>
-                                        <th style="text-align: center;width:auto">Harga&nbsp;Awal&nbsp;Incoming</th>
                                         <th style="text-align: center;width:auto">Aksi&nbsp;Harga</th>
-                                        <th style="text-align: center;width:auto">Harga&nbsp;Akhir&nbsp;Incoming</th>
                                         <th style="text-align: center;width:auto">Harga&nbsp;Bongkaran</th>
-                                        <th style="text-align: center;width:auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Keterangan&nbsp;Harga&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                     </tr>
                                 </thead>
                                 <tbody style="text-align: center">
@@ -500,6 +495,9 @@ SURYA PANGAN SEMESTA
                         data: 'name_bid'
                     },
                     {
+                        data: 'tanggal_po'
+                    },
+                    {
                         data: 'lokasi_bongkar_pk'
                     },
                     {
@@ -515,31 +513,14 @@ SURYA PANGAN SEMESTA
                         data: 'no_dtm_pk'
                     },
                     {
-                        data: 'tonase_awal'
-                    },
-                    {
-                        data: 'tonase_akhir'
-                    },
-                    {
                         data: 'hasil_akhir_tonase'
                     },
-                    {
-                        data: 'aktual_kualitas_pk'
-                    },
-                    {
-                        data: 'harga_awal_pk'
-                    },
+
                     {
                         data: 'aksi_harga_pk'
                     },
                     {
-                        data: 'harga_akhir_pk'
-                    },
-                    {
                         data: 'harga_bongkaran_pk'
-                    },
-                    {
-                        data: 'keterangan_harga_akhir_pk'
                     },
                 ],
                 "order": []

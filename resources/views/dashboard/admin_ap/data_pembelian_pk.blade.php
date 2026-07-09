@@ -43,26 +43,58 @@ SURYA PANGAN SEMESTA
                     </div>
                 </div>
                 <div class="kt-portlet__body">
-                    <table class="table table-bordered" id="datatable">
-                        <thead>
-                            <tr>
-                                <th style="text-align: center;width:2%">No</th>
-                                <th style="text-align: center;width:2%">&nbsp;Site&nbsp;</th>
-                                <th style="text-align: center;width:18%">&nbsp;&nbsp;&nbsp;Nama&nbsp;Item&nbsp;&nbsp;&nbsp;</th>
-                                <th style="text-align: center;width:18%">Kode&nbsp;PO</th>
-                                <th style="text-align: center;width:18%">&nbsp;&nbsp;Nama&nbsp;Supplier&nbsp;&nbsp;</th>
-                                <th style="text-align: center;width:18%">Tanggal&nbsp;PO </th>
-                                <th style="text-align: center;width:18%">&nbsp;&nbsp;Nopol&nbsp;&nbsp;</th>
-                                <th style="text-align: center;width:18%">&nbsp;&nbsp;Bruto&nbsp;&nbsp;</th>
-                                <th style="text-align: center;width:20%">&nbsp;&nbsp;Tara&nbsp;&nbsp;</th>
-                                <th style="text-align: center;width:20%">&nbsp;Netto&nbsp;</th>
-                                <th style="text-align: center;width:20%">Harga&nbsp;Bongkaran </th>
-                                <th style="text-align: center;width:20%">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody style="text-align: center">
-                        </tbody>
-                    </table>
+                    <ul class="nav nav-pills" role="tablist">
+                        <li class="nav-item mt-3">
+                            <a class="nav-link active" data-toggle="tab" href="#m_tabs_3_1"><i class="la la-database"></i>BELUM VERIFIKASI
+                            </a>
+                        </li>
+                        <li class="nav-item mt-3">
+                            <a class="nav-link" data-toggle="tab" href="#m_tabs_3_2" id="notif_verified"><i class="la la-database"></i>SUDAH VERIFIKASI
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="m_tabs_3_1" role="tabpanel">
+                            <table class="table table-bordered" id="datatable">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center;width:2%">No</th>
+                                        <th style="text-align: center;width:18%">&nbsp;&nbsp;&nbsp;Nama&nbsp;Item&nbsp;&nbsp;&nbsp;</th>
+                                        <th style="text-align: center;width:18%">Kode&nbsp;PO</th>
+                                        <th style="text-align: center;width:18%">&nbsp;&nbsp;Nama&nbsp;Supplier&nbsp;&nbsp;</th>
+                                        <th style="text-align: center;width:18%">Tanggal&nbsp;PO </th>
+                                        <th style="text-align: center;width:18%">&nbsp;&nbsp;Nopol&nbsp;&nbsp;</th>
+                                        <th style="text-align: center;width:20%">&nbsp;No.&nbsp;DTM&nbsp;</th>
+                                        <th style="text-align: center;width:20%">&nbsp;Netto&nbsp;</th>
+                                        <th style="text-align: center;width:20%">Harga&nbsp;Bongkaran </th>
+                                        <th style="text-align: center;width:20%">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="text-align: center">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="m_tabs_3_2" role="tabpanel">
+                            <table class="table table-bordered" id="datatable1">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center;width:2%">No</th>
+                                        <th style="text-align: center;width:18%">&nbsp;&nbsp;&nbsp;Nama&nbsp;Item&nbsp;&nbsp;&nbsp;</th>
+                                        <th style="text-align: center;width:18%">Kode&nbsp;PO</th>
+                                        <th style="text-align: center;width:18%">&nbsp;&nbsp;Nama&nbsp;Supplier&nbsp;&nbsp;</th>
+                                        <th style="text-align: center;width:18%">Tanggal&nbsp;PO </th>
+                                        <th style="text-align: center;width:18%">&nbsp;&nbsp;Nopol&nbsp;&nbsp;</th>
+                                        <th style="text-align: center;width:20%">&nbsp;No.&nbsp;DTM&nbsp;</th>
+                                        <th style="text-align: center;width:20%">&nbsp;Netto&nbsp;</th>
+                                        <th style="text-align: center;width:20%">Harga&nbsp;Bongkaran </th>
+                                        <th style="text-align: center;width:20%">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="text-align: center">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -167,9 +199,7 @@ SURYA PANGAN SEMESTA
                         return meta.row + meta.settings._iDisplayStart + 1;
                     }
                 },
-                {
-                    data: 'site_admin'
-                },
+
                 {
                     data: 'name_bid'
                 },
@@ -186,10 +216,7 @@ SURYA PANGAN SEMESTA
                     data: 'plat_kendaraan'
                 },
                 {
-                    data: 'tonase_awal'
-                },
-                {
-                    data: 'tonase_akhir'
+                    data: 'no_dtm_pk'
                 },
                 {
                     data: 'hasil_akhir_tonase'
@@ -204,6 +231,62 @@ SURYA PANGAN SEMESTA
             ],
             "order": []
         });
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+            table.columns.adjust().draw().responsive.recalc();
+        })
+        var table1 = $('#datatable1').DataTable({
+            "scrollY": true,
+            "scrollX": true,
+            processing: true,
+            serverSide: true,
+            "aLengthMenu": [
+                [25, 100, 300, -1],
+                [25, 100, 300, "All"]
+            ],
+            "iDisplayLength": 10,
+            ajax: "{{ route('ap.data_pembelian_pk_verified_index') }}",
+            columns: [{
+                    data: "id_penerimaan_po",
+
+                    render: function(data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }
+                },
+
+                {
+                    data: 'name_bid'
+                },
+                {
+                    data: 'kode_po'
+                },
+                {
+                    data: 'nama_vendor'
+                },
+                {
+                    data: 'tanggal_po'
+                },
+                {
+                    data: 'plat_kendaraan'
+                },
+                {
+                    data: 'no_dtm_pk'
+                },
+                {
+                    data: 'hasil_akhir_tonase'
+                },
+                {
+                    data: 'harga_akhir'
+                },
+                {
+                    data: 'ckelola'
+                },
+
+            ],
+            "order": []
+        });
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+            table1.columns.adjust().draw().responsive.recalc();
+        })
     });
 </script>
 <script type="text/javascript">

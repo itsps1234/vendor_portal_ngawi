@@ -94,7 +94,13 @@ class QcLab1Controller extends Controller
 
     public function proses_lab1_pecah_kulit()
     {
+        // return view('dashboard.admin_qc.proses_lab1_pecah_kulit_new');
         return view('dashboard.admin_qc.proses_lab1_pecah_kulit');
+    }
+    public function proses_lab1_pecah_kulit_new()
+    {
+        return view('dashboard.admin_qc.proses_lab1_pecah_kulit_new');
+        // return view('dashboard.admin_qc.proses_lab1_pecah_kulit');
     }
 
     public function proses_lab1_beras_ds()

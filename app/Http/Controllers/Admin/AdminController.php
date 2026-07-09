@@ -152,56 +152,56 @@ class AdminController extends Controller
             ->get();
         // dd($PONum);
 
-        foreach ($PONum as $get) {
-            // dd($get_id->PONum);
-            $client = new \GuzzleHttp\Client();
+        // foreach ($PONum as $get) {
+        //     // dd($get_id->PONum);
+        //     $client = new \GuzzleHttp\Client();
 
-            // dd($response); 
-            // Integrasi Epicor
-            $promise = $client->getAsync('http://34.128.70.126:2022/api/PO/ClosePO?PONum=' . $get->PONum);
-            $promise->then(
-                function (Response $response) use ($get) {
-                    $response = $response->getBody()->getContents();
-                    $get_id = DataPO::where('id_data_po', $get->id_data_po)->update(
-                        [
-                            'status_bid' => '5',
-                            'keterangan_po_close' => 'PO CLOSE TERLAMBAT',
-                            'date_close_po' => date('Y-m-d H:i:s')
-                        ]
-                    );
-                }
+        //     // dd($response); 
+        //     // Integrasi Epicor
+        //     $promise = $client->getAsync('http://34.128.70.126:2022/api/PO/ClosePO?PONum=' . $get->PONum);
+        //     $promise->then(
+        //         function (Response $response) use ($get) {
+        //             $response = $response->getBody()->getContents();
+        //             $get_id = DataPO::where('id_data_po', $get->id_data_po)->update(
+        //                 [
+        //                     'status_bid' => '5',
+        //                     'keterangan_po_close' => 'PO CLOSE TERLAMBAT',
+        //                     'date_close_po' => date('Y-m-d H:i:s')
+        //                 ]
+        //             );
+        //         }
 
-            );
-            sleep(1);
-            $result = $promise->wait();
-            // insert Log Aktivity
-            $data = new LogAktivitySecurity();
-            $data->name_user                        = Auth::guard('security')->user()->name;
-            $data->id_objek_aktivitas_security     = $get->id_data_po;
-            $data->aktivitas_security              = 'Close PO: ' . $get->kode_po;
-            $data->keterangan_aktivitas              = 'Selesai';
-            $data->created_at                       = date('Y-m-d H:i:s');
-            $data->save();
+        //     );
+        //     sleep(1);
+        //     $result = $promise->wait();
+        //     // insert Log Aktivity
+        //     $data = new LogAktivitySecurity();
+        //     $data->name_user                        = Auth::guard('security')->user()->name;
+        //     $data->id_objek_aktivitas_security     = $get->id_data_po;
+        //     $data->aktivitas_security              = 'Close PO: ' . $get->kode_po;
+        //     $data->keterangan_aktivitas              = 'Selesai';
+        //     $data->created_at                       = date('Y-m-d H:i:s');
+        //     $data->save();
 
-            $po = trackerPO::where('kode_po_tracker', $get->kode_po)->first();
-            if ($po == NULL) {
-                $insert_tracker = new trackerPO();
-                $insert_tracker->nama_admin_tracker  = Auth::guard('security')->user()->name;
-                $insert_tracker->kode_po_tracker  = $get->kode_po;
-                $insert_tracker->status_po_tracker  = '5';
-                $insert_tracker->penerimaan_po_tracker  = NULL;
-                $insert_tracker->po_terlambat_tracker  = date('Y-m-d H:i:s');
-                $insert_tracker->proses_tracker  = 'PENERIMAAN PO TERLAMBAT';
-                $insert_tracker->save();
-            } else {
-                $po->nama_admin_tracker  = Auth::guard('security')->user()->name;
-                $po->status_po_tracker  = '5';
-                $po->penerimaan_po_tracker  = NULL;
-                $po->po_terlambat_tracker  = date('Y-m-d H:i:s');
-                $po->proses_tracker  = 'PENERIMAAN PO TERLAMBAT';
-                $po->update();
-            }
-        }
+        //     $po = trackerPO::where('kode_po_tracker', $get->kode_po)->first();
+        //     if ($po == NULL) {
+        //         $insert_tracker = new trackerPO();
+        //         $insert_tracker->nama_admin_tracker  = Auth::guard('security')->user()->name;
+        //         $insert_tracker->kode_po_tracker  = $get->kode_po;
+        //         $insert_tracker->status_po_tracker  = '5';
+        //         $insert_tracker->penerimaan_po_tracker  = NULL;
+        //         $insert_tracker->po_terlambat_tracker  = date('Y-m-d H:i:s');
+        //         $insert_tracker->proses_tracker  = 'PENERIMAAN PO TERLAMBAT';
+        //         $insert_tracker->save();
+        //     } else {
+        //         $po->nama_admin_tracker  = Auth::guard('security')->user()->name;
+        //         $po->status_po_tracker  = '5';
+        //         $po->penerimaan_po_tracker  = NULL;
+        //         $po->po_terlambat_tracker  = date('Y-m-d H:i:s');
+        //         $po->proses_tracker  = 'PENERIMAAN PO TERLAMBAT';
+        //         $po->update();
+        //     }
+        // }
 
         return view('dashboard.admin.gabah_basah');
     }
@@ -623,43 +623,33 @@ class AdminController extends Controller
             })
             ->addColumn('mulai_penerimaan', function ($list) {
                 $result = $list->date_bid;
-                if (date('H:i:s') >= date('12:00:00', strtotime($result))) {
-                    return date('Y-m-d', strtotime($result)) . '<br><span class="btn-danger">Mulai 12.00</span>';
+                if (date('12:00:00') > date('H:i:s')) {
+                    return date('d-m-Y', strtotime($result)) . '<br><span class="btn btn-label-danger btn-sm" style="font-weight: bold;">Mulai 12.00 WIB</span>';
                 } else {
-                    return date('Y-m-d', strtotime($result)) . '<br><span class="btn-success">Mulai 12.00</span>';
+                    return date('d-m-Y', strtotime($result)) . '<br><span class="btn btn-label-success btn-sm" style="font-weight: bold;">Mulai 12.00 WIB</span>';
                 }
             })
             ->addColumn('batas_bid', function ($list) {
                 $result = $list->batas_penerimaan_po;
-                if (date('12:00:00', strtotime($result)) >= date('H:i:s')) {
-                    return date('d-m-Y', strtotime($result)) . '<br><span class="btn-success">Batas 12.00</span>';
+                if (date('12:00:00') > date('H:i:s')) {
+                    return date('d-m-Y', strtotime($result)) . '<br><span class="btn btn-label-danger btn-sm" style="font-weight: bold;">Batas 12.00 WIB</span>';
                 } else {
-                    return date('d-m-Y', strtotime($result)) . '<br><span class="btn-danger">Batas 12.00</span>';
+                    return date('d-m-Y', strtotime($result)) . '<br><span class="btn btn-label-success btn-sm" style="font-weight: bold;">Batas 12.00 WIB</span>';
                 }
                 // return $result;
             })
 
             ->addColumn('ckelola', function ($list) {
-                if (date("Y-m-d") == $list->open_po) {
-                    if (date('H:i:s') <= date('12:00:00')) {
-                        return
-                            '<button style="margin:2px;" name="' . $list->id_data_po . '" data-toggle="modal" data-target="#modal2" title="Terima Data" class="toedit btn btn-outline-success m-btn m-btn--icon btn-sm m-btn--icon-only">
-                        <i class="fa fa-shipping-fast" >&nbsp;</i>
+                if (date('Y-m-d 12:00:00') > date('Y-m-d H:i:s')) {
+                    return '<button style="margin:2px;" name="' . $list->id_data_po . '" class=" btn btn-outline-danger m-btn m-btn--icon btn-sm m-btn--icon-only">
+                        <i class="fa fa-shipping-fast">&nbsp;</i>
+                        Menunggu&nbsp;Waktu
+                    </button>';
+                } else {
+                    return '<button style="margin:2px;" name="' . $list->id_data_po . '" data-toggle="modal" data-target="#modal2" title="Terima Data" class="toedit btn btn-outline-success m-btn m-btn--icon btn-sm m-btn--icon-only">
+                        <i class="fa fa-shipping-fast">&nbsp;</i>
                         Proses&nbsp;Kedatangan
                     </button>';
-                    } else {
-                        return
-                            '<button style="margin:2px;" name="' . $list->id_data_po . '" data-toggle="modal" data-target="#modal_po_ditolak" title="PO Tolak" class="totolak btn btn-outline-danger m-btn m-btn--icon btn-sm m-btn--icon-only">
-                        <i class="fa fa-shipping-fast" >&nbsp;</i>
-                        Pengiriman&nbsp;Terlambat
-                    </button>';
-                    }
-                } else {
-                    return
-                        '<button style="margin:2px;" name="' . $list->id_data_po . '" data-toggle="modal" data-target="#modal_po_ditolak" title="Pengajuan Terlambat" class="totolak btn btn-outline-danger m-btn m-btn--icon btn-sm m-btn--icon-only">
-                    <i class="fa fa-shipping-fast">&nbsp;</i>
-                    Pengiriman&nbsp;Terlambat
-                </button>';
                 }
             })
             ->rawColumns(['kode_po', 'nama_vendor', 'tanggal_po', 'mulai_penerimaan', 'batas_bid', 'ckelola'])

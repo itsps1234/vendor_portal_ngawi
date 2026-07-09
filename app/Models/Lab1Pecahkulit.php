@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Lab1Pecahkulit extends Model
 {
-    protected $table = 'lab1_pk';
+    // protected $table = 'lab1_pk';
+    protected $table = 'lab1_pk_new';
     protected $primaryKey = 'id_lab1_pk';
     public $timestamps = false;
     protected $guarded = ['id_lab1_pk '];

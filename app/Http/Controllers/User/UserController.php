@@ -618,9 +618,7 @@ class UserController extends Controller
             ->get();
         $site_other = DB::table('bid')
             ->where('lokasi', 'NGAWI')
-            ->where('name_bid', '!=', 'GABAH BASAH LONG GRAIN')
-            ->where('name_bid', '!=', 'GABAH BASAH PANDAN WANGI')
-            ->where('name_bid', '!=', 'GABAH BASAH KETAN PUTIH')
+            ->where('name_bid', '=', 'BERAS PECAH KULIT LONG GRAIN')
             ->orderBy('date_bid', 'DESC')
             ->limit(5)
             ->get();
@@ -843,10 +841,17 @@ class UserController extends Controller
                 ->where('status_biduser', '0')
                 ->count();
             // dd($get_data);
-            $rules = [
-                'jumlah_kirim' => 'required|max:255',
-                'description_biduser' => 'required|max:255',
-            ];
+            if ($request->name_bid == 'GABAH BASAH LONG GRAIN') {
+                $rules = [
+                    'jumlah_kirim' => 'required|max:255',
+                    'description_biduser' => 'required|max:255',
+                ];
+            } else {
+                $rules = [
+                    'jumlah_kirim' => 'required|max:255',
+                    'description_biduser' => 'max:255',
+                ];
+            }
             $customMessages = [
                 'required' => ':attribute tidak boleh kosong.',
                 'unique' => ':attribute tidak boleh sama',
@@ -865,7 +870,7 @@ class UserController extends Controller
                 $data->price_biduser = $request->price_biduser;
                 $data->jumlah_kirim = $validatedData['jumlah_kirim'];
                 $data->date_biduser = Carbon::now()->format('Y-m-d H:i:s');
-                $data->description_biduser = $validatedData['description_biduser'];
+                $data->description_biduser = $request['description_biduser'];
                 $data->save();
 
                 // insert Log Aktivity
@@ -3405,7 +3410,7 @@ Berlaku 4 Menit",
                 ->where('bid_user.user_id', $id)
                 ->where('bid_user.status_biduser', 0)
                 ->where('bid.bid_status', '1')
-                ->where('bid_user.date_biduser', '>=', $date_biduser)
+                ->where('bid_user.date_biduser', '<=', $date_biduser)
                 ->select('users.nama_vendor', 'users.id', 'bid.*', 'bid_user.*')
                 ->orderBy('id_biduser', 'desc')
                 ->get();

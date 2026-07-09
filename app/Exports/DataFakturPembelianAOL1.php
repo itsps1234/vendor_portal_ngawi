@@ -37,6 +37,8 @@ class DataFakturPembelianAOL1 implements FromCollection, WithHeadings, WithEvent
             'Kode PO',
             'Vendor ID',
             'Nama Vendor',
+            'Nama Bank',
+            'Nomer Rekening',
             'Kode Barang',
             'Nama Barang',
             'Plat Kendaraan',
@@ -70,7 +72,7 @@ class DataFakturPembelianAOL1 implements FromCollection, WithHeadings, WithEvent
                 ->where('penerimaan_po.analisa', '=', 'verified')
                 ->where('penerimaan_po.status_epicor', '1')
                 ->where('lab2_gb.aksi_harga_gb', 'DEAL')
-                ->select('PONum', 'tanggal_po', 'tanggal_bongkar', 'kode_po', 'vendorid', 'nama_vendor', 'kode_item', 'name_bid', 'plat_kendaraan', 'dtm_gb', 'lokasi_bongkar_gb', 'tonase_awal', 'tonase_akhir', 'hasil_akhir_tonase', 'harga_akhir_gb')
+                ->select('PONum', 'tanggal_po', 'tanggal_bongkar', 'kode_po', 'vendorid', 'nama_vendor', 'nama_bank', 'nomer_rekening', 'kode_item', 'name_bid', 'plat_kendaraan', 'dtm_gb', 'lokasi_bongkar_gb', 'tonase_awal', 'tonase_akhir', 'hasil_akhir_tonase', 'harga_akhir_gb')
                 ->limit(200)
                 ->get();
         } else {
@@ -85,7 +87,7 @@ class DataFakturPembelianAOL1 implements FromCollection, WithHeadings, WithEvent
                 ->where('penerimaan_po.analisa', '=', 'verified')
                 ->where('penerimaan_po.status_epicor', '1')
                 ->where('lab2_gb.aksi_harga_gb', 'DEAL')
-                ->select('PONum', 'tanggal_po', 'tanggal_bongkar', 'kode_po', 'vendorid', 'nama_vendor', 'kode_item', 'name_bid', 'plat_kendaraan', 'dtm_gb', 'lokasi_bongkar_gb', 'tonase_awal', 'tonase_akhir', 'hasil_akhir_tonase', 'harga_akhir_gb')
+                ->select('PONum', 'tanggal_po', 'tanggal_bongkar', 'kode_po', 'vendorid', 'nama_vendor', 'nama_bank', 'nomer_rekening', 'kode_item', 'name_bid', 'plat_kendaraan', 'dtm_gb', 'lokasi_bongkar_gb', 'tonase_awal', 'tonase_akhir', 'hasil_akhir_tonase', 'harga_akhir_gb')
                 ->get();
         }
     }

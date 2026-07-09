@@ -167,11 +167,13 @@ class AdminAPController extends Controller
     }
     public function potong_pajak_index()
     {
+        $targetDate = Carbon::now()->subMonths(2);
         return Datatables::of(DataPO::leftJoin('users', 'users.id', 'data_po.user_idbid')
             ->leftJoin('penerimaan_po', 'penerimaan_po.penerimaan_id_data_po', 'data_po.id_data_po')
             // ->leftjoin('potong_pajak', 'potong_pajak.potong_pajak_id_user', 'users.id')
             ->where('data_po.status_bid', '=', '13')
-            ->whereMonth('tanggal_po', Carbon::now()->subMonths(2)->isoFormat('M'))
+            ->whereMonth('tanggal_po', $targetDate->month)
+            ->whereYear('tanggal_po', $targetDate->year)
             ->groupBy('data_po.user_idbid')
             ->selectRaw('users.id,users.nama_vendor,COUNT(*) AS total_po')
             ->get())
@@ -185,15 +187,14 @@ class AdminAPController extends Controller
             })
             ->addColumn('total_po', function ($list) {
                 $result = $list->total_po;
-                return '
-                <a href="javascript:void(0);" disabled title="Total Pengiriman" class="toyakin btn btn-outline-success m-btn m-btn--icon btn-sm m-btn--icon-only">
-                ' . $result . ' PO
+                return '<a href="javascript:void(0);" disabled title="Total Pengiriman" class="toyakin btn btn-outline-success m-btn m-btn--icon btn-sm m-btn--icon-only">' . $result . ' PO
                 </a>';
             })
-            ->addColumn('ckelola', function ($list) {
+            ->addColumn('ckelola', function ($list) use ($targetDate) {
                 $cek = DB::table('potong_pajak')
                     ->where('id_user_potong_pajak', $list->id)
-                    ->whereMonth('date_potong_pajak', Carbon::now()->subMonths(2)->isoFormat('M'))
+                    ->whereMonth('date_potong_pajak', $targetDate->month)
+                    ->whereYear('date_potong_pajak', $targetDate->year)
                     ->first();
                 if (empty($cek)) {
                     return '
@@ -234,11 +235,13 @@ class AdminAPController extends Controller
         //     ->groupBy('data_po.user_idbid')
         //     ->selectRaw('users.id,users.nama_vendor,COUNT(*) AS total_po')
         //     ->get());
+        $targetDate = Carbon::now()->subMonths(1);
         return Datatables::of(DataPO::join('users', 'users.id', 'data_po.user_idbid')
             ->join('penerimaan_po', 'penerimaan_po.penerimaan_id_data_po', 'data_po.id_data_po')
             // ->leftjoin('potong_pajak', 'potong_pajak.potong_pajak_id_user', 'users.id')
             ->where('data_po.status_bid', '!=', '5')
-            ->whereMonth('tanggal_po', Carbon::now()->subMonths(1)->isoFormat('M'))
+            ->whereMonth('tanggal_po', $targetDate->month)
+            ->whereYear('tanggal_po', $targetDate->year)
             ->groupBy('data_po.user_idbid')
             ->selectRaw('users.id,users.nama_vendor,COUNT(*) AS total_po')
             ->get())
@@ -253,10 +256,11 @@ class AdminAPController extends Controller
                 ' . $result . ' PO
                 </a>';
             })
-            ->addColumn('ckelola', function ($list) {
+            ->addColumn('ckelola', function ($list) use ($targetDate) {
                 $cek = DB::table('potong_pajak')
                     ->where('id_user_potong_pajak', $list->id)
-                    ->whereMonth('date_potong_pajak', Carbon::now()->subMonths(1)->isoFormat('M'))
+                    ->whereMonth('date_potong_pajak', $targetDate->month)
+                    ->whereYear('date_potong_pajak', $targetDate->year)
                     ->first();
                 if (empty($cek)) {
                     return '
@@ -1025,7 +1029,7 @@ class AdminAPController extends Controller
     }
     public function getcount_notifmenuall()
     {
-        $data_verifikasi = DataPO::join('bid', 'bid.id_bid', '=', 'data_po.bid_id')
+        $data_verifikasi_gb = DataPO::join('bid', 'bid.id_bid', '=', 'data_po.bid_id')
             ->join('penerimaan_po', 'penerimaan_po.penerimaan_id_data_po', '=', 'data_po.id_data_po')
             ->join('lab2_gb', 'lab2_gb.lab2_kode_po_gb', '=', 'data_po.kode_po')
             ->where('data_po.status_bid', '=', 13)
@@ -1033,6 +1037,15 @@ class AdminAPController extends Controller
             ->where('penerimaan_po.analisa', NULL)
             ->orderby('id_penerimaan_po', 'desc')
             ->count();
+        $data_verifikasi_pk = DataPO::join('bid', 'bid.id_bid', '=', 'data_po.bid_id')
+            ->join('penerimaan_po', 'penerimaan_po.penerimaan_id_data_po', '=', 'data_po.id_data_po')
+            ->join('lab2_pk_new', 'lab2_pk_new.lab2_kode_po_pk', '=', 'data_po.kode_po')
+            ->where('data_po.status_bid', '=', 13)
+            ->where('lab2_pk_new.aksi_harga_pk', '=', 'DEAL')
+            ->where('penerimaan_po.analisa', NULL)
+            ->orderby('id_penerimaan_po', 'desc')
+            ->count();
+        $data_verifikasi = $data_verifikasi_gb + $data_verifikasi_pk;
 
         $data_revisi = DataPO::join('bid', 'bid.id_bid', '=', 'data_po.bid_id')
             ->join('penerimaan_po', 'penerimaan_po.penerimaan_id_data_po', '=', 'data_po.id_data_po')
@@ -1165,11 +1178,10 @@ class AdminAPController extends Controller
         return Datatables::of(DataPO::join('bid', 'bid.id_bid', '=', 'data_po.bid_id')
             ->join('users', 'users.id', '=', 'data_po.user_idbid')
             ->join('penerimaan_po', 'penerimaan_po.penerimaan_id_data_po', '=', 'data_po.id_data_po')
-            ->join('admins', 'admins.id', '=', 'penerimaan_po.penerima_po')
-            ->join('lab2_pk', 'lab2_pk.lab2_kode_po_pk', '=', 'data_po.kode_po')
+            ->join('lab2_pk_new', 'lab2_pk_new.lab2_kode_po_pk', '=', 'data_po.kode_po')
             ->where('data_po.status_bid', 13)
             ->where('bid.name_bid', 'LIKE', '%BERAS PECAH KULIT%')
-            ->where('lab2_pk.aksi_harga_pk', 'DEAL')
+            ->where('lab2_pk_new.aksi_harga_pk', 'DEAL')
             ->where('penerimaan_po.analisa', NULL)
             ->orderby('id_penerimaan_po', 'desc')
             ->get())
@@ -1238,6 +1250,86 @@ class AdminAPController extends Controller
                             Verifikasi
                         </a>';
                 }
+            })
+            ->rawColumns(['site', 'kode_po', 'nama_vendor', 'tanggal_po', 'plat_kendaraan', 'tonase_awal', 'tonase_akhir', 'hasil_akhir_tonase', 'harga_akhir', 'ckelola'])
+            ->make(true);
+    }
+    public function data_pembelian_pk_verified_index()
+    {
+        return Datatables::of(DataPO::join('bid', 'bid.id_bid', '=', 'data_po.bid_id')
+            ->join('users', 'users.id', '=', 'data_po.user_idbid')
+            ->join('penerimaan_po', 'penerimaan_po.penerimaan_id_data_po', '=', 'data_po.id_data_po')
+            ->join('lab2_pk_new', 'lab2_pk_new.lab2_kode_po_pk', '=', 'data_po.kode_po')
+            ->where('data_po.status_bid', 13)
+            ->where('bid.name_bid', 'LIKE', '%BERAS PECAH KULIT%')
+            ->where('lab2_pk_new.aksi_harga_pk', 'DEAL')
+            ->where('penerimaan_po.analisa', 'verified')
+            ->where('penerimaan_po.keterangan_analisa', 'Sesuai')
+            ->orderby('id_penerimaan_po', 'desc')
+            ->get())
+            ->addColumn('site', function ($list) {
+                $result = 'NGAWI';
+                return $result;
+            })
+            ->addColumn('kode_po', function ($list) {
+                $result = $list->kode_po;
+                return $result;
+            })
+            ->addColumn('nama_vendor', function ($list) {
+                $result = $list->nama_vendor;
+                return '<span style="margin:2px;" class="m-badge m-badge--danger m-badge--wide">' . $result . '</span>';
+            })
+            ->addColumn('tanggal_po', function ($list) {
+                $result = \Carbon\Carbon::parse($list->open_po)->isoFormat('DD-MM-Y');
+                return $result;
+            })
+            ->addColumn('plat_kendaraan', function ($list) {
+                $result = $list->plat_kendaraan;
+                return $result;
+            })
+            ->addColumn('tonase_awal', function ($list) {
+                if ($list->tonase_awal == 'NaN') {
+                    $result = '0';
+                } else {
+                    $result = tonase($list->tonase_awal);
+                }
+                return $result;
+            })
+            ->addColumn('tonase_akhir', function ($list) {
+                if ($list->tonase_akhir == 'NaN') {
+                    $result = '0';
+                } else {
+                    $result = tonase($list->tonase_akhir);
+                }
+                return $result;
+            })
+            ->addColumn('hasil_akhir_tonase', function ($list) {
+                if ($list->hasil_akhir_tonase == 'NaN') {
+                    $result = '0';
+                } else {
+                    $result = tonase($list->hasil_akhir_tonase);
+                }
+                return $result;
+            })
+            ->addColumn('harga_akhir', function ($list) {
+                if ($list->harga_bongkaran_pk == 'NaN') {
+                    $result = '0';
+                } else {
+                    $result = rupiah($list->harga_bongkaran_pk) . '/Kg';
+                }
+
+                return $result;
+            })
+            ->addColumn('ckelola', function ($list) {
+                if ($list->tanggal_bongkar == NULL) {
+                    $tanggal_bongkar = '-';
+                } else {
+                    $tanggal_bongkar = \Carbon\Carbon::parse($list->tanggal_bongkar)->isoFormat('DD-MM-Y');
+                }
+                return
+                    '<a style="margin:2px;" name="' . $list->id_penerimaan_po . '" data-tgl_po="' . \Carbon\Carbon::parse($list->tanggal_po)->isoFormat('DD-MM-Y') . '" data-kode_po="' . $list->penerimaan_kode_po . '" data-tgl_receipt="' . $tanggal_bongkar . '"  title="Data Verified" data-toggle="modal" data-target="#modal_verifikasi" class="to_show btn btn-outline-success m-btn m-btn--icon btn-sm m-btn--icon-only">
+                    <i class="fa fa-check">&nbsp;Verified</i>
+                    </a>';
             })
             ->rawColumns(['site', 'kode_po', 'nama_vendor', 'tanggal_po', 'plat_kendaraan', 'tonase_awal', 'tonase_akhir', 'hasil_akhir_tonase', 'harga_akhir', 'ckelola'])
             ->make(true);

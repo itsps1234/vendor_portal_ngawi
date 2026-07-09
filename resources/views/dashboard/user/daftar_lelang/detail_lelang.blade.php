@@ -1453,6 +1453,7 @@
                                     </div>
                                     @enderror
                                 </div>
+                                @if($data->name_bid=='GABAH BASAH LONG GRAIN')
                                 <div class="product_variant ">
                                     <label for="">Asal Gabah</label>
                                     <textarea name="description_biduser" id="description_biduser" required style="width: 100%" class="form-control @error('description_biduser') is-invalid @enderror" placeholder="Asal Gabah" rows="2">{{old('description_biduser')}}</textarea>
@@ -1467,6 +1468,7 @@
                                     </div>
                                     @enderror
                                 </div>
+                                @endif
                                 <input type="hidden" value="{{$data->lokasi}}" name="site_id">
                                 <br>
                                 @if($data->bid_status == 0)

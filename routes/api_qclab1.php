@@ -7,10 +7,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/lab/proses_lab1_gabah_basah', [QcLab1Controller::class, 'proses_lab1_gabah_basah'])->name('lab.proses_lab1_gabah_basah');
 Route::get('/lab/proses_lab1_gabah_kering', [QcLab1Controller::class, 'proses_lab1_gabah_kering'])->name('lab.proses_lab1_gabah_kering');
 Route::get('/lab/proses_lab1_pecah_kulit', [QcLab1Controller::class, 'proses_lab1_pecah_kulit'])->name('lab.proses_lab1_pecah_kulit');
+Route::get('/lab/proses_lab1_pecah_kulit_new', [QcLab1Controller::class, 'proses_lab1_pecah_kulit_new'])->name('lab.proses_lab1_pecah_kulit_new');
 Route::get('/lab/proses_lab1_beras_ds', [QcLab1Controller::class, 'proses_lab1_beras_ds'])->name('lab.proses_lab1_beras_ds');
 
 // ADD LAB 1
 Route::get('/lab/proses_add_lab1_gabah_basah/{id}', [QcLab1Controller::class, 'proses_add_lab1_gabah_basah'])->name('lab.proses_add_lab1_gabah_basah');
+Route::get('/lab/proses_add_lab1_pecah_kulit/{id}', [QcLab1Controller::class, 'proses_add_lab1_pecah_kulit'])->name('lab.proses_add_lab1_pecah_kulit');
 Route::get('/lab/check_input_lab1', [QcLab1Controller::class, 'check_input_lab1'])->name('lab.check_input_lab1');
 //Proses Lab1 Index
 Route::get('/lab/proses_lab1_gabah_basah_ciherang_index', [QcLab1Controller::class, 'proses_lab1_gabah_basah_ciherang_index'])->name('lab.proses_lab1_gabah_basah_ciherang_index');
@@ -34,6 +36,7 @@ Route::get('/lab/output_lab1_gb_longgrain_approvedtolak_index', [QcLab1Controlle
 Route::get('/lab/output_lab1_gb_pandan_wangi_index', [QcLab1Controller::class, 'output_lab1_gb_pandan_wangi_index'])->name('lab.output_lab1_gb_pandan_wangi_index');
 Route::get('/lab/output_lab1_gb_ketan_putih_index', [QcLab1Controller::class, 'output_lab1_gb_ketan_putih_index'])->name('lab.output_lab1_gb_ketan_putih_index');
 Route::get('/lab/output_lab1_pk_index', [QcLab1Controller::class, 'output_lab1_pk_index'])->name('lab.output_lab1_pk_index');
+Route::get('/lab/output_lab1_pk_new_index', [QcLab1Controller::class, 'output_lab1_pk_new_index'])->name('lab.output_lab1_pk_new_index');
 
 Route::get('/lab/count_outputlab1_gb', [QcLab1Controller::class, 'count_outputlab1_gb'])->name('lab.count_outputlab1_gb');
 Route::get('/lab/antrian_qc', [QcLab1Controller::class, 'antrian_qc'])->name('lab.antrian_qc');
